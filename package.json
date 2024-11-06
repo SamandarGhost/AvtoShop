@@ -12,7 +12,7 @@
     "start:dev": "nest start --watch",
     "start:dev:batch": "nest start avto-shop-batch --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/apps/avto-shop/main",
+    "start:prod": "ENV=production node dist/apps/avto-shop/main",
     "start:prod:batch": "node dist/apps/avto-shop-batch/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
