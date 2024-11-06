@@ -3,7 +3,7 @@ import { AvtoShopBatchService } from './avto-shop-batch.service';
 
 @Controller()
 export class AvtoShopBatchController {
-  constructor(private readonly avtoShopBatchService: AvtoShopBatchService) {}
+  constructor(private readonly avtoShopBatchService: AvtoShopBatchService) { }
 
   @Get()
   getHello(): string {
