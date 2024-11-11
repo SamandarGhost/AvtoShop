@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { DealerBrand, DealerLocation } from '../libs/enums/dealer.enum';
+import { DealerBrand, DealerLocation, DealerStatus } from '../libs/enums/dealer.enum';
 
 const DealerSchema = new Schema(
     {
@@ -19,6 +19,18 @@ const DealerSchema = new Schema(
             required: true,
         },
 
+        dealerStatus: {
+            type: String,
+            enum: DealerStatus,
+            default: DealerStatus.ACTIVE,
+        },
+
+        dealerPassword: {
+            type: String,
+            select: false,
+            required: true,
+        },
+
         dealerShortDesc: {
             type: String,
             required: true,
@@ -30,11 +42,13 @@ const DealerSchema = new Schema(
         },
 
         dealerUsedCars: {
-            type: Boolean,
+            type: Number,
+            default: 0,
         },
 
         dealerNewCars: {
-            type: Boolean,
+            type: Number,
+            default: 0,
         },
 
         dealerFinancing: {
@@ -81,6 +95,10 @@ const DealerSchema = new Schema(
             type: Boolean,
         },
 
+        dealerPlusService: {
+            type: String,
+        },
+
         dealerOpenAt: {
             type: Number,
             required: true,
@@ -92,7 +110,7 @@ const DealerSchema = new Schema(
         },
 
         dealerPublicHolidays: {
-            type: Number,
+            type: Boolean,
             required: true,
         },
 
@@ -102,6 +120,16 @@ const DealerSchema = new Schema(
         },
 
         dealerCloseSunday: {
+            type: Number,
+            required: true,
+        },
+
+        dealerOpenSaturday: {
+            type: Number,
+            require: true,
+        },
+
+        dealerCloseSaturday: {
             type: Number,
             required: true,
         },
@@ -116,6 +144,10 @@ const DealerSchema = new Schema(
             required: true,
         },
 
+        dealerPhone2: {
+            type: Number,
+        },
+
         dealerEmail: {
             type: String,
             required: true,
@@ -126,7 +158,7 @@ const DealerSchema = new Schema(
             default: 0,
         },
 
-        dealerKakaoEmail: {
+        dealerKakaoTalk: {
             type: String,
             default: '',
         },
@@ -146,10 +178,24 @@ const DealerSchema = new Schema(
             default: 0,
         },
 
+        dealerArticles: {
+            type: Number,
+            default: 0,
+        },
+
         dealerRank: {
             type: Number,
             default: 0,
-        }
+        },
+
+        dealerFollowers: {
+            type: Number,
+            default: 0,
+        },
+
+        deletedAt: {
+            type: Date,
+        },
     },
     { timestamps: true, collection: 'dealers' },
 );

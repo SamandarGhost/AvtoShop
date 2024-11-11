@@ -17,6 +17,27 @@ registerEnumType(CarType, {
     name: 'CarType',
 });
 
+export enum CarTuning {
+    TUNING = 'TUNING',
+    NOT_TUNING = 'NOT_TUNING',
+}
+registerEnumType(CarTuning, {
+    name: 'CarTuning',
+});
+
+export enum CarTuningType {
+    EXTERIOR = 'EXTERIOR',
+    PERFORMANCE = 'PERFORMANCE',
+    SUSPENSION = 'SUSPENSION',
+    INTERIOR = 'INTERIOR',
+    SAFETY = 'SAFETY',
+    PERSONALIZATION = 'PERSONALIZATION',
+    UTILITY = 'UTILITY',
+}
+registerEnumType(CarTuningType, {
+    name: 'CarTuningType',
+});
+
 export enum CarSort {
     ELECTRIC = 'ELECTRIC',
     FUEL = 'FUEL',

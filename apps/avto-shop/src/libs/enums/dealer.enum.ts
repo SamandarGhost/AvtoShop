@@ -1,5 +1,14 @@
 import { registerEnumType } from "@nestjs/graphql";
 
+export enum DealerStatus {
+    ACTIVE = 'ACTIVE',
+    DELETE = 'DELETE',
+    BLOCK = 'BLOCK',
+}
+registerEnumType(DealerStatus, {
+    name: 'DealerStatus',
+});
+
 export enum DealerLocation {
     SEOUL = 'SEOUL',
     BUSAN = 'BUSAN',
