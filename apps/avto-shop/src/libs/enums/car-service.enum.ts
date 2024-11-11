@@ -10,6 +10,7 @@ export enum CarServiceType {
     WINDSHIELD = 'WINDSHIELD',
     AIR_CONDITION = 'AIR_CONDITION',
     BODY_CRASH = 'BODY_CRASH',
+    TUNING = 'TUNING',
     OTHER = 'OTHER',
 }
 registerEnumType(CarServiceType, {

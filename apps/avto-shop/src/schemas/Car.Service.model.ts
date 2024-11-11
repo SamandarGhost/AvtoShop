@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { CarServiceLocation } from '../libs/enums/car-service.enum';
+import { CarServiceLocation, CarServiceType } from '../libs/enums/car-service.enum';
 
 const CarServiceSchema = new Schema(
     {
@@ -21,73 +21,136 @@ const CarServiceSchema = new Schema(
 
         carServiceType: {
             type: String,
+            enum: CarServiceType,
+            required: true,
+        },
+
+        carServiceImage: {
+            type: String,
+            required: true,
+        },
+
+        carServiceImages: {
+            type: [String],
             required: true,
         },
 
         carOilChange: {
             type: Boolean,
+            default: false,
         },
 
         carAlignment: {
             type: Boolean,
+            default: false,
         },
 
         carTireChange: {
             type: Boolean,
+            default: false,
         },
 
         carBrakeCheck: {
             type: Boolean,
+            default: false,
         },
 
         carTireBalance: {
             type: Boolean,
+            default: false,
         },
 
         carSuspension: {
             type: Boolean,
+            default: false,
         },
 
         carAirCondition: {
             type: Boolean,
+            default: false,
         },
 
         carTransmissionCheck: {
             type: Boolean,
+            default: false,
         },
 
         carEngineDiagnostic: {
             type: Boolean,
+            default: false,
         },
 
         carExhaust: {
             type: Boolean,
+            default: false,
         },
 
         carDetailing: {
             type: Boolean,
+            default: false,
         },
 
         carWindshield: {
             type: Boolean,
+            default: false,
         },
 
         carTimingBelt: {
             type: Boolean,
+            default: false,
         },
 
         carChainReplacement: {
             type: Boolean,
+            default: false,
         },
 
-        carServiceMemberShipPrice: {
+        carMemberShipBasic: {
             type: Number,
-            required: true,
+            default: 0,
+        },
+
+        carMemberShipStandard: {
+            type: Number,
+            default: 0,
+        },
+
+        carMemberShipPremium: {
+            type: Number,
+            default: 0,
+        },
+
+        carMemberShipOneYear: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceComfort: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceReliability: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceFast: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceValue: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceShortDesc: {
+            type: String,
         },
 
         carServiceDesc: {
             type: String,
-            required: true,
         },
 
         memberId: {

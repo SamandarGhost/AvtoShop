@@ -42,7 +42,7 @@ export class Dealer {
     dealerCarService?: boolean;
 
     @Field(() => Boolean, { nullable: true })
-    dealerTradeIN?: boolean;
+    dealerTradeIn?: boolean;
 
     @Field(() => Boolean, { nullable: true })
     dealerCustomization?: boolean;
@@ -71,11 +71,11 @@ export class Dealer {
     @Field(() => String, { nullable: true })
     dealerPlusService?: string;
 
-    @Field(() => Int)
-    dealerOpenAt: number;
+    @Field(() => Int, { nullable: true })
+    dealerOpenAt?: number;
 
-    @Field(() => Int)
-    dealerCloseAt: number;
+    @Field(() => Int, { nullable: true })
+    dealerCloseAt?: number;
 
     @Field(() => Boolean, { nullable: true })
     dealerPublicHolidays?: boolean;
@@ -121,6 +121,24 @@ export class Dealer {
 
     @Field(() => Int)
     dealerArticles: number;
+
+    @Field(() => Int)
+    dealerComfort: number;
+
+    @Field(() => Int)
+    dealerPerformance: number;
+
+    @Field(() => Int)
+    dealerExterior: number;
+
+    @Field(() => Int)
+    dealerInterior: number;
+
+    @Field(() => Int)
+    dealerFast: number;
+
+    @Field(() => Int)
+    dealerReliability: number;
 
     @Field(() => Int)
     dealerRank: number;

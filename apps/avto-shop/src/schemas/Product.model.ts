@@ -25,6 +25,11 @@ const ProductSchema = new Schema(
             required: true,
         },
 
+        productQuantity: {
+            type: Number,
+            default: 0,
+        },
+
         productViews: {
             type: Number,
             default: 0,
@@ -50,25 +55,21 @@ const ProductSchema = new Schema(
             required: true,
         },
 
+        productShortDesc: {
+            type: String,
+        },
+
         productDesc: {
             type: String,
         },
 
-        memberId: {
+        carServiceId: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: 'Member',
-        },
-
-        soldAt: {
-            type: Date,
+            ref: 'carservices',
         },
 
         deletedAt: {
-            type: Date,
-        },
-
-        constructedAt: {
             type: Date,
         },
     },

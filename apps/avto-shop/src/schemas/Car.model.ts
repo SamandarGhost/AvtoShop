@@ -205,150 +205,187 @@ const CarSchema = new Schema(
 
         carAutoBrack: {
             type: Boolean,
+            default: false,
         },
 
         carCruiseControl: {
             type: Boolean,
+            default: false,
         },
 
         carESC: {
             type: Boolean,
+            default: false,
         },
 
         carAutonomuosDrive: {
             type: Boolean,
+            default: false,
         },
 
         carExteriorLight: {
             type: String,
+            default: false,
         },
 
         carPanoramicSunroof: {
             type: Boolean,
+            default: false,
         },
 
         carHeatedSeat: {
             type: Boolean,
+            default: false,
         },
 
         carCooledSeats: {
             type: Boolean,
+            default: false,
         },
 
         carTouchscreenDisplay: {
             type: Boolean,
+            default: false,
         },
 
         carAutoHeadLight: {
             type: Boolean,
+            default: false,
         },
 
         carStarStop: {
             type: Boolean,
+            default: false,
         },
 
         carNoiseCancellation: {
             type: Boolean,
+            default: false,
         },
 
         carRemoteKeyless: {
             type: Boolean,
+            default: false,
         },
 
         carLaneDW: {
             type: Boolean,
+            default: false,
         },
 
         carBlindSpotMonitoring: {
             type: Boolean,
+            default: false,
         },
 
         carRearCrossTrafficAlert: {
             type: Boolean,
+            default: false,
         },
 
         carApplePlay: {
             type: Boolean,
+            default: false,
         },
 
         carAndroidAuto: {
             type: Boolean,
+            default: false,
         },
 
         carVoiceControl: {
             type: Boolean,
+            default: false,
         },
 
         carBluetoothConnectivity: {
             type: Boolean,
+            default: false,
         },
 
         carWirelessCharging: {
             type: Boolean,
+            default: false,
         },
 
         carParkingAssist: {
             type: Boolean,
+            default: false,
         },
 
         carSurroundViewCamera: {
             type: Boolean,
+            default: false,
         },
 
         carFrontSensors: {
             type: Boolean,
+            default: false,
         },
 
         carRearSensors: {
             type: Boolean,
+            default: false,
         },
 
         carRecordCamera: {
             type: Boolean,
+            default: false,
         },
 
         carHeadsUpDisplay: {
             type: Boolean,
+            default: false,
         },
 
         carClimateControl: {
             type: Boolean,
+            default: false,
         },
 
         carAdjustableSeats: {
             type: Boolean,
+            default: false,
         },
 
         carMemorySeats: {
             type: Boolean,
+            default: false,
         },
 
         carPowertrain: {
             type: Boolean,
+            default: false,
         },
 
         carRegenerativeBracking: {
             type: Boolean,
+            default: false,
         },
 
         carTractionControl: {
             type: Boolean,
+            default: false,
         },
 
         carStabilityControl: {
             type: Boolean,
+            default: false,
         },
 
         carHillStartAssist: {
             type: Boolean,
+            default: false,
         },
 
         carTirePressureSystem: {
             type: Boolean,
+            default: false,
         },
 
         carPushButton: {
             type: Boolean,
+            default: false,
         },
 
         carViews: {
@@ -388,6 +425,12 @@ const CarSchema = new Schema(
             type: Schema.Types.ObjectId,
             required: true,
             ref: 'Member',
+        },
+
+        delaerId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'Dealer',
         },
 
         soldAt: {

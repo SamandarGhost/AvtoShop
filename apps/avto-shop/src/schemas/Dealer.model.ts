@@ -53,46 +53,57 @@ const DealerSchema = new Schema(
 
         dealerFinancing: {
             type: Boolean,
+            default: false,
         },
 
         dealerCarService: {
             type: Boolean,
+            default: false,
         },
 
         dealerTradeIn: {
             type: Boolean,
+            default: false,
         },
 
         dealerCustomization: {
             type: Boolean,
+            default: false,
         },
 
         dealerWarranties: {
             type: Number,
+            default: false,
         },
 
         dealerParts: {
             type: Boolean,
+            default: false,
         },
 
         dealerAccessories: {
             type: Boolean,
+            default: false,
         },
 
         dealerCarWash: {
             type: Boolean,
+            default: false,
         },
 
         dealerCarDetailing: {
             type: Boolean,
+            default: false,
         },
 
         dealerCarTestDrive: {
             type: Boolean,
+            default: false,
         },
 
         dealerCarDelivery: {
             type: Boolean,
+            default: false,
         },
 
         dealerPlusService: {
@@ -101,37 +112,38 @@ const DealerSchema = new Schema(
 
         dealerOpenAt: {
             type: Number,
-            required: true,
         },
 
         dealerCloseAt: {
             type: Number,
-            required: true,
         },
 
         dealerPublicHolidays: {
             type: Boolean,
-            required: true,
         },
 
         dealerOpenSunday: {
             type: Number,
-            require: true,
         },
 
         dealerCloseSunday: {
             type: Number,
-            required: true,
         },
 
         dealerOpenSaturday: {
             type: Number,
-            require: true,
         },
 
         dealerCloseSaturday: {
             type: Number,
-            required: true,
+        },
+
+        dealerImage: {
+            type: String,
+        },
+
+        dealerImages: {
+            type: [String]
         },
 
         dealerAddress: {
@@ -160,7 +172,6 @@ const DealerSchema = new Schema(
 
         dealerKakaoTalk: {
             type: String,
-            default: '',
         },
 
         dealerViews: {
@@ -179,6 +190,36 @@ const DealerSchema = new Schema(
         },
 
         dealerArticles: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerComfort: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerPerformance: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerExterior: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerInterior: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerReliability: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerFast: {
             type: Number,
             default: 0,
         },
