@@ -24,10 +24,52 @@ export class Dealer {
     dealerPassword?: string;
 
     @Field(() => String)
+    dealerAddress: string;
+
+    @Field(() => Int)
+    dealerPhone: number;
+
+    @Field(() => Int, { nullable: true })
+    dealerPhone2?: number;
+
+    @Field(() => String)
+    dealerEmail: string;
+
+    @Field(() => String, { nullable: true })
+    dealerKakaoTalk?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerYoutube?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerInstagram?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerFacebook?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerTikTok?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerNaverBlog?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerXcom?: string;
+
+    @Field(() => String)
+    dealerImage: string;
+
+    @Field(() => [String], { nullable: true })
+    dealerImages?: string[];
+
+    @Field(() => String)
     dealerShortDesc: string;
 
     @Field(() => String, { nullable: true })
     dealerLongDesc?: string;
+
+    @Field(() => Int)
+    dealerCars: number;
 
     @Field(() => Int)
     dealerUsedCars: number;
@@ -92,35 +134,8 @@ export class Dealer {
     @Field(() => Int, { nullable: true })
     dealerCloseSaturday?: number;
 
-    @Field(() => String)
-    dealerAddress: string;
-
     @Field(() => Int)
-    dealerPhone: number;
-
-    @Field(() => Int, { nullable: true })
-    dealerPhone2?: number;
-
-    @Field(() => String)
-    dealerEmail: string;
-
-    @Field(() => Int)
-    dealerCars: number;
-
-    @Field(() => String, { nullable: true })
-    dealerKakaoTalk?: string;
-
-    @Field(() => Int)
-    dealerViews: number;
-
-    @Field(() => Int)
-    dealerLikes: number;
-
-    @Field(() => Int)
-    dealerComments: number;
-
-    @Field(() => Int)
-    dealerArticles: number;
+    dealerFollowers: number;
 
     @Field(() => Int)
     dealerComfort: number;
@@ -141,10 +156,19 @@ export class Dealer {
     dealerReliability: number;
 
     @Field(() => Int)
-    dealerRank: number;
+    dealerViews: number;
 
     @Field(() => Int)
-    dealerFollowers: number;
+    dealerLikes: number;
+
+    @Field(() => Int)
+    dealerComments: number;
+
+    @Field(() => Int)
+    dealerArticles: number;
+
+    @Field(() => Int)
+    dealerRank: number;
 
     @Field(() => String, { nullable: true })
     accessToken?: string;

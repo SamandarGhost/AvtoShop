@@ -31,6 +31,61 @@ const DealerSchema = new Schema(
             required: true,
         },
 
+        dealerImage: {
+            type: String,
+        },
+
+        dealerImages: {
+            type: [String]
+        },
+
+        dealerAddress: {
+            type: String,
+            required: true,
+        },
+
+        dealerPhone: {
+            type: Number,
+            required: true,
+        },
+
+        dealerPhone2: {
+            type: Number,
+        },
+
+        dealerEmail: {
+            type: String,
+            required: true,
+        },
+
+        dealerKakaoTalk: {
+            type: String,
+        },
+
+        dealerYoutube: {
+            type: String,
+        },
+
+        dealerInstagram: {
+            type: String,
+        },
+
+        dealerFacebook: {
+            type: String,
+        },
+
+        dealerTikTok: {
+            type: String,
+        },
+
+        dealerNaverBlog: {
+            type: String,
+        },
+
+        dealerXcom: {
+            type: String,
+        },
+
         dealerShortDesc: {
             type: String,
             required: true,
@@ -39,6 +94,11 @@ const DealerSchema = new Schema(
         dealerLongDesc: {
             type: String,
             required: true,
+        },
+
+        dealerCars: {
+            type: Number,
+            default: 0,
         },
 
         dealerUsedCars: {
@@ -120,10 +180,6 @@ const DealerSchema = new Schema(
             required: true,
         },
 
-        dealerPublicHolidays: {
-            type: Boolean,
-        },
-
         dealerOpenSunday: {
             type: Number,
         },
@@ -140,60 +196,9 @@ const DealerSchema = new Schema(
             type: Number,
         },
 
-        dealerImage: {
-            type: String,
-        },
-
-        dealerImages: {
-            type: [String]
-        },
-
-        dealerAddress: {
-            type: String,
-            required: true,
-        },
-
-        dealerPhone: {
-            type: Number,
-            required: true,
-        },
-
-        dealerPhone2: {
-            type: Number,
-        },
-
-        dealerEmail: {
-            type: String,
-            required: true,
-        },
-
-        dealerCars: {
-            type: Number,
-            default: 0,
-        },
-
-        dealerKakaoTalk: {
-            type: String,
-        },
-
-        dealerViews: {
-            type: Number,
-            default: 0,
-        },
-
-        dealerLikes: {
-            type: Number,
-            default: 0,
-        },
-
-        dealerComments: {
-            type: Number,
-            default: 0,
-        },
-
-        dealerArticles: {
-            type: Number,
-            default: 0,
+        dealerPublicHolidays: {
+            type: Boolean,
+            default: false,
         },
 
         dealerComfort: {
@@ -226,12 +231,32 @@ const DealerSchema = new Schema(
             default: 0,
         },
 
-        dealerRank: {
+        dealerFollowers: {
             type: Number,
             default: 0,
         },
 
-        dealerFollowers: {
+        dealerViews: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerLikes: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerComments: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerArticles: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerRank: {
             type: Number,
             default: 0,
         },

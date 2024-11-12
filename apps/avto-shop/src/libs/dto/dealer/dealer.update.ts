@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsNotEmpty, IsOptional, Length } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional, Length } from "class-validator";
 import { DealerBrand, DealerLocation, DealerStatus } from "../../enums/dealer.enum";
 
 
@@ -25,20 +25,26 @@ export class DealerUpdate {
     dealerPassword?: string;
 
     @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerPhone?: number;
-
-    @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerPhone2?: number;
-
-    @IsOptional()
     @Field(() => DealerLocation, { nullable: true })
     dealerLocation?: DealerLocation;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
     dealerAddress?: string;
+
+    @IsOptional()
+    @Field(() => DealerBrand, { nullable: true })
+    dealerBrand?: DealerBrand;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerPhone?: number;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerPhone2?: number;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
@@ -49,8 +55,28 @@ export class DealerUpdate {
     dealerKakaoTalk?: string;
 
     @IsOptional()
-    @Field(() => DealerBrand, { nullable: true })
-    dealerBrand?: DealerBrand;
+    @Field(() => String, { nullable: true })
+    dealerYoutube?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerInstagram?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerFacebook?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerTikTok?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerNaverBlog?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerXcom?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
@@ -61,32 +87,38 @@ export class DealerUpdate {
     dealerLongDesc?: string;
 
     @IsOptional()
+    @IsInt()
     @Field(() => Int, { nullable: true })
     dealerOpenAt?: number;
 
     @IsOptional()
+    @IsInt()
     @Field(() => Int, { nullable: true })
     dealerCloseAt?: number;
 
     @IsOptional()
-    @Field(() => Boolean, { nullable: true })
-    dealerPublicHolidays?: boolean;
-
-    @IsOptional()
+    @IsInt()
     @Field(() => Int, { nullable: true })
     dealerOpenSunday?: number;
 
     @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSaturday?: number;
-
-    @IsOptional()
+    @IsInt()
     @Field(() => Int, { nullable: true })
     dealerCloseSunday?: number;
 
     @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerOpenSaturday?: number;
+
+    @IsOptional()
+    @IsInt()
     @Field(() => Int, { nullable: true })
     dealerCloseSaturday?: number;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    dealerPublicHolidays?: boolean;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
@@ -135,5 +167,4 @@ export class DealerUpdate {
     @IsOptional()
     @Field(() => String, { nullable: true })
     dealerPlusService?: string;
-
 }

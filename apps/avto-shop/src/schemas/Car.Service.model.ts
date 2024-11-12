@@ -1,10 +1,28 @@
 import { Schema } from 'mongoose';
-import { CarServiceLocation, CarServiceType } from '../libs/enums/car-service.enum';
+import { CarServiceLocation, CarServiceStatus, CarServiceType } from '../libs/enums/car-service.enum';
 
 const CarServiceSchema = new Schema(
     {
+
+        carServiceStatus: {
+            type: String,
+            enum: CarServiceStatus,
+            default: CarServiceStatus.ACTIVE,
+        },
+
         carServiceTitle: {
             type: String,
+            required: true,
+        },
+
+        carServicePassword: {
+            type: String,
+            required: true,
+        },
+
+        carServiceType: {
+            type: String,
+            enum: CarServiceType,
             required: true,
         },
 
@@ -19,10 +37,21 @@ const CarServiceSchema = new Schema(
             required: true,
         },
 
-        carServiceType: {
-            type: String,
-            enum: CarServiceType,
+        carServicePhone: {
+            type: Number,
             required: true,
+        },
+
+        carServicePhone2: {
+            type: Number,
+        },
+
+        carServcieEmail: {
+            type: String,
+        },
+
+        carServiceKakaoTalk: {
+            type: String,
         },
 
         carServiceImage: {
@@ -33,6 +62,33 @@ const CarServiceSchema = new Schema(
         carServiceImages: {
             type: [String],
             required: true,
+        },
+
+        carServiceShortDesc: {
+            type: String,
+            required: true,
+        },
+
+        carServiceDesc: {
+            type: String,
+        },
+
+        carServiceOpenAt: {
+            type: Number,
+            required: true,
+        },
+
+        carServiceCloseAt: {
+            type: Number,
+            required: true,
+        },
+
+        carServiceWeekendOpenAt: {
+            type: Number,
+        },
+
+        carServiceWeekendCloseAt: {
+            type: Number,
         },
 
         carOilChange: {
@@ -51,6 +107,11 @@ const CarServiceSchema = new Schema(
         },
 
         carBrakeCheck: {
+            type: Boolean,
+            default: false,
+        },
+
+        carBatteryCheck: {
             type: Boolean,
             default: false,
         },
@@ -120,11 +181,6 @@ const CarServiceSchema = new Schema(
             default: 0,
         },
 
-        carMemberShipOneYear: {
-            type: Number,
-            default: 0,
-        },
-
         carServiceComfort: {
             type: Number,
             default: 0,
@@ -143,14 +199,6 @@ const CarServiceSchema = new Schema(
         carServiceValue: {
             type: Number,
             default: 0,
-        },
-
-        carServiceShortDesc: {
-            type: String,
-        },
-
-        carServiceDesc: {
-            type: String,
         },
 
         memberId: {

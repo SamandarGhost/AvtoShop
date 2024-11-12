@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsIn, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
-import { DealerBrand, DealerLocation } from "../../enums/dealer.enum";
+import { IsIn, IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
+import { DealerBrand, DealerLocation, DealerStatus } from "../../enums/dealer.enum";
 import { availableDealerSorts } from "../../config";
 import { Direction } from "../../enums/common.enum";
 
@@ -19,10 +19,12 @@ export class DealerInput {
     dealerPassword: string;
 
     @IsNotEmpty()
+    @IsInt()
     @Field(() => Int)
     dealerPhone: number;
 
     @IsOptional()
+    @IsInt()
     @Field(() => Int)
     dealerPhone2?: number;
 
@@ -36,35 +38,15 @@ export class DealerInput {
 
     @IsNotEmpty()
     @Field(() => String)
+    dealerImage: string;
+
+    @IsOptional()
+    @Field(() => [String], { nullable: true })
+    dealerImages?: string[];
+
+    @IsNotEmpty()
+    @Field(() => String)
     dealerShortDesc: string;
-
-    @IsNotEmpty()
-    @Field(() => Int)
-    dealerOpenAt: number;
-
-    @IsNotEmpty()
-    @Field(() => Int)
-    dealerCloseAt: number;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    dealerPublicHolidays: boolean;
-
-    @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSunday?: number;
-
-    @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSaturday?: number;
-
-    @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSunday?: number;
-
-    @IsOptional()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSaturday?: number;
 
     @IsNotEmpty()
     @Field(() => String)
@@ -75,8 +57,42 @@ export class DealerInput {
     dealerEmail: string;
 
     @IsOptional()
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     dealerKakaoTalk?: string;
+
+    @IsNotEmpty()
+    @IsInt()
+    @Field(() => Int)
+    dealerOpenAt: number;
+
+    @IsNotEmpty()
+    @IsInt()
+    @Field(() => Int)
+    dealerCloseAt: number;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    dealerPublicHolidays?: boolean;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerOpenSunday?: number;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerCloseSunday?: number;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerOpenSaturday?: number;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerCloseSaturday?: number;
 }
 
 @InputType()
@@ -112,11 +128,13 @@ class DISearch {
 export class DealersInquiry {
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     page: number;
 
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     limit: number;
 
@@ -132,4 +150,43 @@ export class DealersInquiry {
     @IsOptional()
     @Field(() => DISearch)
     search?: DISearch;
+}
+
+@InputType()
+class ALDISearch {
+    @IsOptional()
+    @Field(() => DealerStatus, { nullable: true })
+    productStatus?: DealerStatus;
+
+    @IsOptional()
+    @Field(() => [DealerLocation], { nullable: true })
+    propertyLocationList?: DealerLocation[];
+}
+
+@InputType()
+export class AllDealersInquiry {
+    @IsNotEmpty()
+    @Min(1)
+    @IsInt()
+    @Field(() => Int)
+    page: number;
+
+    @IsNotEmpty()
+    @Min(1)
+    @IsInt()
+    @Field(() => Int)
+    limit: number;
+
+    @IsOptional()
+    @IsIn(availableDealerSorts)
+    @Field(() => String, { nullable: true })
+    sort?: string;
+
+    @IsOptional()
+    @Field(() => Direction, { nullable: true })
+    direction?: Direction;
+
+    @IsNotEmpty()
+    @Field(() => ALDISearch)
+    search: ALDISearch;
 }

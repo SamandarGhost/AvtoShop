@@ -46,9 +46,12 @@ export class ProductInput {
 
 @InputType()
 export class PriceRange {
+
+    @IsInt()
     @Field(() => Int)
     minPrice: number;
 
+    @IsInt()
     @Field(() => Int)
     maxPrice: number;
 }
@@ -76,11 +79,13 @@ class PISearch {
 export class ProductsInquiry {
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     page: number;
 
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     limit: number;
 
@@ -109,11 +114,13 @@ class CSPISearch {
 export class CarServiceProductsInquiry {
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     page: number;
 
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     limit: number;
 
@@ -146,11 +153,13 @@ class ALPISearch {
 export class AllProductsInquiry {
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     page: number;
 
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     limit: number;
 
@@ -172,11 +181,13 @@ export class AllProductsInquiry {
 export class OrdinaryInquiry {
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     page: number;
 
     @IsNotEmpty()
     @Min(1)
+    @IsInt()
     @Field(() => Int)
     limit: number;
 }
