@@ -46,7 +46,7 @@ export class DealerInput {
     @Field(() => Int)
     dealerCloseAt: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     @Field(() => Boolean)
     dealerPublicHolidays: boolean;
 

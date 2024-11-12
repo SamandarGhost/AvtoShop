@@ -71,20 +71,20 @@ export class Dealer {
     @Field(() => String, { nullable: true })
     dealerPlusService?: string;
 
-    @Field(() => Int, { nullable: true })
-    dealerOpenAt?: number;
+    @Field(() => Int)
+    dealerOpenAt: number;
 
-    @Field(() => Int, { nullable: true })
-    dealerCloseAt?: number;
+    @Field(() => Int)
+    dealerCloseAt: number;
 
     @Field(() => Boolean, { nullable: true })
     dealerPublicHolidays?: boolean;
 
-    @Field(() => Int)
-    dealerOpenSunday: number;
+    @Field(() => Int, { nullable: true })
+    dealerOpenSunday?: number;
 
-    @Field(() => Int)
-    dealerCloseSunday: number;
+    @Field(() => Int, { nullable: true })
+    dealerCloseSunday?: number;
 
     @Field(() => Int, { nullable: true })
     dealerOpenSaturday?: number;

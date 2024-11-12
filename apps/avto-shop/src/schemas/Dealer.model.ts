@@ -112,10 +112,12 @@ const DealerSchema = new Schema(
 
         dealerOpenAt: {
             type: Number,
+            required: true,
         },
 
         dealerCloseAt: {
             type: Number,
+            required: true,
         },
 
         dealerPublicHolidays: {

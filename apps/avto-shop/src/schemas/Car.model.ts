@@ -388,6 +388,81 @@ const CarSchema = new Schema(
             default: false,
         },
 
+        carCrush: {
+            type: Number,
+            default: 0,
+        },
+
+        carRepair: {
+            type: Number,
+            default: 0,
+        },
+
+        carFrontBumper: {
+            type: Boolean,
+            default: false,
+        },
+
+        carBackBumper: {
+            type: Boolean,
+            default: false,
+        },
+
+        carBonnet: {
+            type: Boolean,
+            default: false,
+        },
+
+        carTailgate: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRightFrontWing: {
+            type: Boolean,
+            default: false,
+        },
+
+        carLeftFrontWing: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRightBackWing: {
+            type: Boolean,
+            default: false,
+        },
+
+        carLeftBackWing: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRoof: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRightFrontDoor: {
+            type: Boolean,
+            default: false,
+        },
+
+        carLeftFrontDoor: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRightBackDoor: {
+            type: Boolean,
+            default: false,
+        },
+
+        carLeftBackDoor: {
+            type: Boolean,
+            default: false,
+        },
+
         carViews: {
             type: Number,
             default: 0,
