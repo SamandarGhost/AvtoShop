@@ -136,9 +136,6 @@ export class CarService {
     carServicePoints: number;
 
     @Field(() => Int)
-    carServiceViews: number;
-
-    @Field(() => Int)
     carServiceLikes: number;
 
     @Field(() => Int)
