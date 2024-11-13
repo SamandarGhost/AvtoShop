@@ -52,6 +52,43 @@ const MemberSchema = new Schema({
         type: String,
     },
 
+    memberPhone2: {
+        type: String,
+        index: { unique: true, sparse: true },
+    },
+
+    memberEmail: {
+        type: String,
+    },
+
+    memberKakaoTalk: {
+        type: String,
+    },
+
+    memberYoutube: {
+        type: String,
+    },
+
+    memberInstagram: {
+        type: String,
+    },
+
+    memberFacebook: {
+        type: String,
+    },
+
+    memberTikTok: {
+        type: String,
+    },
+
+    memberNaverBlog: {
+        type: String,
+    },
+
+    memberXcom: {
+        type: String,
+    },
+
     memberDesc: {
         type: String,
     },

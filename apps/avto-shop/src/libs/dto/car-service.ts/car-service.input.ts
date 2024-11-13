@@ -34,13 +34,13 @@ export class CarServiceInput {
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    carServicePhone: number;
+    @Field(() => String)
+    carServicePhone: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServicePhone2: number;
+    @Field(() => String, { nullable: true })
+    carServicePhone2: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })

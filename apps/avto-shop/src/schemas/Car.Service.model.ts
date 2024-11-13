@@ -38,12 +38,14 @@ const CarServiceSchema = new Schema(
         },
 
         carServicePhone: {
-            type: Number,
+            type: String,
+            index: { unique: true, sparse: true },
             required: true,
         },
 
         carServicePhone2: {
-            type: Number,
+            type: String,
+            index: { unique: true, sparse: true },
         },
 
         carServcieEmail: {
@@ -198,6 +200,26 @@ const CarServiceSchema = new Schema(
         },
 
         carServiceValue: {
+            type: Number,
+            default: 0,
+        },
+
+        carServicePoints: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceViews: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceLikes: {
+            type: Number,
+            default: 0,
+        },
+
+        carServiceRank: {
             type: Number,
             default: 0,
         },

@@ -1,7 +1,9 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { ProductStatus, ProductType } from "../../enums/product.enum";
-import { TotalCounter } from "../member/member";
+import { Member, TotalCounter } from "../member/member";
+import { MeLiked } from "../like/like";
+import { CarService } from "../car-service.ts/car-service";
 
 
 
@@ -58,6 +60,15 @@ export class Product {
 
     @Field(() => Date)
     updatedAt: Date;
+
+    @Field(() => CarService, { nullable: true })
+    carServiceData?: CarService;
+
+    @Field(() => Member, { nullable: true })
+    memberData?: Member;
+
+    @Field(() => [MeLiked], { nullable: true })
+    meLiked?: MeLiked[];
 }
 
 @ObjectType()

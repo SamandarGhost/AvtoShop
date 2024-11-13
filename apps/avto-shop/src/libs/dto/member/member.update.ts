@@ -30,6 +30,42 @@ export class MemberUpdate {
     memberPhone?: string;
 
     @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberPhone2?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberEmail?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberKakaoTalk?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberYoutube?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberInstagram?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberFacebook?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberTikTok?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberNaverBlog?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberXcom?: string;
+
+    @IsOptional()
     @Length(5, 12)
     @Field(() => String, { nullable: true })
     memberPassword?: string;

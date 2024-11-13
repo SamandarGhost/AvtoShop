@@ -47,12 +47,14 @@ const DealerSchema = new Schema(
         },
 
         dealerPhone: {
-            type: Number,
+            type: String,
+            index: { unique: true, sparse: true },
             required: true,
         },
 
         dealerPhone2: {
-            type: Number,
+            type: String,
+            index: { unique: true, sparse: true },
         },
 
         dealerEmail: {
@@ -228,6 +230,11 @@ const DealerSchema = new Schema(
         },
 
         dealerFast: {
+            type: Number,
+            default: 0,
+        },
+
+        dealerPoints: {
             type: Number,
             default: 0,
         },

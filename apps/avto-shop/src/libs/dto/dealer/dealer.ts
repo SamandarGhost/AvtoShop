@@ -1,6 +1,9 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { DealerBrand, DealerLocation, DealerStatus } from "../../enums/dealer.enum";
+import { TotalCounter } from "../member/member";
+import { MeLiked } from "../like/like";
+import { MeFollowed } from "../follow/follow";
 
 
 
@@ -32,11 +35,11 @@ export class Dealer {
     @Field(() => [String], { nullable: true })
     dealerImages?: string[];
 
-    @Field(() => Int)
-    dealerPhone: number;
+    @Field(() => String)
+    dealerPhone: string;
 
-    @Field(() => Int, { nullable: true })
-    dealerPhone2?: number;
+    @Field(() => String, { nullable: true })
+    dealerPhone2?: string;
 
     @Field(() => String)
     dealerEmail: string;
@@ -153,6 +156,9 @@ export class Dealer {
     dealerFast: number;
 
     @Field(() => Int)
+    dealerPoints: number;
+
+    @Field(() => Int)
     dealerFollowers: number;
 
     @Field(() => Int)
@@ -173,6 +179,12 @@ export class Dealer {
     @Field(() => String, { nullable: true })
     accessToken?: string;
 
+    @Field(() => [MeLiked], { nullable: true })
+    meLiked?: MeLiked[];
+
+    @Field(() => [MeFollowed], { nullable: true })
+    meFollowed?: MeFollowed[];
+
     @Field(() => Date, { nullable: true })
     deletedAt?: Date;
 
@@ -184,16 +196,10 @@ export class Dealer {
 }
 
 @ObjectType()
-export class DealerTotalCounter {
-    @Field(() => Int, { nullable: true })
-    total: number;
-}
-
-@ObjectType()
 export class Dealers {
     @Field(() => [Dealer])
     list: Dealer[];
 
-    @Field(() => [DealerTotalCounter], { nullable: true })
-    metaCounter: DealerTotalCounter[];
+    @Field(() => [TotalCounter], { nullable: true })
+    metaCounter: TotalCounter[];
 }

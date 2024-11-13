@@ -1,6 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { CarServiceLocation, CarServiceStatus, CarServiceType } from "../../enums/car-service.enum";
+import { TotalCounter } from "../member/member";
+import { MeLiked } from "../like/like";
 
 
 @ObjectType()
@@ -25,11 +27,11 @@ export class CarService {
     @Field(() => CarServiceStatus)
     carServiceStatus: CarServiceStatus;
 
-    @Field(() => Int)
-    carServicePhone: number;
+    @Field(() => String)
+    carServicePhone: string;
 
-    @Field(() => Int)
-    carServicePhone2: number;
+    @Field(() => String)
+    carServicePhone2: string;
 
     @Field(() => String)
     carServcieEmail: string;
@@ -130,8 +132,26 @@ export class CarService {
     @Field(() => Int)
     carServiceValue: number;
 
+    @Field(() => Int)
+    carServicePoints: number;
+
+    @Field(() => Int)
+    carServiceViews: number;
+
+    @Field(() => Int)
+    carServiceLikes: number;
+
+    @Field(() => Int)
+    carServiceRank: number;
+
     @Field(() => String)
     memberId: ObjectId;
+
+    @Field(() => String, { nullable: true })
+    accessToken?: string;
+
+    @Field(() => [MeLiked], { nullable: true })
+    meLiked?: MeLiked[];
 
     @Field(() => Date)
     createdAt: Date;
@@ -139,4 +159,13 @@ export class CarService {
     @Field(() => Date)
     updatedAt: Date;
 
+}
+
+@ObjectType()
+export class CarServices {
+    @Field(() => [CarService])
+    list: CarService[];
+
+    @Field(() => [TotalCounter], { nullable: true })
+    metaCounter: TotalCounter[];
 }

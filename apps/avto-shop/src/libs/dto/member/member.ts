@@ -36,6 +36,33 @@ export class Member {
     @Field(() => String, { nullable: true })
     memberAddress?: string;
 
+    @Field(() => Int, { nullable: true })
+    memberPhone2?: number;
+
+    @Field(() => String, { nullable: true })
+    memberEmail?: string;
+
+    @Field(() => String, { nullable: true })
+    memberKakaoTalk?: string;
+
+    @Field(() => String, { nullable: true })
+    memberYoutube?: string;
+
+    @Field(() => String, { nullable: true })
+    memberInstagram?: string;
+
+    @Field(() => String, { nullable: true })
+    memberFacebook?: string;
+
+    @Field(() => String, { nullable: true })
+    memberTikTok?: string;
+
+    @Field(() => String, { nullable: true })
+    memberNaverBlog?: string;
+
+    @Field(() => String, { nullable: true })
+    memberXcom?: string;
+
     @Field(() => String, { nullable: true })
     memberDesc?: string;
 

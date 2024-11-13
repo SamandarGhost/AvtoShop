@@ -1,6 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
+import { Member, TotalCounter } from "../member/member";
+import { MeLiked } from "../like/like";
 
 
 
@@ -327,4 +329,19 @@ export class Car {
     @Field(() => Date)
     updatedAt: Date;
 
+    @Field(() => Member, { nullable: true })
+    memberData?: Member;
+
+    @Field(() => [MeLiked], { nullable: true })
+    meLiked?: MeLiked[];
+
+}
+
+@ObjectType()
+export class Cars {
+    @Field(() => [Car])
+    list: Car[];
+
+    @Field(() => [TotalCounter], { nullable: true })
+    metaCounter: TotalCounter[];
 }

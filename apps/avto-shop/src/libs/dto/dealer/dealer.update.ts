@@ -46,13 +46,13 @@ export class DealerUpdate {
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerPhone?: number;
+    @Field(() => String, { nullable: true })
+    dealerPhone?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerPhone2?: number;
+    @Field(() => String, { nullable: true })
+    dealerPhone2?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })

@@ -40,13 +40,13 @@ export class DealerInput {
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    dealerPhone: number;
+    @Field(() => String)
+    dealerPhone: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerPhone2?: number;
+    @Field(() => String, { nullable: true })
+    dealerPhone2?: string;
 
     @IsNotEmpty()
     @Field(() => String)

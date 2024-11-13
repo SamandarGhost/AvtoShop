@@ -41,13 +41,13 @@ export class CarServiceUpdate {
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServicePhone?: number;
+    @Field(() => String, { nullable: true })
+    carServicePhone?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServicePhone2?: number;
+    @Field(() => String, { nullable: true })
+    carServicePhone2?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
