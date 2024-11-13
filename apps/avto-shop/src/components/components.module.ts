@@ -10,6 +10,7 @@ import { CommentModule } from './comment/comment.module';
 import { FollowModule } from './follow/follow.module';
 import { CarServiceModule } from './car-service/car-service.module';
 import { DealerModule } from './dealer/dealer.module';
+import { SaveModule } from './save/save.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { DealerModule } from './dealer/dealer.module';
     CommentModule,
     FollowModule,
     CarServiceModule,
-    DealerModule
+    DealerModule,
+    SaveModule
   ]
 })
 export class ComponentsModule { }
