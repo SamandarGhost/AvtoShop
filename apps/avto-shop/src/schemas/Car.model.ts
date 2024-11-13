@@ -1,11 +1,16 @@
 import { Schema } from 'mongoose';
-import { CarStatus, CarBody, CarType, CarSort, CarMadeIn, CarBrand, CarGroup, CarLocation, CarFuelType, CarTransmission, CarDriveType, CarTuning, CarTuningType } from '../libs/enums/car.enum';
+import { CarStatus, CarBody, CarType, CarSort, CarMadeIn, CarBrand, CarGroup, CarLocation, CarFuelType, CarTransmission, CarDriveType, CarTuningType, CarColor } from '../libs/enums/car.enum';
 
 const CarSchema = new Schema(
     {
         carType: {
             type: String,
             enum: CarType,
+            required: true,
+        },
+
+        carTitle: {
+            type: String,
             required: true,
         },
 
@@ -27,6 +32,12 @@ const CarSchema = new Schema(
             required: true,
         },
 
+        carGroup: {
+            type: String,
+            enum: CarGroup,
+            required: true,
+        },
+
         carMadeIn: {
             type: String,
             enum: CarMadeIn,
@@ -39,13 +50,7 @@ const CarSchema = new Schema(
             required: true,
         },
 
-        carGroup: {
-            type: String,
-            enum: CarGroup,
-            required: true,
-        },
-
-        carTitle: {
+        carModel: {
             type: String,
             required: true,
         },
@@ -55,14 +60,13 @@ const CarSchema = new Schema(
             required: true,
         },
 
-        carBarter: {
-            type: Boolean,
+        carImages: {
+            type: [String],
             required: true,
         },
 
-        carRent: {
-            type: Boolean,
-            required: true,
+        carVideo: {
+            type: [String],
         },
 
         carLocation: {
@@ -76,14 +80,28 @@ const CarSchema = new Schema(
             required: true,
         },
 
-        carModel: {
+        carDesc: {
             type: String,
+        },
+
+        carBarter: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRent: {
+            type: Boolean,
+            default: false,
+        },
+
+        carYear: {
+            type: Number,
             required: true,
         },
 
         carTuning: {
-            type: String,
-            enum: CarTuning,
+            type: Boolean,
+            default: false,
         },
 
         carTuningType: {
@@ -96,15 +114,9 @@ const CarSchema = new Schema(
             required: true,
         },
 
-        carFuellType: {
+        carFuelType: {
             type: String,
             enum: CarFuelType,
-            required: true,
-        },
-
-        carTransmission: {
-            type: String,
-            enum: CarTransmission,
             required: true,
         },
 
@@ -114,27 +126,21 @@ const CarSchema = new Schema(
             required: true,
         },
 
-        carYear: {
-            type: Number,
+        carTransmission: {
+            type: String,
+            enum: CarTransmission,
             required: true,
         },
 
         carEngineSize: {
-            type: Number,
-            required: true,
-        },
-
-        carDoor: {
-            type: Number,
-        },
-
-        carColor: {
             type: String,
             required: true,
         },
 
-        carCylinders: {
-            type: Number,
+        carColor: {
+            type: String,
+            enum: CarColor,
+            required: true,
         },
 
         carFullFuel: {
@@ -152,35 +158,41 @@ const CarSchema = new Schema(
             required: true,
         },
 
+        carDoor: {
+            type: Number,
+        },
+
+        carCylinders: {
+            type: Number,
+        },
+
         carMaxSpeed: {
             type: Number,
-            required: true,
         },
 
         carHundredSpeed: {
-            type: Number,
+            type: String,
         },
 
         carHorsePower: {
             type: Number,
-            required: true,
         },
 
+        carTorque: {
+            type: String,
+        },
+
+
         carLength: {
-            type: Number,
+            type: String,
         },
 
         carHeigth: {
-            type: Number,
-
-        },
-
-        carBallonSize: {
-            type: Number,
+            type: String,
         },
 
         carWidth: {
-            type: Number,
+            type: String,
         },
 
         carSeatsUp: {
@@ -195,15 +207,15 @@ const CarSchema = new Schema(
             type: Number,
         },
 
-        carTorque: {
-            type: Number,
+        carTireSize: {
+            type: String,
         },
 
         carWheelBase: {
-            type: Number,
+            type: String,
         },
 
-        carAutoBrack: {
+        carAutoBrake: {
             type: Boolean,
             default: false,
         },
@@ -233,7 +245,7 @@ const CarSchema = new Schema(
             default: false,
         },
 
-        carHeatedSeat: {
+        carHeatedSeats: {
             type: Boolean,
             default: false,
         },
@@ -328,7 +340,12 @@ const CarSchema = new Schema(
             default: false,
         },
 
-        carRecordCamera: {
+        carFrontRecordCamera: {
+            type: Boolean,
+            default: false,
+        },
+
+        carRearRecordCamera: {
             type: Boolean,
             default: false,
         },
@@ -353,12 +370,12 @@ const CarSchema = new Schema(
             default: false,
         },
 
-        carPowertrain: {
+        carPowerTrain: {
             type: Boolean,
             default: false,
         },
 
-        carRegenerativeBracking: {
+        carRegenerativeBraking: {
             type: Boolean,
             default: false,
         },
@@ -483,19 +500,6 @@ const CarSchema = new Schema(
             default: 0,
         },
 
-        carImages: {
-            type: [String],
-            required: true,
-        },
-
-        carVideos: {
-            type: [String],
-        },
-
-        carDesc: {
-            type: String,
-        },
-
         memberId: {
             type: Schema.Types.ObjectId,
             required: true,
@@ -504,7 +508,6 @@ const CarSchema = new Schema(
 
         delaerId: {
             type: Schema.Types.ObjectId,
-            required: true,
             ref: 'Dealer',
         },
 
@@ -513,10 +516,6 @@ const CarSchema = new Schema(
         },
 
         deletedAt: {
-            type: Date,
-        },
-
-        constructedAt: {
             type: Date,
         },
     },

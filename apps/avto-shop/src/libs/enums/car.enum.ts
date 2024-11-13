@@ -17,12 +17,26 @@ registerEnumType(CarType, {
     name: 'CarType',
 });
 
-export enum CarTuning {
-    TUNING = 'TUNING',
-    NOT_TUNING = 'NOT_TUNING',
+export enum CarColor {
+    BLACK = 'BLACK',
+    WHITE = 'WHITE',
+    SILVER = 'SILVER',
+    GRAY = 'GRAY',
+    RED = 'RED',
+    BLUE = 'BLUE',
+    GOLD = 'GOLD',
+    DARK_GREEN = 'DARK_GREEN',
+    YELLOW = 'YELLOW',
+    DARK_BROWN = 'DARK_BROWN',
+    BURGUNDY = 'BURGUNDY',
+    NAVY_BLUE = 'NAVY_BLUE',
+    BEIGE = 'BEIGE',
+    LIGHT_BLUE = 'LIGHT_BLUE',
+    BRONZE = 'BRONZE',
+    OTHER = 'OTHER',
 }
-registerEnumType(CarTuning, {
-    name: 'CarTuning',
+registerEnumType(CarColor, {
+    name: 'CarColor',
 });
 
 export enum CarTuningType {
