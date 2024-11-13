@@ -23,14 +23,17 @@ export class Product {
     @Field(() => Int)
     productPrice: number;
 
-    @Field(() => String)
-    productDesc: string;
+    @Field(() => Int)
+    productQuantity: number;
 
     @Field(() => String)
     productImages: string;
 
-    @Field(() => Int)
-    productQuantity: number;
+    @Field(() => String, { nullable: true })
+    productShortDesc?: string;
+
+    @Field(() => String, { nullable: true })
+    productDesc?: string;
 
     @Field(() => Int)
     productViews: number;

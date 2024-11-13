@@ -10,9 +10,18 @@ import { ObjectId } from "mongoose";
 export class CarServiceInput {
 
     @IsNotEmpty()
+    @Field(() => CarServiceType)
+    carServiceType: CarServiceType;
+
+    @IsNotEmpty()
     @Length(5, 100)
     @Field(() => String)
     carServiceTitle: string;
+
+    @IsNotEmpty()
+    @Length(6, 16)
+    @Field(() => String)
+    carServicePassword: string;
 
     @IsNotEmpty()
     @Field(() => CarServiceLocation)
@@ -22,15 +31,6 @@ export class CarServiceInput {
     @Length(5, 100)
     @Field(() => String)
     carServiceAddress: string;
-
-    @IsNotEmpty()
-    @Field(() => CarServiceType)
-    carServiceType: CarServiceType;
-
-    @IsNotEmpty()
-    @Length(6, 16)
-    @Field(() => String)
-    carServicePassword: string;
 
     @IsNotEmpty()
     @IsInt()
@@ -44,7 +44,7 @@ export class CarServiceInput {
 
     @IsOptional()
     @Field(() => String, { nullable: true })
-    carServiceEmail: number;
+    carServcieEmail: number;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
@@ -58,81 +58,6 @@ export class CarServiceInput {
     @Field(() => [String])
     carServiceImages: string[];
 
-    @IsOptional()
-    @Field(() => Boolean)
-    carOilChange: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carAlignment: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carTireChange: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carBrakeCheck: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carTireBalance: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carSuspension: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carAirCondition: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carTransmissionCheck: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carEngineDiagnostic: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carExhaust: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carDetailing: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carWindshield: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carTimingBelt: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carChainReplacement: boolean;
-
-    @IsOptional()
-    @Field(() => Boolean)
-    carBatteryCheck: boolean;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int)
-    carMemberShipBasic: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int)
-    carMemberShipStandard: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int)
-    carMemberShipPremium: number;
-
     @IsNotEmpty()
     @Length(20, 200)
     @Field(() => String)
@@ -145,23 +70,103 @@ export class CarServiceInput {
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    carServiceOpenAt: number;
+    @Field(() => String)
+    carServiceOpenAt: string;
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    carServiceCloseAt: number;
+    @Field(() => String)
+    carServiceCloseAt: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServiceWeekendOpenAt?: number;
+    @Field(() => String, { nullable: true })
+    carServiceWeekendOpenAt?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServiceWeekendCloseAt?: number;
+    @Field(() => String, { nullable: true })
+    carServiceWeekendCloseAt?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Boolean, { nullable: true })
+    carServicePublicHolidays?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carOilChange?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carAlignment?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carTireChange?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carBrakeCheck?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carBatteryCheck?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carTireBalance?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carSuspension?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carAirCondition?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carTransmissionCheck?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carEngineDiagnostic?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carExhaust?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carDetailing?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carWindshield?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carTimingBelt?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carChainReplacement?: boolean;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carMemberShipBasic?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carMemberShipStandard?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carMemberShipPremium: string;
 }
 
 @InputType()

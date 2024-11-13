@@ -3,14 +3,15 @@ import { DealerBrand, DealerLocation, DealerStatus } from '../libs/enums/dealer.
 
 const DealerSchema = new Schema(
     {
-        dealerTitle: {
+
+        dealerStatus: {
             type: String,
+            enum: DealerStatus,
+            default: DealerStatus.ACTIVE,
         },
 
-        dealerLocation: {
+        dealerTitle: {
             type: String,
-            enum: DealerLocation,
-            required: true,
         },
 
         dealerBrand: {
@@ -19,29 +20,30 @@ const DealerSchema = new Schema(
             required: true,
         },
 
-        dealerStatus: {
-            type: String,
-            enum: DealerStatus,
-            default: DealerStatus.ACTIVE,
-        },
-
         dealerPassword: {
             type: String,
             select: false,
             required: true,
         },
 
-        dealerImage: {
+        dealerLocation: {
             type: String,
-        },
-
-        dealerImages: {
-            type: [String]
+            enum: DealerLocation,
+            required: true,
         },
 
         dealerAddress: {
             type: String,
             required: true,
+        },
+
+        dealerImage: {
+            type: String,
+            required: true,
+        },
+
+        dealerImages: {
+            type: [String]
         },
 
         dealerPhone: {
@@ -93,7 +95,37 @@ const DealerSchema = new Schema(
 
         dealerLongDesc: {
             type: String,
+        },
+
+        dealerOpenAt: {
+            type: String,
             required: true,
+        },
+
+        dealerCloseAt: {
+            type: String,
+            required: true,
+        },
+
+        dealerOpenSunday: {
+            type: String,
+        },
+
+        dealerCloseSunday: {
+            type: String,
+        },
+
+        dealerOpenSaturday: {
+            type: String,
+        },
+
+        dealerCloseSaturday: {
+            type: String,
+        },
+
+        dealerPublicHolidays: {
+            type: Boolean,
+            default: false,
         },
 
         dealerCars: {
@@ -146,12 +178,12 @@ const DealerSchema = new Schema(
             default: false,
         },
 
-        dealerCarWash: {
+        dealerCarDetailing: {
             type: Boolean,
             default: false,
         },
 
-        dealerCarDetailing: {
+        dealerCarWash: {
             type: Boolean,
             default: false,
         },
@@ -168,37 +200,6 @@ const DealerSchema = new Schema(
 
         dealerPlusService: {
             type: String,
-        },
-
-        dealerOpenAt: {
-            type: Number,
-            required: true,
-        },
-
-        dealerCloseAt: {
-            type: Number,
-            required: true,
-        },
-
-        dealerOpenSunday: {
-            type: Number,
-        },
-
-        dealerCloseSunday: {
-            type: Number,
-        },
-
-        dealerOpenSaturday: {
-            type: Number,
-        },
-
-        dealerCloseSaturday: {
-            type: Number,
-        },
-
-        dealerPublicHolidays: {
-            type: Boolean,
-            default: false,
         },
 
         dealerComfort: {

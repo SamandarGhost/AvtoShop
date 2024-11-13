@@ -30,6 +30,19 @@ const ProductSchema = new Schema(
             default: 0,
         },
 
+        productImages: {
+            type: [String],
+            required: true,
+        },
+
+        productShortDesc: {
+            type: String,
+        },
+
+        productDesc: {
+            type: String,
+        },
+
         productViews: {
             type: Number,
             default: 0,
@@ -48,19 +61,6 @@ const ProductSchema = new Schema(
         productRank: {
             type: Number,
             default: 0,
-        },
-
-        productImages: {
-            type: [String],
-            required: true,
-        },
-
-        productShortDesc: {
-            type: String,
-        },
-
-        productDesc: {
-            type: String,
         },
 
         carServiceId: {

@@ -1,15 +1,34 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { CarServiceLocation, CarServiceStatus, CarServiceType } from "../../enums/car-service.enum";
 import { IsInt, IsNotEmpty, IsOptional, Length } from "class-validator";
+import { ObjectId } from "mongoose";
 
 
 @InputType()
-export class CarServiceInput {
+export class CarServiceUpdate {
+
+    @IsNotEmpty()
+    @Field(() => String)
+    _id: ObjectId;
+
+    @IsOptional()
+    @Field(() => CarServiceStatus, { nullable: true })
+    carServiceStatus?: CarServiceStatus;
+
+    @IsOptional()
+    @Field(() => CarServiceType, { nullable: true })
+    carServiceType?: CarServiceType;
 
     @IsOptional()
     @Length(5, 100)
     @Field(() => String, { nullable: true })
     carServiceTitle?: string;
+
+    @IsOptional()
+    @Length(6, 16)
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    carServicePassword?: number;
 
     @IsOptional()
     @Field(() => CarServiceLocation, { nullable: true })
@@ -21,23 +40,9 @@ export class CarServiceInput {
     carServiceAddress?: string;
 
     @IsOptional()
-    @Field(() => CarServiceType, { nullable: true })
-    carServiceType?: CarServiceType;
-
-    @IsOptional()
-    @Field(() => CarServiceStatus, { nullable: true })
-    dealerStatus?: CarServiceStatus;
-
-    @IsOptional()
-    @Length(6, 16)
     @IsInt()
     @Field(() => Int, { nullable: true })
-    carServicePassword?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    carServicePhone: number;
+    carServicePhone?: number;
 
     @IsOptional()
     @IsInt()
@@ -46,19 +51,54 @@ export class CarServiceInput {
 
     @IsOptional()
     @Field(() => String, { nullable: true })
-    carServiceEmail?: string;
+    carServcieEmail?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
     carServiceKakaoTalk?: string;
 
     @IsOptional()
+    @Field(() => String, { nullable: true })
+    carServiceImage?: string;
+
+    @IsOptional()
     @Field(() => [String], { nullable: true })
     carServiceImages?: string[];
 
-    @IsOptional()
+    @IsNotEmpty()
+    @Length(20, 200)
     @Field(() => String, { nullable: true })
-    carServiceImage?: string;
+    carServiceShortDesc?: string;
+
+    @IsOptional()
+    @Length(100, 500)
+    @Field(() => String, { nullable: true })
+    carServiceDesc?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carServiceOpenAt?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carServiceCloseAt?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carServiceWeekendOpenAt?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carServiceWeekendCloseAt?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => Boolean, { nullable: true })
+    carServicePublicHolidays?: boolean;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
@@ -75,6 +115,10 @@ export class CarServiceInput {
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
     carBrakeCheck?: boolean;
+
+    @IsOptional()
+    @Field(() => Boolean, { nullable: true })
+    carBatteryCheck?: boolean;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
@@ -117,31 +161,17 @@ export class CarServiceInput {
     carChainReplacement?: boolean;
 
     @IsOptional()
-    @Field(() => Boolean, { nullable: true })
-    carBatteryCheck?: boolean;
-
-    @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carMemberShipBasic?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    carMemberShipStandard?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    carMemberShipPremium?: number;
-
-    @IsNotEmpty()
-    @Length(20, 200)
     @Field(() => String, { nullable: true })
-    carServiceShortDesc?: string;
+    carMemberShipBasic?: string;
 
     @IsOptional()
-    @Length(100, 500)
+    @IsInt()
     @Field(() => String, { nullable: true })
-    carServiceDesc?: string;
+    carMemberShipStandard?: string;
+
+    @IsOptional()
+    @IsInt()
+    @Field(() => String, { nullable: true })
+    carMemberShipPremium?: string;
 }

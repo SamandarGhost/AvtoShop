@@ -14,27 +14,21 @@ export class DealerInput {
     dealerTitle: string;
 
     @IsNotEmpty()
+    @Field(() => DealerBrand)
+    dealerBrand: DealerBrand;
+
+    @IsNotEmpty()
     @Length(6, 16)
     @Field(() => String)
     dealerPassword: string;
-
-    @IsNotEmpty()
-    @IsInt()
-    @Field(() => Int)
-    dealerPhone: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int)
-    dealerPhone2?: number;
 
     @IsNotEmpty()
     @Field(() => DealerLocation)
     dealerLocation: DealerLocation;
 
     @IsNotEmpty()
-    @Field(() => DealerBrand)
-    dealerBrand: DealerBrand;
+    @Field(() => String)
+    dealerAddress: string;
 
     @IsNotEmpty()
     @Field(() => String)
@@ -45,12 +39,14 @@ export class DealerInput {
     dealerImages?: string[];
 
     @IsNotEmpty()
-    @Field(() => String)
-    dealerShortDesc: string;
+    @IsInt()
+    @Field(() => Int)
+    dealerPhone: number;
 
-    @IsNotEmpty()
-    @Field(() => String)
-    dealerAddress: string;
+    @IsOptional()
+    @IsInt()
+    @Field(() => Int, { nullable: true })
+    dealerPhone2?: number;
 
     @IsNotEmpty()
     @Field(() => String)
@@ -61,38 +57,17 @@ export class DealerInput {
     dealerKakaoTalk?: string;
 
     @IsNotEmpty()
-    @IsInt()
-    @Field(() => Int)
-    dealerOpenAt: number;
+    @Field(() => String)
+    dealerShortDesc: string;
+
+    @IsNotEmpty()
+    @Field(() => String)
+    dealerOpenAt: string;
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    dealerCloseAt: number;
-
-    @IsOptional()
-    @Field(() => Boolean, { nullable: true })
-    dealerPublicHolidays?: boolean;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSunday?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSunday?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSaturday?: number;
-
-    @IsOptional()
-    @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSaturday?: number;
+    @Field(() => String)
+    dealerCloseAt: string;
 }
 
 @InputType()
@@ -111,10 +86,6 @@ export class DealerLogin {
     @IsNotEmpty()
     @Field(() => DealerLocation)
     dealerLocation: DealerLocation;
-
-    @IsNotEmpty()
-    @Field(() => DealerBrand)
-    dealerBrand: DealerBrand;
 }
 
 @InputType()
@@ -156,11 +127,11 @@ export class DealersInquiry {
 class ALDISearch {
     @IsOptional()
     @Field(() => DealerStatus, { nullable: true })
-    productStatus?: DealerStatus;
+    dealerStatus?: DealerStatus;
 
     @IsOptional()
     @Field(() => [DealerLocation], { nullable: true })
-    propertyLocationList?: DealerLocation[];
+    locationList?: DealerLocation[];
 }
 
 @InputType()

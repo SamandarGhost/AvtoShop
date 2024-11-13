@@ -39,6 +39,11 @@ export class ProductUpdate {
     @IsOptional()
     @Length(20, 500)
     @Field(() => String, { nullable: true })
+    productShortDesc?: string;
+
+    @IsOptional()
+    @Length(20, 500)
+    @Field(() => String, { nullable: true })
     productDesc?: string;
 
     deletedAt?: Date;

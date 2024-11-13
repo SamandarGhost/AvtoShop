@@ -8,8 +8,13 @@ export class CarService {
     @Field(() => String)
     _id: ObjectId;
 
+    @Field(() => CarServiceType)
+    carServiceType: CarServiceType;
+
     @Field(() => String)
     carServiceTitle: string;
+
+    carServicePassword?: string;
 
     @Field(() => CarServiceLocation)
     carServiceLocation: CarServiceLocation;
@@ -17,13 +22,8 @@ export class CarService {
     @Field(() => String)
     carServiceAddress: string;
 
-    @Field(() => CarServiceType)
-    carServiceType: CarServiceType;
-
     @Field(() => CarServiceStatus)
     carServiceStatus: CarServiceStatus;
-
-    carServicePassword?: string;
 
     @Field(() => Int)
     carServicePhone: number;
@@ -32,16 +32,37 @@ export class CarService {
     carServicePhone2: number;
 
     @Field(() => String)
-    carServiceEmail: string;
+    carServcieEmail: string;
 
     @Field(() => String)
     carServiceKakaoTalk: string;
+
+    @Field(() => String)
+    carServiceImage: string;
 
     @Field(() => [String])
     carServiceImages: string[];
 
     @Field(() => String)
-    carServiceImage: string;
+    carServiceShortDesc: string;
+
+    @Field(() => String, { nullable: true })
+    carServiceDesc?: string;
+
+    @Field(() => String)
+    carServiceOpenAt: string;
+
+    @Field(() => String)
+    carServiceCloseAt: string;
+
+    @Field(() => String, { nullable: true })
+    carServiceWeekendOpenAt?: string;
+
+    @Field(() => String, { nullable: true })
+    carServiceWeekendCloseAt?: string;
+
+    @Field(() => String, { nullable: true })
+    carServicePublicHolidays?: string;
 
     @Field(() => Boolean)
     carOilChange: boolean;
@@ -54,6 +75,9 @@ export class CarService {
 
     @Field(() => Boolean)
     carBrakeCheck: boolean;
+
+    @Field(() => Boolean)
+    carBatteryCheck: boolean;
 
     @Field(() => Boolean)
     carTireBalance: boolean;
@@ -85,9 +109,6 @@ export class CarService {
     @Field(() => Boolean)
     carChainReplacement: boolean;
 
-    @Field(() => Boolean)
-    carBatteryCheck: boolean;
-
     @Field(() => Int)
     carMemberShipBasic: number;
 
@@ -108,12 +129,6 @@ export class CarService {
 
     @Field(() => Int)
     carServiceValue: number;
-
-    @Field(() => String)
-    carServiceShortDesc: string;
-
-    @Field(() => String, { nullable: true })
-    carServiceDesc?: string;
 
     @Field(() => String)
     memberId: ObjectId;

@@ -20,6 +20,10 @@ export class DealerUpdate {
     dealerTitle?: string;
 
     @IsOptional()
+    @Field(() => DealerBrand, { nullable: true })
+    dealerBrand?: DealerBrand;
+
+    @IsOptional()
     @Length(6, 16)
     @Field(() => String, { nullable: true })
     dealerPassword?: string;
@@ -33,8 +37,12 @@ export class DealerUpdate {
     dealerAddress?: string;
 
     @IsOptional()
-    @Field(() => DealerBrand, { nullable: true })
-    dealerBrand?: DealerBrand;
+    @Field(() => String, { nullable: true })
+    dealerImage?: string;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerImages?: string;
 
     @IsOptional()
     @IsInt()
@@ -88,33 +96,33 @@ export class DealerUpdate {
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerOpenAt?: number;
+    @Field(() => String, { nullable: true })
+    dealerOpenAt?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerCloseAt?: number;
+    @Field(() => String, { nullable: true })
+    dealerCloseAt?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSunday?: number;
+    @Field(() => String, { nullable: true })
+    dealerOpenSunday?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSunday?: number;
+    @Field(() => String, { nullable: true })
+    dealerCloseSunday?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerOpenSaturday?: number;
+    @Field(() => String, { nullable: true })
+    dealerOpenSaturday?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    dealerCloseSaturday?: number;
+    @Field(() => String, { nullable: true })
+    dealerCloseSaturday?: string;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
@@ -150,11 +158,11 @@ export class DealerUpdate {
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
-    dealerCarWash?: boolean;
+    dealerCarDetailing?: boolean;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
-    dealerCarDetailing?: boolean;
+    dealerCarWash?: boolean;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })

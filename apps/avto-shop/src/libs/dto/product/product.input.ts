@@ -23,13 +23,17 @@ export class ProductInput {
     @Field(() => Int)
     productPrice: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsInt()
     @Min(1)
-    @Field(() => Int)
-    productQuantity: number;
+    @Field(() => Int, { nullable: true })
+    productQuantity?: number;
 
     @IsNotEmpty()
+    @Field(() => [String])
+    productImages: string[]
+
+    @IsOptional()
     @Length(20, 100)
     @Field(() => String)
     productShortDesc: string;
@@ -38,10 +42,6 @@ export class ProductInput {
     @Length(20, 500)
     @Field(() => String)
     productDesc: string;
-
-    @IsNotEmpty()
-    @Field(() => [String])
-    productImages: string[]
 }
 
 @InputType()
@@ -146,7 +146,7 @@ class ALPISearch {
 
     @IsOptional()
     @Field(() => [ProductType], { nullable: true })
-    propertyLocationList?: ProductType[];
+    productLocationList?: ProductType[];
 }
 
 @InputType()
@@ -175,19 +175,4 @@ export class AllProductsInquiry {
     @IsNotEmpty()
     @Field(() => ALPISearch)
     search: ALPISearch;
-}
-
-@InputType()
-export class OrdinaryInquiry {
-    @IsNotEmpty()
-    @Min(1)
-    @IsInt()
-    @Field(() => Int)
-    page: number;
-
-    @IsNotEmpty()
-    @Min(1)
-    @IsInt()
-    @Field(() => Int)
-    limit: number;
 }

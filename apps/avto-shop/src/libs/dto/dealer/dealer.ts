@@ -9,22 +9,28 @@ export class Dealer {
     @Field(() => String)
     _id: ObjectId;
 
+    @Field(() => DealerStatus)
+    dealerStatus: DealerStatus;
+
     @Field(() => String)
     dealerTitle: string;
-
-    @Field(() => DealerLocation)
-    dealerLocation: DealerLocation;
 
     @Field(() => DealerBrand)
     dealerBrand: DealerBrand;
 
-    @Field(() => DealerStatus)
-    dealerStatus: DealerStatus;
-
     dealerPassword?: string;
+
+    @Field(() => DealerLocation)
+    dealerLocation: DealerLocation;
 
     @Field(() => String)
     dealerAddress: string;
+
+    @Field(() => String)
+    dealerImage: string;
+
+    @Field(() => [String], { nullable: true })
+    dealerImages?: string[];
 
     @Field(() => Int)
     dealerPhone: number;
@@ -57,16 +63,31 @@ export class Dealer {
     dealerXcom?: string;
 
     @Field(() => String)
-    dealerImage: string;
-
-    @Field(() => [String], { nullable: true })
-    dealerImages?: string[];
-
-    @Field(() => String)
     dealerShortDesc: string;
 
     @Field(() => String, { nullable: true })
     dealerLongDesc?: string;
+
+    @Field(() => String)
+    dealerOpenAt: string;
+
+    @Field(() => String)
+    dealerCloseAt: string;
+
+    @Field(() => String, { nullable: true })
+    dealerOpenSunday?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerCloseSunday?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerOpenSaturday?: string;
+
+    @Field(() => String, { nullable: true })
+    dealerCloseSaturday?: string;
+
+    @Field(() => Boolean)
+    dealerPublicHolidays: boolean;
 
     @Field(() => Int)
     dealerCars: number;
@@ -77,65 +98,41 @@ export class Dealer {
     @Field(() => Int)
     dealerNewCars: number;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerFinancing?: boolean;
+    @Field(() => Boolean)
+    dealerFinancing: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCarService?: boolean;
+    @Field(() => Boolean)
+    dealerCarService: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerTradeIn?: boolean;
+    @Field(() => Boolean)
+    dealerTradeIn: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCustomization?: boolean;
+    @Field(() => Boolean)
+    dealerCustomization: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerWarranties?: boolean;
+    @Field(() => Boolean)
+    dealerWarranties: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerParts?: boolean;
+    @Field(() => Boolean)
+    dealerParts: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerAccessories?: boolean;
+    @Field(() => Boolean)
+    dealerAccessories: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCarWash?: boolean;
+    @Field(() => Boolean)
+    dealerCarDetailing: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCarTestDrive?: boolean;
+    @Field(() => Boolean)
+    dealerCarWash: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCarDetailing?: boolean;
+    @Field(() => Boolean)
+    dealerCarTestDrive: boolean;
 
-    @Field(() => Boolean, { nullable: true })
-    dealerCarDelivery?: boolean;
+    @Field(() => Boolean)
+    dealerCarDelivery: boolean;
 
     @Field(() => String, { nullable: true })
     dealerPlusService?: string;
-
-    @Field(() => Int)
-    dealerOpenAt: number;
-
-    @Field(() => Int)
-    dealerCloseAt: number;
-
-    @Field(() => Boolean, { nullable: true })
-    dealerPublicHolidays?: boolean;
-
-    @Field(() => Int, { nullable: true })
-    dealerOpenSunday?: number;
-
-    @Field(() => Int, { nullable: true })
-    dealerCloseSunday?: number;
-
-    @Field(() => Int, { nullable: true })
-    dealerOpenSaturday?: number;
-
-    @Field(() => Int, { nullable: true })
-    dealerCloseSaturday?: number;
-
-    @Field(() => Int)
-    dealerFollowers: number;
 
     @Field(() => Int)
     dealerComfort: number;
@@ -150,10 +147,13 @@ export class Dealer {
     dealerInterior: number;
 
     @Field(() => Int)
+    dealerReliability: number;
+
+    @Field(() => Int)
     dealerFast: number;
 
     @Field(() => Int)
-    dealerReliability: number;
+    dealerFollowers: number;
 
     @Field(() => Int)
     dealerViews: number;

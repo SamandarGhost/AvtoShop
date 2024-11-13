@@ -10,6 +10,12 @@ const CarServiceSchema = new Schema(
             default: CarServiceStatus.ACTIVE,
         },
 
+        carServiceType: {
+            type: String,
+            enum: CarServiceType,
+            required: true,
+        },
+
         carServiceTitle: {
             type: String,
             required: true,
@@ -17,12 +23,6 @@ const CarServiceSchema = new Schema(
 
         carServicePassword: {
             type: String,
-            required: true,
-        },
-
-        carServiceType: {
-            type: String,
-            enum: CarServiceType,
             required: true,
         },
 
@@ -74,21 +74,25 @@ const CarServiceSchema = new Schema(
         },
 
         carServiceOpenAt: {
-            type: Number,
+            type: String,
             required: true,
         },
 
         carServiceCloseAt: {
-            type: Number,
+            type: String,
             required: true,
         },
 
         carServiceWeekendOpenAt: {
-            type: Number,
+            type: String,
         },
 
         carServiceWeekendCloseAt: {
-            type: Number,
+            type: String,
+        },
+
+        carServicePublicHolidays: {
+            type: Boolean,
         },
 
         carOilChange: {
@@ -167,18 +171,15 @@ const CarServiceSchema = new Schema(
         },
 
         carMemberShipBasic: {
-            type: Number,
-            default: 0,
+            type: String,
         },
 
         carMemberShipStandard: {
-            type: Number,
-            default: 0,
+            type: String,
         },
 
         carMemberShipPremium: {
-            type: Number,
-            default: 0,
+            type: String,
         },
 
         carServiceComfort: {
