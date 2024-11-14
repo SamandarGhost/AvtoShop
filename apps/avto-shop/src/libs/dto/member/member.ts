@@ -67,7 +67,7 @@ export class Member {
     memberDesc?: string;
 
     @Field(() => Int)
-    memberProperties: number;
+    memberCars: number;
 
     @Field(() => Int)
     memberArticles: number;

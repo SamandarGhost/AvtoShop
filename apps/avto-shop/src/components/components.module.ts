@@ -14,18 +14,18 @@ import { SaveModule } from './save/save.module';
 
 @Module({
   imports: [
-    ProductsModule,
-    CarsModule,
-    MemberModule,
     AuthModule,
     BoardArticleModule,
-    LikeModule,
-    ViewModule,
-    CommentModule,
-    FollowModule,
     CarServiceModule,
+    CarsModule,
+    CommentModule,
     DealerModule,
-    SaveModule
+    FollowModule,
+    LikeModule,
+    MemberModule,
+    ProductsModule,
+    SaveModule,
+    ViewModule,
   ]
 })
 export class ComponentsModule { }
