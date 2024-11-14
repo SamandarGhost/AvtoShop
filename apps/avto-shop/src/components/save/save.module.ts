@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { SaveResolver } from './save.resolver';
 import { SaveService } from './save.service';
 
 @Module({
-  providers: [SaveResolver, SaveService]
+  providers: [SaveService]
 })
-export class SaveModule {}
+export class SaveModule { }

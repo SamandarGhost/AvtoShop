@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { lookupVisited } from '../../libs/config';
+import { Cars } from '../../libs/dto/car/car';
+import { ViewGroup } from '../../libs/enums/view.enum';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { View } from '../../libs/dto/view/view';
 import { ViewInput } from '../../libs/dto/view/view.input';
-import { T } from '../../libs/types/common';
-import { retry } from 'rxjs';
-import { ViewGroup } from '../../libs/enums/view.enum';
-import { lookupVisited } from '../../libs/config';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { Cars } from '../../libs/dto/car/car';
+import { T } from '../../libs/types/common';
 
 @Injectable()
 export class ViewService {

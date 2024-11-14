@@ -5,11 +5,10 @@ import { Like, MeLiked } from '../../libs/dto/like/like';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { T } from '../../libs/types/common';
 import { Message } from '../../libs/enums/common.enum';
-import { LikeGroup } from '../../libs/enums/like.enum';
-import { lookupFavorite } from '../../libs/config';
-import { count } from 'console';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { Cars } from '../../libs/dto/car/car';
+import { LikeGroup } from '../../libs/enums/like.enum';
+import { lookupFavorite } from '../../libs/config';
 
 @Injectable()
 export class LikeService {
@@ -36,13 +35,13 @@ export class LikeService {
 
 
     public async checkLikeExistence(input): Promise<MeLiked[]> {
-        const { memberId, likeRefId } = input;
-        const result = await this.likeModel.findOne({ memberId: memberId, likeRefId: likeRefId }).exec();
+        const { memberId, likeRefId, likeGroup } = input;
+        const result = await this.likeModel.findOne({ memberId: memberId, likeRefId: likeRefId, likeGroup: LikeGroup.MEMBER }).exec();
         return result ? [{ memberId: memberId, likeRefId: likeRefId, myFavorite: true }] : []
     }
 
 
-    public async getFavoriteCars(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
+    public async getFavoriteProperties(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
         const match: T = { likeGroup: LikeGroup.CAR, memberId: memberId };
 
@@ -74,5 +73,4 @@ export class LikeService {
         result.list = data[0].list.map((ele) => ele.favoriteCar);
         return result;
     }
-
 }
