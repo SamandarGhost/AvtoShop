@@ -306,6 +306,9 @@ export class Car {
     carLikes: number;
 
     @Field(() => Int)
+    carSave: number;
+
+    @Field(() => Int)
     carComments: number;
 
     @Field(() => Int)
@@ -321,7 +324,7 @@ export class Car {
     soldAt?: Date;
 
     @Field(() => Date, { nullable: true })
-    delatedAt?: Date;
+    deletedAt?: Date;
 
     @Field(() => Date,)
     createdAt: Date;

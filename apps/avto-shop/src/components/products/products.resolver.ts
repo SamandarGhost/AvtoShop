@@ -65,7 +65,7 @@ export class ProductResolver {
     @UseGuards(AuthGuard)
     @Mutation(() => Product)
     public async likeTargetProduct(
-        @Args('propertyId') input: string,
+        @Args('productId') input: string,
         @AuthMember('_id') memberId: ObjectId
     ): Promise<Product> {
         console.log("Mutation: likeTargetProduct ");
@@ -76,7 +76,7 @@ export class ProductResolver {
     @UseGuards(AuthGuard)
     @Mutation(() => Product)
     public async saveTargetProduct(
-        @Args('propertyId') input: string,
+        @Args('productId') input: string,
         @AuthMember('_id') memberId: ObjectId
     ): Promise<Product> {
         console.log("Mutation: saveTargetProduct");

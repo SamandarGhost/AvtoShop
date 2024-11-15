@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { CarStatus, CarBody, CarType, CarSort, CarMadeIn, CarBrand, CarGroup, CarLocation, CarFuelType, CarTransmission, CarDriveType, CarTuningType, CarColor } from '../libs/enums/car.enum';
+import { CarStatus, CarBody, CarType, CarSort, CarMadeIn, CarBrand, CarGroup, CarLocation, CarFuelType, CarDriveType, CarTuningType, CarColor, CarTransmission } from '../libs/enums/car.enum';
 
 const CarSchema = new Schema(
     {
@@ -66,7 +66,7 @@ const CarSchema = new Schema(
         },
 
         carVideo: {
-            type: [String],
+            type: String,
         },
 
         carLocation: {
@@ -236,7 +236,7 @@ const CarSchema = new Schema(
         },
 
         carExteriorLight: {
-            type: String,
+            type: Boolean,
             default: false,
         },
 
@@ -486,6 +486,11 @@ const CarSchema = new Schema(
         },
 
         carLikes: {
+            type: Number,
+            default: 0,
+        },
+
+        carSave: {
             type: Number,
             default: 0,
         },

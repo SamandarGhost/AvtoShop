@@ -102,6 +102,12 @@ export class Member {
     @Field(() => Int)
     memberBlocks: number;
 
+    @Field(() => String, { nullable: true })
+    dealerId?: ObjectId;
+
+    @Field(() => String, { nullable: true })
+    carServiceId?: ObjectId;
+
     @Field(() => Date, { nullable: true })
     deletedAt?: Date;
 

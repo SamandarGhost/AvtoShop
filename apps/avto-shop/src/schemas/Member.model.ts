@@ -153,6 +153,16 @@ const MemberSchema = new Schema({
         default: 0,
     },
 
+    dealerId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Dealer',
+    },
+
+    carServiceId: {
+        type: Schema.Types.ObjectId,
+        ref: 'CarService',
+    },
+
     deletedAt: {
         type: Date,
     },

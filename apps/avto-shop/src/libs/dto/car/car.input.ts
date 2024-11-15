@@ -3,6 +3,7 @@ import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLo
 import { IsIn, IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
 import { availableCarSorts, availableOptions } from "../../config";
 import { Direction } from "../../enums/common.enum";
+import { ObjectId } from "mongoose";
 
 
 
@@ -409,9 +410,9 @@ export class CarInput {
     @Field(() => Boolean, { nullable: true })
     carLeftBackDoor?: boolean;
 
-    memberId: string;
+    memberId: ObjectId;
 
-    dealerId?: string;
+    dealerId?: ObjectId;
 }
 
 @InputType()
@@ -445,8 +446,12 @@ class CISearch {
     dealerId?: string;
 
     @IsOptional()
+    @Field(() => [CarType], { nullable: true })
+    typeList?: CarType[];
+
+    @IsOptional()
     @Field(() => [CarBody], { nullable: true })
-    badyList?: CarBody[];
+    bodyList?: CarBody[];
 
     @IsOptional()
     @Field(() => [CarSort], { nullable: true })
@@ -489,8 +494,8 @@ class CISearch {
     colorList?: CarColor[];
 
     @IsOptional()
-    @Field(() => CarRange, { nullable: true })
-    yearRange?: CarRange;
+    @Field(() => PeriodRange, { nullable: true })
+    yearRange?: PeriodRange;
 
     @IsOptional()
     @Field(() => CarRange, { nullable: true })
@@ -510,6 +515,7 @@ class CISearch {
     text?: string;
 }
 
+@InputType()
 export class CarsInquiry {
     @IsNotEmpty()
     @Min(1)
@@ -609,7 +615,7 @@ class ALCISearch {
 
     @IsOptional()
     @Field(() => [CarBody], { nullable: true })
-    badyList?: CarBody[];
+    bodyList?: CarBody[];
 
     @IsOptional()
     @Field(() => [CarSort], { nullable: true })

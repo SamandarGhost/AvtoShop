@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
-import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
+import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
 import { ObjectId } from "mongoose";
 
 
@@ -10,6 +10,10 @@ export class CarUpdate {
     @IsNotEmpty()
     @Field(() => String)
     _id: ObjectId;
+
+    @IsOptional()
+    @Field(() => CarStatus, { nullable: true })
+    carStatus?: CarStatus;
 
     @IsOptional()
     @Field(() => CarType, { nullable: true })

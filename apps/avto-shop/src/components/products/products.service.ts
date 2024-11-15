@@ -156,22 +156,22 @@ export class ProductService {
         return result;
     }
 
-    public async saveTargetProduct(memberId: ObjectId, likeRefId: ObjectId): Promise<Product> {
+    public async saveTargetProduct(memberId: ObjectId, saveRefId: ObjectId): Promise<Product> {
         const target: Product = await this.productModel.findOne({
-            _id: likeRefId,
+            _id: saveRefId,
             productStatus: ProductStatus.ACTIVE,
         });
         if (!target) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
 
         const input: SaveInput = {
             memberId: memberId,
-            saveRefId: likeRefId,
+            saveRefId: saveRefId,
             saveGroup: SaveGroup.PRODUCT,
         };
 
         const modifier: number = await this.saveService.toggleSave(input);
         const result = await this.productStatsEditor({
-            _id: likeRefId,
+            _id: saveRefId,
             targetKey: 'productSave',
             modifier: modifier,
         });

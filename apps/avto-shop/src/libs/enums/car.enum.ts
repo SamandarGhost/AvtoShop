@@ -74,7 +74,7 @@ registerEnumType(CarFuelType, {
 });
 
 export enum CarTransmission {
-    MANULA = 'MANUAL',
+    MANUAL = 'MANUAL',
     AUTOMATIC = 'AUTOMATIC',
     CVT = 'CVT',
     DUAL_CLUTCH = 'DUAL_CLUTCH',
