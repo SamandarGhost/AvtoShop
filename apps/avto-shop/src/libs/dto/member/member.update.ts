@@ -87,6 +87,10 @@ export class MemberUpdate {
     @Field(() => String, { nullable: true })
     memberDesc?: string;
 
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    dealerId?: string;
+
     deletedAt?: Date;
 
 }

@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { DealerBrand, DealerLocation, DealerStatus } from "../../enums/dealer.enum";
-import { TotalCounter } from "../member/member";
+import { Member, TotalCounter } from "../member/member";
 import { MeLiked } from "../like/like";
 import { MeFollowed } from "../follow/follow";
 
@@ -175,6 +175,12 @@ export class Dealer {
 
     @Field(() => Int)
     dealerRank: number;
+
+    @Field(() => String, { nullable: true })
+    memberId?: ObjectId;
+
+    @Field(() => Member, { nullable: true })
+    memberData?: Member;
 
     @Field(() => String, { nullable: true })
     accessToken?: string;

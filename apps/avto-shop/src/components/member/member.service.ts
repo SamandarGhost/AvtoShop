@@ -59,11 +59,21 @@ export class MemberService {
         return response;
     };
 
+    public async insertDealerId(memberId: ObjectId, dealerId: ObjectId): Promise<void> {
+        const input = {
+            memberStatus: MemberStatus.ACTIVE,
+            memberType: MemberType.DEALER,
+            dealerId: dealerId,
+        };
+        const search: T = {
+            _id: memberId,
+            memberStatus: MemberStatus.ACTIVE,
+            memberType: MemberType.DEALER,
+        };
+        const result = await this.memberModel.findOneAndUpdate(search, input, { new: true }).exec()
+    }
+
     public async updateMember(memberId: ObjectId, input: MemberUpdate): Promise<Member> {
-        console.log("input:", input.memberImage);
-        console.log("memberId:", memberId);
-
-
         const result: Member = await this.memberModel.findOneAndUpdate({
             _id: memberId,
             memberStatus: MemberStatus.ACTIVE,

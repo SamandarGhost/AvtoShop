@@ -150,6 +150,10 @@ class ALPISearch {
     @IsOptional()
     @Field(() => [ProductType], { nullable: true })
     productTypeList?: ProductType[];
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    text?: string;
 }
 
 @InputType()

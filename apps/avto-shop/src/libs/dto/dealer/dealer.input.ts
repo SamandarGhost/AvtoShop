@@ -1,8 +1,9 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsIn, IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
+import { IsEmail, IsIn, IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
 import { DealerBrand, DealerLocation, DealerStatus } from "../../enums/dealer.enum";
 import { availableDealerSorts } from "../../config";
 import { Direction } from "../../enums/common.enum";
+import { ObjectId } from "mongoose";
 
 
 @InputType()
@@ -39,16 +40,15 @@ export class DealerInput {
     dealerImages?: string[];
 
     @IsNotEmpty()
-    @IsInt()
     @Field(() => String)
     dealerPhone: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     dealerPhone2?: string;
 
     @IsNotEmpty()
+    @IsEmail()
     @Field(() => String)
     dealerEmail: string;
 
@@ -65,9 +65,10 @@ export class DealerInput {
     dealerOpenAt: string;
 
     @IsNotEmpty()
-    @IsInt()
     @Field(() => String)
     dealerCloseAt: string;
+
+    memberId?: ObjectId;
 }
 
 @InputType()
@@ -90,6 +91,18 @@ export class DealerLogin {
 
 @InputType()
 class DISearch {
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    memberId?: ObjectId;
+
+    @IsOptional()
+    @Field(() => [DealerBrand], { nullable: true })
+    brandList?: DealerBrand[];
+
+    @IsOptional()
+    @Field(() => [DealerLocation], { nullable: true })
+    locationList?: DealerLocation[];
+
     @IsOptional()
     @Field(() => String, { nullable: true })
     text?: string;
@@ -116,7 +129,7 @@ export class DealersInquiry {
 
     @IsOptional()
     @Field(() => Direction, { nullable: true })
-    dirction?: Direction;
+    direction?: Direction;
 
     @IsOptional()
     @Field(() => DISearch)
@@ -132,6 +145,14 @@ class ALDISearch {
     @IsOptional()
     @Field(() => [DealerLocation], { nullable: true })
     locationList?: DealerLocation[];
+
+    @IsOptional()
+    @Field(() => [DealerBrand], { nullable: true })
+    brandList?: DealerBrand[];
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    text?: string;
 }
 
 @InputType()

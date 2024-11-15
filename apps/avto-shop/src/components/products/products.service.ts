@@ -83,7 +83,7 @@ export class ProductService {
                 targetProduct.productViews++;
             }
 
-            const likeInput = { memberId: memberId, likeRefId: productId, likeGroup: LikeGroup.MEMBER };
+            const likeInput = { memberId: memberId, likeRefId: productId };
             targetProduct.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
 
@@ -129,7 +129,7 @@ export class ProductService {
         if (memberId) match.memberId = shapeIntoMongoObjectId(memberId);
         if (typeList && typeList.length) match.typeList = { $in: typeList };
         if (priceRange) match.priceRange = { $gte: priceRange.minPrice, $lte: priceRange.maxPrice };
-        if (text) match.propertyTitle = { $regex: new RegExp(text, 'i') };
+        if (text) match.productTitle = { $regex: new RegExp(text, 'i') };
     }
 
     public async likeTargetProduct(memberId: ObjectId, likeRefId: ObjectId): Promise<Product> {
@@ -221,12 +221,13 @@ export class ProductService {
     }
 
     public async getAllProductsByAdmin(input: AllProductsInquiry): Promise<Products> {
-        const { productStatus, productTypeList } = input.search;
+        const { productStatus, productTypeList, text } = input.search;
         const match: T = {};
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
         if (productStatus) match.productStatus = productStatus;
-        if (productTypeList) match.productTypeList = { $in: productTypeList };
+        if (productTypeList && productTypeList.length) match.productTypeList = { $in: productTypeList };
+        if (text) match.productTitle = { $regex: new RegExp(text, 'i') };
 
         const result = await this.productModel
             .aggregate([

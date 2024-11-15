@@ -12,6 +12,7 @@ const DealerSchema = new Schema(
 
         dealerTitle: {
             type: String,
+            required: true
         },
 
         dealerBrand: {
@@ -267,6 +268,11 @@ const DealerSchema = new Schema(
         dealerRank: {
             type: Number,
             default: 0,
+        },
+
+        memberId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Member',
         },
 
         deletedAt: {

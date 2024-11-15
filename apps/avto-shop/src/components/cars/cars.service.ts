@@ -98,7 +98,7 @@ export class CarsService {
                 await this.carStatsEditor({ _id: carId, targetKey: 'propertyViews', modifier: 1 });
                 targetCar.carViews++;
             }
-            const likeInput = { memberId: memberId, likeRefId: carId, likeGroup: LikeGroup.CAR };
+            const likeInput = { memberId: memberId, likeRefId: carId };
             targetCar.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
         targetCar.memberData = await this.memberService.getMember(null, targetCar.memberId);
@@ -172,7 +172,7 @@ export class CarsService {
         if (mileageRange) match.carMileage = { $gte: mileageRange.min, $lte: mileageRange.max };
         if (priceRange) match.carPrice = { $gte: priceRange.min, $lte: priceRange.max };
         if (text)
-            match.propertyTitle = {
+            match.carTitle = {
                 $regex: new RegExp(text, 'i'),
             };
         if (options) {
@@ -295,7 +295,7 @@ export class CarsService {
         if (locationList && locationList.length) match.carBody = { $in: locationList };
         if (tuningTypeList && tuningTypeList.length) match.carBody = { $in: tuningTypeList };
         if (fuelTypeList && fuelTypeList.length) match.carBody = { $in: fuelTypeList };
-        if (text) match.propertyTitle = { $regex: new RegExp(text, 'i') };
+        if (text) match.carTitle = { $regex: new RegExp(text, 'i') };
 
 
         const result = await this.carModel
