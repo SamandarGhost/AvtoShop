@@ -134,20 +134,83 @@ export const lookupFollowerData = {
     },
 };
 
-export const lookupFavorite = {
+export const lookupFavoriteCar = {
     $lookup: {
         from: 'members',
-        localField: 'favoriteProperty.memberId',
+        localField: 'favoriteCar.memberId',
         foreignField: '_id',
-        as: 'favoriteProperty.memberData',
+        as: 'favoriteCar.memberData',
     },
 }
 
-export const lookupVisited = {
+export const lookupFavoriteProduct = {
     $lookup: {
         from: 'members',
-        localField: 'visitedProperty.memberId',
+        localField: 'favoriteProduct.memberId',
         foreignField: '_id',
-        as: 'visitedProperty.memberData',
+        as: 'favoriteProduct.memberData',
+    },
+}
+
+export const lookupFavoriteDealer = {
+    $lookup: {
+        from: 'members',
+        localField: 'favoriteDealer.memberId',
+        foreignField: '_id',
+        as: 'favoriteDealer.memberData',
+    },
+}
+
+export const lookupFavoriteService = {
+    $lookup: {
+        from: 'members',
+        localField: 'favoriteService.memberId',
+        foreignField: '_id',
+        as: 'favoriteService.memberData',
+    },
+}
+
+export const lookupVisitedCar = {
+    $lookup: {
+        from: 'members',
+        localField: 'visitedCar.memberId',
+        foreignField: '_id',
+        as: 'visitedCar.memberData',
+    },
+}
+
+export const lookupVisitedProduct = {
+    $lookup: {
+        from: 'members',
+        localField: 'visitedProduct.memberId',
+        foreignField: '_id',
+        as: 'visitedProduct.memberData',
+    },
+}
+
+export const lookupVisitedDealer = {
+    $lookup: {
+        from: 'members',
+        localField: 'visitedDealer.memberId',
+        foreignField: '_id',
+        as: 'visitedDealer.memberData',
+    },
+}
+
+export const lookupSavedCar = {
+    $lookup: {
+        from: 'members',
+        localField: 'savedCar.memberId',
+        foreignField: '_id',
+        as: 'savedCar.memberData',
+    },
+}
+
+export const lookupSavedProduct = {
+    $lookup: {
+        from: 'members',
+        localField: 'savedProduct.memberId',
+        foreignField: '_id',
+        as: 'savedProduct.memberData',
     },
 }

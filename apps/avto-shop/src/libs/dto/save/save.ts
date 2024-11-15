@@ -11,7 +11,7 @@ export class MeSaved {
 	saveRefId: ObjectId;
 
 	@Field(() => Boolean)
-	mySave: boolean;
+	mySaved: boolean;
 }
 
 @ObjectType()

@@ -29,19 +29,21 @@ export class ProductInput {
     @Field(() => Int, { nullable: true })
     productQuantity?: number;
 
-    @IsNotEmpty()
-    @Field(() => [String])
-    productImages: string[]
+    @IsOptional()
+    @Field(() => [String], { nullable: true })
+    productImages?: string[]
 
     @IsOptional()
     @Length(20, 100)
-    @Field(() => String)
-    productShortDesc: string;
+    @Field(() => String, { nullable: true })
+    productShortDesc?: string;
 
     @IsOptional()
     @Length(20, 500)
-    @Field(() => String)
-    productDesc: string;
+    @Field(() => String, { nullable: true })
+    productDesc?: string;
+
+    memberId?: ObjectId;
 }
 
 @InputType()
@@ -58,13 +60,14 @@ export class PriceRange {
 
 @InputType()
 class PISearch {
+
     @IsOptional()
     @Field(() => String, { nullable: true })
-    carServiceId?: ObjectId;
+    memberId?: ObjectId;
 
     @IsOptional()
     @Field(() => [ProductType], { nullable: true })
-    productTypeList?: ProductType[];
+    typeList?: ProductType[];
 
     @IsOptional()
     @Field(() => PriceRange, { nullable: true })
@@ -111,7 +114,7 @@ class CSPISearch {
 }
 
 @InputType()
-export class CarServiceProductsInquiry {
+export class SellerProductsInquiry {
     @IsNotEmpty()
     @Min(1)
     @IsInt()
@@ -146,7 +149,7 @@ class ALPISearch {
 
     @IsOptional()
     @Field(() => [ProductType], { nullable: true })
-    productLocationList?: ProductType[];
+    productTypeList?: ProductType[];
 }
 
 @InputType()

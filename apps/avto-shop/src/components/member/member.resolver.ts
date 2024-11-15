@@ -50,7 +50,6 @@ export class MemberResolver {
         return await `Hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`;
     };
 
-    //  Authenticated
     @UseGuards(AuthGuard)
     @Mutation(() => Member)
     public async updateMember(

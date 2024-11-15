@@ -32,7 +32,7 @@ const ProductSchema = new Schema(
 
         productImages: {
             type: [String],
-            required: true,
+            // required: true,
         },
 
         productShortDesc: {
@@ -53,6 +53,11 @@ const ProductSchema = new Schema(
             default: 0,
         },
 
+        productSave: {
+            type: Number,
+            default: 0,
+        },
+
         productComments: {
             type: Number,
             default: 0,
@@ -63,10 +68,10 @@ const ProductSchema = new Schema(
             default: 0,
         },
 
-        carServiceId: {
+        memberId: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: 'carservices',
+            ref: 'members',
         },
 
         deletedAt: {

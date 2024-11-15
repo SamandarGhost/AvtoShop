@@ -4,6 +4,7 @@ import { ProductStatus, ProductType } from "../../enums/product.enum";
 import { Member, TotalCounter } from "../member/member";
 import { MeLiked } from "../like/like";
 import { CarService } from "../car-service.ts/car-service";
+import { MeSaved } from "../save/save";
 
 
 
@@ -28,8 +29,8 @@ export class Product {
     @Field(() => Int)
     productQuantity: number;
 
-    @Field(() => String)
-    productImages: string;
+    @Field(() => String, { nullable: true })
+    productImages?: string;
 
     @Field(() => String, { nullable: true })
     productShortDesc?: string;
@@ -44,13 +45,16 @@ export class Product {
     productLikes: number;
 
     @Field(() => Int)
+    productSave: number;
+
+    @Field(() => Int)
     productComments: number;
 
     @Field(() => Int)
     productRank: number;
 
     @Field(() => String)
-    carServiceId: ObjectId;
+    memberId: ObjectId;
 
     @Field(() => Date, { nullable: true })
     deletedAt?: Date;
@@ -61,14 +65,14 @@ export class Product {
     @Field(() => Date)
     updatedAt: Date;
 
-    @Field(() => CarService, { nullable: true })
-    carServiceData?: CarService;
-
     @Field(() => Member, { nullable: true })
     memberData?: Member;
 
     @Field(() => [MeLiked], { nullable: true })
     meLiked?: MeLiked[];
+
+    @Field(() => [MeSaved], { nullable: true })
+    meSaved?: MeSaved[];
 }
 
 @ObjectType()

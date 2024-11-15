@@ -70,6 +70,9 @@ export class Member {
     memberCars: number;
 
     @Field(() => Int)
+    memberProducts: number;
+
+    @Field(() => Int)
     memberArticles: number;
 
     @Field(() => Int)

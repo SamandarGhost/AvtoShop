@@ -98,6 +98,11 @@ const MemberSchema = new Schema({
         default: 0,
     },
 
+    memberProducts: {
+        type: Number,
+        default: 0,
+    },
+
     memberArticles: {
         type: Number,
         default: 0,

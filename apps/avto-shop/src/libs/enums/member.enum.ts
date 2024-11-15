@@ -5,6 +5,9 @@ export enum MemberType {
     USER = 'USER',
     AGENT = 'AGENT',
     ADMIN = 'ADMIN',
+    DEALER = 'DEALER',
+    SERVICE = 'SERVICE',
+    SELLER = 'SELLER',
 };
 registerEnumType(MemberType, {
     name: 'MemberType',
