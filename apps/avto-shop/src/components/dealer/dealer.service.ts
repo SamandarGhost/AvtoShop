@@ -11,10 +11,9 @@ import { DealerUpdate } from '../../libs/dto/dealer/dealer.update';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { DealerStatus } from '../../libs/enums/dealer.enum';
 import { ViewGroup } from '../../libs/enums/view.enum';
-import { lookupAuthMemberLiked, lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { lookupAuthMemberLiked, lookupDealer, shapeIntoMongoObjectId } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { LikeGroup } from '../../libs/enums/like.enum';
-import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable()
@@ -100,7 +99,7 @@ export class DealerService {
             targetDealer.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
 
-        targetDealer.memberData = await this.memberService.getMember(null, targetDealer.memberId);
+        targetDealer.creatorData = await this.memberService.getMember(null, targetDealer.memberId);
         return targetDealer;
     }
 
@@ -188,8 +187,8 @@ export class DealerService {
                         list: [
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
-                            lookupMember,
-                            { $unwind: '$memberData' },
+                            lookupDealer,
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },

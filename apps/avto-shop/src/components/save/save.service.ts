@@ -78,7 +78,7 @@ export class SaveService {
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
                         lookupSaved,
-                        { $unwind: '$savedItems.memberData' }
+                        { $unwind: '$savedItems.creatorData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },

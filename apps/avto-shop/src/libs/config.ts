@@ -173,7 +173,7 @@ export const lookupFavorite = {
         from: 'members',
         localField: 'favoriteItems.memberId',
         foreignField: '_id',
-        as: 'favoriteItems.memberData',
+        as: 'favoriteItems.creatorData',
     },
 }
 
@@ -182,7 +182,7 @@ export const lookupVisited = {
         from: 'members',
         localField: 'visitedItems.memberId',
         foreignField: '_id',
-        as: 'visitedItems.memberData',
+        as: 'visitedItems.creatorData',
     },
 }
 
@@ -191,6 +191,6 @@ export const lookupSaved = {
         from: 'members',
         localField: 'savedItems.memberId',
         foreignField: '_id',
-        as: 'savedItems.memberData',
+        as: 'savedItems.creatorData',
     },
 }

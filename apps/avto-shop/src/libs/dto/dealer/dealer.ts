@@ -180,7 +180,7 @@ export class Dealer {
     memberId?: ObjectId;
 
     @Field(() => Member, { nullable: true })
-    memberData?: Member;
+    creatorData?: Member;
 
     @Field(() => String, { nullable: true })
     accessToken?: string;

@@ -66,7 +66,7 @@ export class Product {
     updatedAt: Date;
 
     @Field(() => Member, { nullable: true })
-    memberData?: Member;
+    creatorData?: Member;
 
     @Field(() => [MeLiked], { nullable: true })
     meLiked?: MeLiked[];

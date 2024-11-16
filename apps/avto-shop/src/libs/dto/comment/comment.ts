@@ -32,7 +32,7 @@ export class Comment {
 	/** from aggregation **/
 
 	@Field(() => Member, { nullable: true })
-	memberData?: Member;
+	creatorData?: Member;
 }
 
 @ObjectType()

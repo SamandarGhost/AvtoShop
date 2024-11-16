@@ -87,7 +87,7 @@ export class ProductService {
             targetProduct.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
 
-        targetProduct.memberData = await this.memberService.getMember(null, targetProduct.memberId);
+        targetProduct.creatorData = await this.memberService.getMember(null, targetProduct.memberId);
         return targetProduct;
     }
 
@@ -107,7 +107,7 @@ export class ProductService {
                             { $limit: input.limit },
                             lookupAuthMemberLiked(memberId),
                             lookupMember,
-                            { $unwind: '$memberData' },
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },
@@ -197,7 +197,7 @@ export class ProductService {
                         { $skip: (input.page - 1) * input.limit },
                         { $limit: input.limit },
                         lookupMember,
-                        { $unwind: '$memberData' },
+                        { $unwind: '$creatorData' },
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
@@ -227,7 +227,7 @@ export class ProductService {
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
                             lookupMember,
-                            { $unwind: '$memberData' },
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },

@@ -375,7 +375,7 @@ export class CarsService {
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
                             lookupMember,
-                            { $unwind: '$memberData' },
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },

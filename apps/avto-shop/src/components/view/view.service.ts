@@ -68,7 +68,7 @@ export class ViewService {
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
                         lookupVisited,
-                        { $unwind: '$visitedItems.memberData' }
+                        { $unwind: '$visitedItems.creatorData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
