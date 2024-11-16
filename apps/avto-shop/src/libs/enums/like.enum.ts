@@ -6,7 +6,6 @@ export enum LikeGroup {
 	PRODUCT = 'PRODUCT',
 	ARTICLE = 'ARTICLE',
 	DEALER = 'DEALER',
-	CAR_SERVICE = 'CAR_SERVICE',
 }
 registerEnumType(LikeGroup, {
 	name: 'LikeGroup',

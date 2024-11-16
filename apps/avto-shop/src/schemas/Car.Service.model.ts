@@ -209,11 +209,6 @@ const CarServiceSchema = new Schema(
             default: 0,
         },
 
-        carServiceLikes: {
-            type: Number,
-            default: 0,
-        },
-
         carServiceRank: {
             type: Number,
             default: 0,
