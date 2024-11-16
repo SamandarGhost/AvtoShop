@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SaveService } from './save.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SaveResolver } from './save.resolver';
 import SaveSchema from '../../schemas/Save.model';
 
 @Module({
@@ -12,7 +13,7 @@ import SaveSchema from '../../schemas/Save.model';
       }
     ])
   ],
-  providers: [SaveService],
+  providers: [SaveService, SaveResolver],
   exports: [SaveService],
 })
 export class SaveModule { }

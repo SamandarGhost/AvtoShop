@@ -228,18 +228,6 @@ export class CarsService {
         return result;
     }
 
-    public async getVisitedCar(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
-        return await this.viewService.getVisitedCars(memberId, input);
-    }
-
-    public async getFavoritesCar(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
-        return await this.likeService.getFavoriteCars(memberId, input);
-    }
-
-    public async getSavedCar(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
-        return await this.saveService.getSavedCars(memberId, input);
-    }
-
     public async getAgentCars(memberId: ObjectId, input: AgentCarsInquiry): Promise<Cars> {
         const { carStatus } = input.search;
         if (carStatus === CarStatus.DELETE) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);

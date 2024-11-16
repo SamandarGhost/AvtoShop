@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { LikeService } from './like.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { LikeResolver } from './like.resolver';
 import LikeSchema from '../../schemas/Like.model';
 
 @Module({
@@ -12,7 +13,7 @@ import LikeSchema from '../../schemas/Like.model';
       }
     ])
   ],
-  providers: [LikeService],
+  providers: [LikeService, LikeResolver],
   exports: [LikeService]
 })
 export class LikeModule { }

@@ -7,7 +7,7 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { AuthMember } from '../auth/decorators/authMember.decorator';
 import { ObjectId } from 'mongoose';
 import { Dealer, Dealers } from '../../libs/dto/dealer/dealer';
-import { AllDealersInquiry, DealerInput, DealersInquiry } from '../../libs/dto/dealer/dealer.input';
+import { AllDealersInquiry, DealerInput, DealerLogin, DealersInquiry } from '../../libs/dto/dealer/dealer.input';
 import { DealerUpdate } from '../../libs/dto/dealer/dealer.update';
 import { shapeIntoMongoObjectId } from '../../libs/config';
 import { WithoutGuard } from '../auth/guards/without.guard';
@@ -29,6 +29,17 @@ export class DealerResolver {
         input.memberId = memberId
         return await this.dealerService.createDealer(memberId, input);
     }
+
+    @Roles(MemberType.DEALER)
+    @UseGuards(RolesGuard)
+    @Mutation(() => Dealer)
+    public async loginDealer(
+        @Args('input') input: DealerLogin,
+        @AuthMember('_id') memberId: ObjectId,
+    ): Promise<Dealer> {
+        console.log('Mutation: loginDealer');
+        return await this.dealerService.loginDealer(memberId, input);
+    };
 
     @Roles(MemberType.DEALER)
     @UseGuards(RolesGuard)
@@ -72,26 +83,6 @@ export class DealerResolver {
         console.log("Mutation: likeTargetDealer ");
         const likeRefId = shapeIntoMongoObjectId(input);
         return await this.dealerService.likeTargetDealer(memberId, likeRefId);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Dealers)
-    public async getVisitedDealer(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Dealers> {
-        console.log('Query: getVisitedDealer');
-        return await this.dealerService.getVisitedDealer(memberId, input);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Dealers)
-    public async getFavoriteDealer(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Dealers> {
-        console.log('Query: getFavoriteDealer');
-        return await this.dealerService.getFavoriteDealer(memberId, input);
     }
 
     @Roles(MemberType.ADMIN)

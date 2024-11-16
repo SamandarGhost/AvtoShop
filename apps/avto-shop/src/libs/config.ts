@@ -116,12 +116,37 @@ export const lookupMember = {
 }
 
 
-export const lookupFollowingData = {
+export const lookupFollowingDataMember = {
     $lookup: {
         from: 'members',
         localField: 'followingId',
         foreignField: '_id',
-        as: 'followingData',
+        as: 'memberData',
+    },
+};
+
+export const lookupFollowingDataDealer = {
+    $lookup: {
+        from: 'dealers',
+        localField: 'followingId',
+        foreignField: '_id',
+        as: 'dealerData',
+    },
+};
+
+export const addFollowingData = {
+    $addFields: {
+        followingsData: {
+            $cond: {
+                if: { $gt: [{ $size: '$memberData' }, 0] },
+                then: {
+                    $mergeObjects: [{ type: 'member' }, { $arrayElemAt: ['$memberData', 0] }],
+                },
+                else: {
+                    $mergeObjects: [{ type: 'dealer' }, { $arrayElemAt: ['$dealerData', 0] }],
+                },
+            },
+        },
     },
 };
 
@@ -134,83 +159,29 @@ export const lookupFollowerData = {
     },
 };
 
-export const lookupFavoriteCar = {
+export const lookupFavorite = {
     $lookup: {
         from: 'members',
-        localField: 'favoriteCar.memberId',
+        localField: 'favoriteItems.memberId',
         foreignField: '_id',
-        as: 'favoriteCar.memberData',
+        as: 'favoriteItems.memberData',
     },
 }
 
-export const lookupFavoriteProduct = {
+export const lookupVisited = {
     $lookup: {
         from: 'members',
-        localField: 'favoriteProduct.memberId',
+        localField: 'visitedItems.memberId',
         foreignField: '_id',
-        as: 'favoriteProduct.memberData',
+        as: 'visitedItems.memberData',
     },
 }
 
-export const lookupFavoriteDealer = {
+export const lookupSaved = {
     $lookup: {
         from: 'members',
-        localField: 'favoriteDealer.memberId',
+        localField: 'savedItems.memberId',
         foreignField: '_id',
-        as: 'favoriteDealer.memberData',
-    },
-}
-
-export const lookupFavoriteService = {
-    $lookup: {
-        from: 'members',
-        localField: 'favoriteService.memberId',
-        foreignField: '_id',
-        as: 'favoriteService.memberData',
-    },
-}
-
-export const lookupVisitedCar = {
-    $lookup: {
-        from: 'members',
-        localField: 'visitedCar.memberId',
-        foreignField: '_id',
-        as: 'visitedCar.memberData',
-    },
-}
-
-export const lookupVisitedProduct = {
-    $lookup: {
-        from: 'members',
-        localField: 'visitedProduct.memberId',
-        foreignField: '_id',
-        as: 'visitedProduct.memberData',
-    },
-}
-
-export const lookupVisitedDealer = {
-    $lookup: {
-        from: 'members',
-        localField: 'visitedDealer.memberId',
-        foreignField: '_id',
-        as: 'visitedDealer.memberData',
-    },
-}
-
-export const lookupSavedCar = {
-    $lookup: {
-        from: 'members',
-        localField: 'savedCar.memberId',
-        foreignField: '_id',
-        as: 'savedCar.memberData',
-    },
-}
-
-export const lookupSavedProduct = {
-    $lookup: {
-        from: 'members',
-        localField: 'savedProduct.memberId',
-        foreignField: '_id',
-        as: 'savedProduct.memberData',
+        as: 'savedItems.memberData',
     },
 }

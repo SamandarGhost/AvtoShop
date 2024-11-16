@@ -84,36 +84,6 @@ export class ProductResolver {
         return await this.productService.saveTargetProduct(memberId, likeRefId);
     }
 
-    @UseGuards(AuthGuard)
-    @Query(() => Products)
-    public async getVisited(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Products> {
-        console.log('Query: getVisited');
-        return await this.productService.getVisited(memberId, input);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Products)
-    public async getFavorites(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Products> {
-        console.log('Query: getFavorites');
-        return await this.productService.getFavorites(memberId, input);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Products)
-    public async getSaved(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Products> {
-        console.log('Query: getFavorites');
-        return await this.productService.getSaved(memberId, input);
-    }
-
     @Roles(MemberType.SELLER)
     @UseGuards(RolesGuard)
     @Query((returns) => Products)

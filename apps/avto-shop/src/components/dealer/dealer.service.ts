@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ViewService } from '../view/view.service';
 import { MemberService } from '../member/member.service';
 import { LikeService } from '../like/like.service';
-import { AllDealersInquiry, DealerInput, DealersInquiry } from '../../libs/dto/dealer/dealer.input';
+import { AllDealersInquiry, DealerInput, DealerLogin, DealersInquiry } from '../../libs/dto/dealer/dealer.input';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { DealerUpdate } from '../../libs/dto/dealer/dealer.update';
 import { StatisticModifier, T } from '../../libs/types/common';
@@ -15,27 +15,51 @@ import { lookupAuthMemberLiked, lookupMember, shapeIntoMongoObjectId } from '../
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { LikeGroup } from '../../libs/enums/like.enum';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { Schema } from 'inspector/promises';
-import { MemberUpdate } from '../../libs/dto/member/member.update';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class DealerService {
     constructor(@InjectModel('Dealer') private readonly dealerModel: Model<Dealer>,
+        private readonly authService: AuthService,
         private viewService: ViewService,
         private memberService: MemberService,
         private likeService: LikeService,
     ) { }
 
     public async createDealer(memberId: ObjectId, input: DealerInput): Promise<Dealer> {
+        input.dealerPassword = await this.authService.hashPassword(input.dealerPassword);
         try {
             const result = await this.dealerModel.create(input);
             let dealerId = result._id;
             await this.memberService.insertDealerId(memberId, dealerId);
+            result.accessToken = await this.authService.createTokenDealer(result);
             return result;
         } catch (err) {
             console.log('Error Dealer.Model createDealer:', err.message);
             throw new InternalServerErrorException(Message.CREATE_FAILED)
         }
+    }
+
+    public async loginDealer(memberId: ObjectId, input: DealerLogin): Promise<Dealer> {
+        const isDealer = await this.memberService.getMember(null, memberId);
+        if (!isDealer) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        const { dealerTitle, dealerPassword, dealerLocation } = input;
+        const response: Dealer = await this.dealerModel
+            .findOne({ dealerTitle: dealerTitle, dealerLocation: dealerLocation })
+            .select('+dealerPassword')
+            .exec();
+
+        if (!response || response.dealerStatus === DealerStatus.DELETE) {
+            throw new InternalServerErrorException(Message.NO_MEMBER_NICK);
+        } else if (response.dealerStatus === DealerStatus.BLOCK) {
+            throw new InternalServerErrorException(Message.BLOCKED_USER);
+        };
+
+        const isMatch = await this.authService.comparePassword(input.dealerPassword, response.dealerPassword);
+        if (!isMatch) throw new InternalServerErrorException(Message.WRONG_PASSWORD);
+
+        response.accessToken = await this.authService.createTokenDealer(response);
+        return response;
     }
 
     public async updateDealer(memberId: ObjectId, input: DealerUpdate): Promise<Dealer> {
@@ -143,14 +167,6 @@ export class DealerService {
 
         if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
         return result;
-    }
-
-    public async getVisitedDealer(memberId: ObjectId, input: OrdinaryInquiry): Promise<Dealers> {
-        return await this.viewService.getVisitedDealer(memberId, input);
-    }
-
-    public async getFavoriteDealer(memberId: ObjectId, input: OrdinaryInquiry): Promise<Dealers> {
-        return await this.likeService.getFavoriteDealers(memberId, input);
     }
 
     public async getAllDealersByAdmin(input: AllDealersInquiry): Promise<Dealers> {

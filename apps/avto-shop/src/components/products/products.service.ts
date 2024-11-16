@@ -178,18 +178,6 @@ export class ProductService {
         return result;
     }
 
-    public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<Products> {
-        return await this.viewService.getVisitedProducts(memberId, input);
-    }
-
-    public async getFavorites(memberId: ObjectId, input: OrdinaryInquiry): Promise<Products> {
-        return await this.likeService.getFavoriteProducts(memberId, input);
-    }
-
-    public async getSaved(memberId: ObjectId, input: OrdinaryInquiry): Promise<Products> {
-        return await this.saveService.getSavedProducts(memberId, input);
-    }
-
     public async getSellerProducts(memberId: ObjectId, input: SellerProductsInquiry): Promise<Products> {
         const { productStatus } = input.search;
         if (productStatus === ProductStatus.DELETE) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);

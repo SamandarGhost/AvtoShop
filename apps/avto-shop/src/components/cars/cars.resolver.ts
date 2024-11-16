@@ -83,36 +83,6 @@ export class CarsResolver {
         return await this.carsService.saveTargetCar(memberId, likeRefId);
     }
 
-    @UseGuards(AuthGuard)
-    @Query(() => Cars)
-    public async getVisitedCar(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Cars> {
-        console.log('Query: getVisited');
-        return await this.carsService.getVisitedCar(memberId, input);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Cars)
-    public async getFavoritesCar(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Cars> {
-        console.log('Query: getFavorites');
-        return await this.carsService.getFavoritesCar(memberId, input);
-    }
-
-    @UseGuards(AuthGuard)
-    @Query(() => Cars)
-    public async getSavedCar(
-        @Args('input') input: OrdinaryInquiry,
-        @AuthMember('_id') memberId: ObjectId,
-    ): Promise<Cars> {
-        console.log('Query: getFavorites');
-        return await this.carsService.getSavedCar(memberId, input);
-    }
-
     @Roles(MemberType.AGENT)
     @UseGuards(RolesGuard)
     @Query(() => Cars)
