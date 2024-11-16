@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { lookupVisitedCar, lookupVisitedDealer, lookupVisitedProduct } from '../../libs/config';
-import { Cars } from '../../libs/dto/car/car';
-import { ViewGroup } from '../../libs/enums/view.enum';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { View } from '../../libs/dto/view/view';
 import { ViewInput } from '../../libs/dto/view/view.input';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { T } from '../../libs/types/common';
-import { Products } from '../../libs/dto/product/product';
-import { Dealers } from '../../libs/dto/dealer/dealer';
+import { ITEMS, T } from '../../libs/types/common';
+import { lookupVisited } from '../../libs/config';
 
 @Injectable()
 export class ViewService {
@@ -31,9 +27,9 @@ export class ViewService {
         return await this.viewModel.findOne(search).exec();
     }
 
-    public async getVisitedCars(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
+    public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<ITEMS> {
         const { page, limit } = input;
-        const match: T = { viewGroup: ViewGroup.CAR, memberId: memberId };
+        const match: T = { likeGroup: { $in: ['CAR', 'PRODUCT'] }, memberId: memberId };
 
         const data: T = await this.viewModel.aggregate([
             { $match: match },
@@ -41,92 +37,48 @@ export class ViewService {
             {
                 $lookup: {
                     from: 'cars',
-                    localField: 'viewRefId',
+                    localField: 'likeRefId',
                     foreignField: '_id',
-                    as: 'visitedCar'
+                    as: 'visitedItems',
                 },
             },
-            { $unwind: '$visitedCar' },
-            {
-                $facet: {
-                    list: [
-                        { $skip: (page - 1) * limit },
-                        { $limit: limit },
-                        lookupVisitedCar,
-                        { $unwind: '$visitedCar.memberData' }
-                    ],
-                    metaCounter: [{ $count: 'total' }],
-                }
-            }
-        ]).exec();
-        const result: Cars = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.visitedCar);
-        return result;
-    }
-
-    public async getVisitedProducts(memberId: ObjectId, input: OrdinaryInquiry): Promise<Products> {
-        const { page, limit } = input;
-        const match: T = { viewGroup: ViewGroup.PRODUCT, memberId: memberId };
-
-        const data: T = await this.viewModel.aggregate([
-            { $match: match },
-            { $sort: { updatedAt: -1 } },
             {
                 $lookup: {
                     from: 'products',
-                    localField: 'viewRefId',
+                    localField: 'likeRefId',
                     foreignField: '_id',
-                    as: 'visitedProduct'
+                    as: 'visitedItems',
+                }
+            },
+            {
+                $project: {
+                    visitedItems: {
+                        $cond: {
+                            if: { $eq: [{ $type: '$visitedItems' }, 'array'] },
+                            then: '$visitedItems',
+                            else: []
+                        }
+                    },
                 },
             },
-            { $unwind: '$visitedProduct' },
+            { $unwind: '$visitedItems' },
             {
                 $facet: {
                     list: [
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
-                        lookupVisitedProduct,
-                        { $unwind: '$visitedProduct.memberData' }
+                        lookupVisited,
+                        { $unwind: '$visitedItems.memberData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
-                }
-            }
-        ]).exec();
-        const result: Products = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.visitedProduct);
-        return result;
-    }
-
-    public async getVisitedDealer(memberId: ObjectId, input: OrdinaryInquiry): Promise<Dealers> {
-        const { page, limit } = input;
-        const match: T = { viewGroup: ViewGroup.DEALER, memberId: memberId };
-
-        const data: T = await this.viewModel.aggregate([
-            { $match: match },
-            { $sort: { updatedAt: -1 } },
-            {
-                $lookup: {
-                    from: 'dealers',
-                    localField: 'viewRefId',
-                    foreignField: '_id',
-                    as: 'visitedDealer'
                 },
             },
-            { $unwind: '$visitedDealer' },
-            {
-                $facet: {
-                    list: [
-                        { $skip: (page - 1) * limit },
-                        { $limit: limit },
-                        lookupVisitedDealer,
-                        { $unwind: '$visitedDealer.memberData' }
-                    ],
-                    metaCounter: [{ $count: 'total' }],
-                }
-            }
         ]).exec();
-        const result: Dealers = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.visitedDealer);
+
+
+        const result: ITEMS = { list: [], metaCounter: data[0].metaCounter };
+        result.list = data[0].list.map((ele) => ele.visitedItems);
         return result;
     }
+
 }

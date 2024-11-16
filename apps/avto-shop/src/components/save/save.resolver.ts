@@ -13,7 +13,7 @@ export class SaveResolver {
 
     @UseGuards(AuthGuard)
     @Query(() => ITEMS)
-    public async getFavorites(
+    public async getSaved(
         @Args('input') input: OrdinaryInquiry,
         @AuthMember('_id') memberId: ObjectId,
     ): Promise<ITEMS> {
