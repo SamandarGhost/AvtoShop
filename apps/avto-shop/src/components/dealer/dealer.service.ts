@@ -11,7 +11,7 @@ import { DealerUpdate } from '../../libs/dto/dealer/dealer.update';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { DealerStatus } from '../../libs/enums/dealer.enum';
 import { ViewGroup } from '../../libs/enums/view.enum';
-import { lookupAuthMemberLiked, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { lookupAuthMemberLiked, lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { LikeGroup } from '../../libs/enums/like.enum';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
@@ -119,8 +119,8 @@ export class DealerService {
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
                             lookupAuthMemberLiked(memberId),
-                            lookupMember,
-                            { $unwind: '$memberData' },
+                            lookupDealer,
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },

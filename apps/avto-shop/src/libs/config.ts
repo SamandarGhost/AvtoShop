@@ -111,7 +111,16 @@ export const lookupMember = {
         from: 'members',
         localField: 'memberId',
         foreignField: '_id',
-        as: 'memberData'
+        as: 'creatorData'
+    }
+}
+
+export const lookupDealer = {
+    $lookup: {
+        from: 'dealers',
+        localField: 'dealerId',
+        foreignField: '_id',
+        as: 'creatorData'
     }
 }
 

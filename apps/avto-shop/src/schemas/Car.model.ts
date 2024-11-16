@@ -516,6 +516,10 @@ const CarSchema = new Schema(
             ref: 'Dealer',
         },
 
+        carCreatedBy: {
+            type: String,
+        },
+
         soldAt: {
             type: Date,
         },
