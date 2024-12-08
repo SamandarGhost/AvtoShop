@@ -2,10 +2,7 @@ import { BadRequestException, Injectable, InternalServerErrorException } from '@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { MemberService } from '../member/member.service';
-import { ArticleService } from '../article/article.service';
 import { ProductService } from '../products/products.service';
-import { CarService } from '../../libs/dto/car-service.ts/car-service';
-import { DealerService } from '../dealer/dealer.service';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { CommentInput, CommentsInquiry } from '../../libs/dto/comment/comment.input';
 import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
@@ -14,6 +11,7 @@ import { CommentUpdate } from '../../libs/dto/comment/comment.update';
 import { Comments } from '../../libs/dto/comment/comment';
 import { T } from '../../libs/types/common';
 import { lookupMember } from '../../libs/config';
+import { ArticleService } from '../article/article.service';
 
 @Injectable()
 export class CommentService {
@@ -23,7 +21,6 @@ export class CommentService {
         private readonly articleService: ArticleService,
         private readonly productService: ProductService,
         private readonly carsService: CarsService,
-        private readonly dealerServcie: DealerService,
     ) { }
 
     public async createComment(memberId: ObjectId, input: CommentInput): Promise<Comment> {
@@ -45,13 +42,6 @@ export class CommentService {
                     modifier: 1,
                 });
                 break;
-            case CommentGroup.DEALER:
-                await this.dealerServcie.dealerStatsEditor({
-                    _id: input.commentRefId,
-                    targetKey: 'dealerComments',
-                    modifier: 1,
-                });
-                break;
             case CommentGroup.PRODUCT:
                 await this.productService.productStatsEditor({
                     _id: input.commentRefId,
@@ -60,11 +50,11 @@ export class CommentService {
                 });
                 break;
             case CommentGroup.ARTICLE:
-                // await this.art.boardArticleStatsEditor({
-                //     _id: input.commentRefId,
-                //     targetKey: 'articleComments',
-                //     modifier: 1,
-                // });
+                await this.articleService.boardArticleStatsEditor({
+                    _id: input.commentRefId,
+                    targetKey: 'articleComments',
+                    modifier: 1,
+                });
                 break;
 
             case CommentGroup.MEMBER:

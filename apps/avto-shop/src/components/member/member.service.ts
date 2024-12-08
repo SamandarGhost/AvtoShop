@@ -8,13 +8,13 @@ import { ViewService } from '../view/view.service';
 import { LikeService } from '../like/like.service';
 import { AgentsInquiry, LoginInput, MemberInput, MembersInquiry } from '../../libs/dto/member/member.input';
 import { Direction, Message } from '../../libs/enums/common.enum';
-import { MemberStatus, MemberType } from '../../libs/enums/member.enum';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { LikeGroup } from '../../libs/enums/like.enum';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { lookupAuthMemberLiked } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
+import { Status, Type } from '../../libs/enums/member.enum';
 
 @Injectable()
 export class MemberService {
@@ -28,7 +28,7 @@ export class MemberService {
 
 
     public async signup(input: MemberInput): Promise<Member> {
-        input.memberPassword = await this.authService.hashPassword(input.memberPassword);
+        input.password = await this.authService.hashPassword(input.password);
         try {
             const result = await this.memberModel.create(input);
             result.accessToken = await this.authService.createToken(result);
@@ -40,43 +40,29 @@ export class MemberService {
     };
 
     public async login(input: LoginInput): Promise<Member> {
-        const { memberNick, memberPassword } = input;
+        const { titleNick, password } = input;
         const response: Member = await this.memberModel
-            .findOne({ memberNick: memberNick })
-            .select('+memberPassword')
+            .findOne({ titleNick: titleNick })
+            .select('+password')
             .exec();
 
-        if (!response || response.memberStatus === MemberStatus.DELETE) {
+        if (!response || response.status === Status.DELETE) {
             throw new InternalServerErrorException(Message.NO_MEMBER_NICK);
-        } else if (response.memberStatus === MemberStatus.BLOCK) {
+        } else if (response.status === Status.BLOCK) {
             throw new InternalServerErrorException(Message.BLOCKED_USER);
         };
 
-        const isMatch = await this.authService.comparePassword(input.memberPassword, response.memberPassword);
+        const isMatch = await this.authService.comparePassword(input.password, response.password);
         if (!isMatch) throw new InternalServerErrorException(Message.WRONG_PASSWORD);
 
         response.accessToken = await this.authService.createToken(response);
         return response;
     };
 
-    public async insertDealerId(memberId: ObjectId, dealerId: ObjectId): Promise<void> {
-        const input = {
-            memberStatus: MemberStatus.ACTIVE,
-            memberType: MemberType.DEALER,
-            dealerId: dealerId,
-        };
-        const search: T = {
-            _id: memberId,
-            memberStatus: MemberStatus.ACTIVE,
-            memberType: MemberType.DEALER,
-        };
-        const result = await this.memberModel.findOneAndUpdate(search, input, { new: true }).exec()
-    }
-
     public async updateMember(memberId: ObjectId, input: MemberUpdate): Promise<Member> {
         const result: Member = await this.memberModel.findOneAndUpdate({
             _id: memberId,
-            memberStatus: MemberStatus.ACTIVE,
+            status: Status.ACTIVE,
         }, input, { new: true }).exec();
         if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
         result.accessToken = await this.authService.createToken(result);
@@ -86,7 +72,7 @@ export class MemberService {
     public async getMember(memberId: ObjectId, targetId: ObjectId): Promise<Member> {
         const search: T = {
             _id: targetId,
-            memberStatus: MemberStatus.ACTIVE
+            status: Status.ACTIVE
         };
         const targetMember = await this.memberModel.findOne(search).lean().exec() as Member;
         if (!targetMember) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
@@ -94,8 +80,8 @@ export class MemberService {
             const viewInput = { memberId: memberId, viewRefId: targetId, viewGroup: ViewGroup.MEMBER };
             const newview = await this.viewService.recordView(viewInput);
             if (newview) {
-                await this.memberModel.findOneAndUpdate(search, { $inc: { memberViews: 1 } }, { new: true }).exec();
-                targetMember.memberViews++;
+                await this.memberModel.findOneAndUpdate(search, { $inc: { views: 1 } }, { new: true }).exec();
+                targetMember.views++;
             }
 
             const likeInput = { memberId: memberId, likeRefId: targetId, likeGroup: LikeGroup.MEMBER };
@@ -116,7 +102,7 @@ export class MemberService {
 
     public async getAgents(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
         const { text } = input.search;
-        const match: T = { memberType: MemberType.AGENT, memberStatus: MemberStatus.ACTIVE };
+        const match: T = { type: Type.AGENT, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
         if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
@@ -143,7 +129,7 @@ export class MemberService {
     };
 
     public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<Member> {
-        const target: Member = await this.memberModel.findOne({ _id: likeRefId, memberStatus: MemberStatus.ACTIVE });
+        const target: Member = await this.memberModel.findOne({ _id: likeRefId, status: Status.ACTIVE });
         if (!target) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
 
         const input: LikeInput = {
@@ -152,7 +138,7 @@ export class MemberService {
             likeGroup: LikeGroup.MEMBER
         };
         let modifier: number = await this.likeService.toggleLike(input);
-        const result = this.memberStatsEditor({ _id: likeRefId, targetKey: 'memberLikes', modifier: modifier });
+        const result = this.memberStatsEditor({ _id: likeRefId, targetKey: 'likes', modifier: modifier });
 
         if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
 
@@ -160,13 +146,13 @@ export class MemberService {
     }
 
     public async getAllMembersByAdmin(input: MembersInquiry): Promise<Members> {
-        const { memberStatus, memberType, text } = input.search;
+        const { status, type, text } = input.search;
         const match: T = {};
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
-        if (memberStatus) match.memberStatus = memberStatus;
-        if (memberType) match.memberType = memberType;
-        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        if (status) match.status = status;
+        if (type) match.type = type;
+        if (text) match.titleNick = { $regex: new RegExp(text, 'i') };
         console.log('match:', match);
 
         const result = await this.memberModel

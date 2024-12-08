@@ -6,7 +6,7 @@ import { Product, Products } from '../../libs/dto/product/product';
 import { AllProductsInquiry, ProductInput, ProductsInquiry, SellerProductsInquiry } from '../../libs/dto/product/product.input';
 import { ObjectId } from 'mongoose';
 import { AuthMember } from '../auth/decorators/authMember.decorator';
-import { MemberType } from '../../libs/enums/member.enum';
+import { Type } from '../../libs/enums/member.enum';
 import { WithoutGuard } from '../auth/guards/without.guard';
 import { UseGuards } from '@nestjs/common';
 import { shapeIntoMongoObjectId } from '../../libs/config';
@@ -18,7 +18,7 @@ import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
 export class ProductResolver {
     constructor(private readonly productService: ProductService) { }
 
-    @Roles(MemberType.SELLER)
+    @Roles(Type.SELLER)
     @UseGuards(RolesGuard)
     @Mutation(() => Product)
     public async createProduct(
@@ -30,7 +30,7 @@ export class ProductResolver {
         return await this.productService.createProduct(input);
     }
 
-    @Roles(MemberType.SELLER)
+    @Roles(Type.SELLER)
     @UseGuards(RolesGuard)
     @Mutation((returns) => Product)
     public async updateProduct(@Args('input') input: ProductUpdate,
@@ -62,7 +62,7 @@ export class ProductResolver {
         return await this.productService.getProducts(memberId, input);
     }
 
-    @Roles(MemberType.SELLER)
+    @Roles(Type.SELLER)
     @UseGuards(RolesGuard)
     @Query((returns) => Products)
     public async getSellerProducts(
@@ -73,7 +73,7 @@ export class ProductResolver {
         return await this.productService.getSellerProducts(memberId, input);
     }
 
-    @Roles(MemberType.ADMIN)
+    @Roles(Type.ADMIN)
     @UseGuards(RolesGuard)
     @Query(() => Products)
     public async getAllProductsByAdmin(
@@ -85,7 +85,7 @@ export class ProductResolver {
 
     }
 
-    @Roles(MemberType.ADMIN)
+    @Roles(Type.ADMIN)
     @UseGuards(RolesGuard)
     @Mutation(() => Product)
     public async updateProductByAdmin(
@@ -97,7 +97,7 @@ export class ProductResolver {
 
     }
 
-    @Roles(MemberType.ADMIN)
+    @Roles(Type.ADMIN)
     @UseGuards(RolesGuard)
     @Mutation(() => Product)
     public async removeProductByAdmin(

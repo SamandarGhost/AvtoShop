@@ -6,7 +6,7 @@ import { AgentsInquiry, LoginInput, MemberInput, MembersInquiry } from '../../li
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { AuthMember } from '../auth/decorators/authMember.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { MemberType } from '../../libs/enums/member.enum';
+import { Type } from '../../libs/enums/member.enum';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { ObjectId } from 'mongoose';
 import { WithoutGuard } from '../auth/guards/without.guard';
@@ -41,13 +41,13 @@ export class MemberResolver {
         return await `Hi ${memberNick}`;
     };
 
-    @Roles(MemberType.USER, MemberType.AGENT)
+    @Roles(Type.USER, Type.AGENT)
     @UseGuards(AuthGuard)
     @Query(() => String)
     public async checkAuthRoles(@AuthMember() authMember: Member): Promise<string> {
         console.log("Query checkAuth");
         console.log("MemberNick:",);
-        return await `Hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`;
+        return await `Hi ${authMember.titleNick}, you are ${authMember.titleNick} (memberId: ${authMember._id})`;
     };
 
     @UseGuards(AuthGuard)
@@ -92,7 +92,7 @@ export class MemberResolver {
     /* ADMIN */
 
     // Authorization: ADMIN
-    @Roles(MemberType.ADMIN)
+    @Roles(Type.ADMIN)
     @UseGuards(RolesGuard)
     @Query(() => Members)
     public async getAllMembersByAdmin(@Args('input') input: MembersInquiry): Promise<Members> {
@@ -101,7 +101,7 @@ export class MemberResolver {
     };
 
     // Authorization: ADMIN
-    @Roles(MemberType.ADMIN)
+    @Roles(Type.ADMIN)
     @UseGuards(RolesGuard)
     @Mutation(() => Member)
     public async updateMemberByAdmin(@Args('input') input: MemberUpdate): Promise<Member> {

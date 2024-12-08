@@ -6,20 +6,19 @@ import { MemberService } from '../member/member.service';
 import { ViewService } from '../view/view.service';
 import { LikeService } from '../like/like.service';
 import { SaveService } from '../save/save.service';
-import { AgentCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
+import { AgentDealerCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { Direction, Message } from '../../libs/enums/common.enum';
-import { MemberType } from '../../libs/enums/member.enum';
+import { Type } from '../../libs/enums/member.enum';
 import { CarUpdate } from '../../libs/dto/car/car.update';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { CarStatus } from '../../libs/enums/car.enum';
 import * as moment from 'moment';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { LikeGroup } from '../../libs/enums/like.enum';
-import { lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { lookupAuthMemberLiked, lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { SaveInput } from '../../libs/dto/save/save.input';
 import { SaveGroup } from '../../libs/enums/save.enum';
-import { DealerService } from '../dealer/dealer.service';
 
 @Injectable()
 export class CarsService {
@@ -28,31 +27,16 @@ export class CarsService {
         private viewService: ViewService,
         private likeService: LikeService,
         private saveService: SaveService,
-        private dealerService: DealerService,
     ) { }
 
     public async createCar(input: CarInput): Promise<Car> {
         try {
-            const memberData = await this.memberService.getMember(null, input.memberId);
-            if (!memberData) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
-            input.dealerId = memberData.dealerId;
-            input.carCreatedBy = memberData.memberType === MemberType.AGENT ? 'Agent' : 'Dealer';
-
             const result = await this.carModel.create(input);
-            if (memberData.memberType === MemberType.AGENT) {
-                await this.memberService.memberStatsEditor({
-                    _id: result.memberId,
-                    targetKey: 'memberCars',
-                    modifier: 1,
-                });
-            } else if (memberData.memberType === MemberType.DEALER) {
-                await this.dealerService.dealerStatsEditor({
-                    _id: result.dealerId,
-                    targetKey: 'dealerCars',
-                    modifier: 1,
-                });
-            }
+            await this.memberService.memberStatsEditor({
+                _id: result.memberId,
+                targetKey: 'cars',
+                modifier: 1,
+            });
             return result;
         } catch (err) {
             console.log('Error CarModel: createCar', err.message);
@@ -76,25 +60,11 @@ export class CarsService {
         if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
 
         if (soldAt || deletedAt) {
-            const memberData = await this.memberService.getMember(null, memberId);
-            if (!memberData) {
-                throw new InternalServerErrorException(Message.MEMBER_NOT_FOUND);
-            }
-
-            if (memberData.memberType === MemberType.AGENT) {
-                await this.memberService.memberStatsEditor({
-                    _id: memberId,
-                    targetKey: 'memberCars',
-                    modifier: -1,
-                });
-            }
-            else if (memberData.memberType === MemberType.DEALER) {
-                await this.dealerService.dealerStatsEditor({
-                    _id: result.dealerId,
-                    targetKey: 'dealerCars',
-                    modifier: -1,
-                });
-            }
+            await this.memberService.memberStatsEditor({
+                _id: memberId,
+                targetKey: 'cars',
+                modifier: -1,
+            });
         }
 
         return result;
@@ -118,14 +88,8 @@ export class CarsService {
             const likeInput = { memberId: memberId, likeRefId: carId };
             targetCar.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
-        const memberData = await this.memberService.getMember(null, targetCar.memberId);
-        if (memberData) {
-            if (memberData.memberType === MemberType.AGENT) {
-                targetCar.creatorData = await this.memberService.getMember(null, targetCar.memberId);
-            } else if (memberData.memberType === MemberType.DEALER) {
-                targetCar.creatorData = await this.dealerService.getDealer(null, targetCar.dealerId);
-            }
-        }
+        targetCar.creatorData = await this.memberService.getMember(null, targetCar.memberId);
+
         return targetCar;
     }
 
@@ -142,32 +106,9 @@ export class CarsService {
                         list: [
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
-                            {
-                                $addFields: {
-                                    creatorData: {
-                                        $cond: {
-                                            if: { $eq: ["$memberType", MemberType.AGENT] },
-                                            then: {
-                                                $lookup: {
-                                                    from: 'members',
-                                                    localField: 'memberId',
-                                                    foreignField: '_id',
-                                                    as: 'creatorData'
-                                                }
-                                            },
-                                            else: {
-                                                $lookup: {
-                                                    from: 'dealers',
-                                                    localField: 'dealerId',
-                                                    foreignField: '_id',
-                                                    as: 'creatorData'
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            { $unwind: { path: '$creatorData', preserveNullAndEmptyArrays: true } },
+                            lookupAuthMemberLiked(memberId),
+                            lookupMember,
+                            { $unwind: '$creatorData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },
@@ -287,7 +228,7 @@ export class CarsService {
         return result;
     }
 
-    public async getAgentCars(memberId: ObjectId, input: AgentCarsInquiry): Promise<Cars> {
+    public async getAgentDealerCars(memberId: ObjectId, input: AgentDealerCarsInquiry): Promise<Cars> {
         const { carStatus } = input.search;
         if (carStatus === CarStatus.DELETE) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);
 
@@ -306,38 +247,6 @@ export class CarsService {
                         { $skip: (input.page - 1) * input.limit },
                         { $limit: input.limit },
                         lookupMember,
-                        { $unwind: '$creatorData' },
-                    ],
-                    metaCounter: [{ $count: 'total' }],
-                },
-            },
-        ]).exec();
-        if (!result) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
-        return result[0];
-    }
-
-    public async getDealerCars(memberId: ObjectId, input: AgentCarsInquiry): Promise<Cars> {
-        const { carStatus } = input.search;
-        if (carStatus === CarStatus.DELETE) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);
-        const dealerData = await this.memberService.getMember(null, memberId);
-        if (!dealerData) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);
-
-        const match: T = {
-            dealerId: dealerData.dealerId,
-            carStatus: carStatus ?? { $ne: CarStatus.DELETE },
-        };
-        const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
-
-        const result = await this.carModel.aggregate([
-            { $match: match },
-            { $sort: sort },
-            {
-                $facet: {
-                    list: [
-                        { $skip: (input.page - 1) * input.limit },
-                        { $limit: input.limit },
-                        lookupDealer,
                         { $unwind: '$creatorData' },
                     ],
                     metaCounter: [{ $count: 'total' }],

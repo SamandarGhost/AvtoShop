@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import FollowSchema from '../../schemas/Follow.model';
 import { AuthModule } from '../auth/auth.module';
 import { MemberModule } from '../member/member.module';
-import { DealerModule } from '../dealer/dealer.module';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { DealerModule } from '../dealer/dealer.module';
     ]),
     AuthModule,
     MemberModule,
-    DealerModule,
   ],
   providers: [FollowService, FollowResolver]
 })

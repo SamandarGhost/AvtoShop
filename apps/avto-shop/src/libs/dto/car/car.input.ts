@@ -551,7 +551,7 @@ class ACISearch {
 }
 
 @InputType()
-export class AgentCarsInquiry {
+export class AgentDealerCarsInquiry {
     @IsNotEmpty()
     @Min(1)
     @Field(() => Int)

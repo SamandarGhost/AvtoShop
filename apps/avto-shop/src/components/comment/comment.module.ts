@@ -9,7 +9,6 @@ import { CarsModule } from '../cars/cars.module';
 import { ArticleModule } from '../article/article.module';
 import { LikeModule } from '../like/like.module';
 import { ProductsModule } from '../products/products.module';
-import { DealerModule } from '../dealer/dealer.module';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { DealerModule } from '../dealer/dealer.module';
     MemberModule,
     CarsModule,
     ProductsModule,
-    DealerModule,
     ArticleModule,
     LikeModule,
   ],

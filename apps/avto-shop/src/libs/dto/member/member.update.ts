@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { IsNotEmpty, IsOptional, Length } from "class-validator";
-import { Brand, Status, Type } from "../../enums/member.enum";
+import { Brand, CarServiceType, Status, Type } from "../../enums/member.enum";
 
 
 

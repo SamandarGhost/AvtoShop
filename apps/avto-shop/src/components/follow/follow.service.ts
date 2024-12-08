@@ -3,17 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Follower, Followers, Following, Followings } from '../../libs/dto/follow/follow';
 import { MemberService } from '../member/member.service';
-import { DealerService } from '../dealer/dealer.service';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { FollowInquiry } from '../../libs/dto/follow/follow.input';
 import { T } from '../../libs/types/common';
-import { addFollowingData, lookupAuthMemberFollowed, lookupAuthMemberLiked, lookupFollowerData, lookupFollowingDataDealer, lookupFollowingDataMember } from '../../libs/config';
+import { addFollowingData, lookupAuthMemberFollowed, lookupAuthMemberLiked, lookupFollowerData, lookupFollowingDataMember } from '../../libs/config';
 
 @Injectable()
 export class FollowService {
     constructor(@InjectModel("Follow") private readonly followModel: Model<Follower | Following>,
         private readonly memberService: MemberService,
-        private readonly dealerService: DealerService,
     ) { }
 
     public async subscribe(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
@@ -23,8 +21,7 @@ export class FollowService {
         }
 
         const targetMember = await this.memberService.getMember(null, followingId);
-        const targetDealer = !targetMember ? await this.dealerService.getDealer(null, followingId) : null;
-        if (!targetMember && !targetDealer) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        if (!targetMember) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
 
         const result = await this.registerSubscription(followerId, followingId);
 
@@ -37,13 +34,6 @@ export class FollowService {
             await this.memberService.memberStatsEditor({
                 _id: followingId,
                 targetKey: 'memberFollowers',
-                modifier: 1,
-            });
-        }
-        if (targetDealer) {
-            await this.dealerService.dealerStatsEditor({
-                _id: followingId,
-                targetKey: 'dealerFollowers',
                 modifier: 1,
             });
         }
@@ -66,8 +56,7 @@ export class FollowService {
     public async unsubscribe(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
 
         const targetMember = await this.memberService.getMember(null, followingId);
-        const targetDealer = !targetMember ? await this.dealerService.getDealer(null, followingId) : null;
-        if (!targetMember && !targetDealer) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        if (!targetMember) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
 
         const result = await this.followModel.findOneAndDelete({
             followingId: followingId,
@@ -84,13 +73,6 @@ export class FollowService {
             await this.memberService.memberStatsEditor({
                 _id: followingId,
                 targetKey: 'memberFollowers',
-                modifier: 1,
-            });
-        }
-        if (targetDealer) {
-            await this.dealerService.dealerStatsEditor({
-                _id: followingId,
-                targetKey: 'dealerFollowers',
                 modifier: 1,
             });
         }
@@ -117,7 +99,6 @@ export class FollowService {
                             followerId: memberId, followingId: '$followingId'
                         }),
                         lookupFollowingDataMember,
-                        lookupFollowingDataDealer,
                         addFollowingData,
                         { $project: { memberData: 0, dealerData: 0 } }
                     ],

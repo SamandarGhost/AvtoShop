@@ -8,7 +8,6 @@ import { MemberModule } from '../member/member.module';
 import { ViewModule } from '../view/view.module';
 import { LikeModule } from '../like/like.module';
 import { SaveModule } from '../save/save.module';
-import { DealerModule } from '../dealer/dealer.module';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { DealerModule } from '../dealer/dealer.module';
     ViewModule,
     LikeModule,
     SaveModule,
-    DealerModule,
   ],
   providers: [CarsResolver, CarsService],
   exports: [CarsService],

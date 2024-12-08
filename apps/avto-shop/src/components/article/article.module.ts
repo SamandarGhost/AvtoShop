@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ArticleResolver } from './article.resolver';
-import { ArticleService } from './article.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import ArticleSchema from '../../schemas/Article.model';
 import { AuthModule } from '../auth/auth.module';
 import { MemberModule } from '../member/member.module';
 import { ViewModule } from '../view/view.module';
 import { LikeModule } from '../like/like.module';
+import { ArticleResolver } from './article.resolver';
+import { ArticleService } from './article.service';
 
 @Module({
   imports: [

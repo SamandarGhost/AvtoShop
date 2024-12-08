@@ -1,10 +1,7 @@
 import { Model, ObjectId } from 'mongoose';
 import { Product, Products } from '../../libs/dto/product/product';
 import { InjectModel } from '@nestjs/mongoose';
-import { ViewService } from '../view/view.service';
 import { MemberService } from '../member/member.service';
-import { LikeService } from '../like/like.service';
-import { SaveService } from '../save/save.service';
 import { AllProductsInquiry, ProductInput, ProductsInquiry, SellerProductsInquiry } from '../../libs/dto/product/product.input';
 import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Direction, Message } from '../../libs/enums/common.enum';
@@ -17,10 +14,7 @@ import { lookupAuthMemberLiked, lookupMember, shapeIntoMongoObjectId } from '../
 @Injectable()
 export class ProductService {
     constructor(@InjectModel('Product') private readonly productModel: Model<Product>,
-        private viewService: ViewService,
         private memberService: MemberService,
-        private likeService: LikeService,
-        private saveService: SaveService,
     ) { }
 
     public async createProduct(input: ProductInput): Promise<Product> {
@@ -28,7 +22,7 @@ export class ProductService {
             const result = await this.productModel.create(input);
             await this.memberService.memberStatsEditor({
                 _id: result.memberId,
-                targetKey: 'memberProducts',
+                targetKey: 'sellerProducts',
                 modifier: 1,
             });
             return result;
@@ -54,7 +48,7 @@ export class ProductService {
         if (deletedAt) {
             await this.memberService.memberStatsEditor({
                 _id: memberId,
-                targetKey: 'memberProducts',
+                targetKey: 'sellerProducts',
                 modifier: -1,
             });
         }
@@ -188,7 +182,7 @@ export class ProductService {
         if (deletedAt) {
             await this.memberService.memberStatsEditor({
                 _id: result.memberId,
-                targetKey: 'memberProducts',
+                targetKey: 'sellerProducts',
                 modifier: -1,
             });
         }
