@@ -3,10 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Like, MeLiked } from '../../libs/dto/like/like';
 import { LikeInput } from '../../libs/dto/like/like.input';
-import { ITEMS, T } from '../../libs/types/common';
+import { T } from '../../libs/types/common';
 import { Message } from '../../libs/enums/common.enum';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { lookupFavorite } from '../../libs/config';
+import { lookupliked } from '../../libs/config';
+import { Cars } from '../../libs/dto/car/car';
 
 @Injectable()
 export class LikeService {
@@ -39,9 +40,9 @@ export class LikeService {
     }
 
 
-    public async getFavorites(memberId: ObjectId, input: OrdinaryInquiry): Promise<ITEMS> {
+    public async getLiked(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
-        const match: T = { likeGroup: { $in: ['CAR', 'PRODUCT'] }, memberId: memberId };
+        const match: T = { likeGroup: { $in: ['CAR'] }, memberId: memberId };
 
         const data: T = await this.likeModel.aggregate([
             { $match: match },
@@ -51,36 +52,17 @@ export class LikeService {
                     from: 'cars',
                     localField: 'likeRefId',
                     foreignField: '_id',
-                    as: 'favoriteItems',
+                    as: 'likedCar',
                 },
             },
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: 'likeRefId',
-                    foreignField: '_id',
-                    as: 'favoriteItems',
-                }
-            },
-            {
-                $project: {
-                    favoriteItems: {
-                        $cond: {
-                            if: { $eq: [{ $type: '$favoriteItems' }, 'array'] },
-                            then: '$favoriteItems',
-                            else: []
-                        }
-                    },
-                },
-            },
-            { $unwind: '$favoriteItems' },
+            { $unwind: '$likedCar' },
             {
                 $facet: {
                     list: [
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
-                        lookupFavorite,
-                        { $unwind: '$favoriteItems.creatorData' }
+                        lookupliked,
+                        { $unwind: '$likedCar.creatorData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
@@ -88,8 +70,8 @@ export class LikeService {
         ]).exec();
 
 
-        const result: ITEMS = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.favoriteItems);
+        const result: Cars = { list: [], metaCounter: data[0].metaCounter };
+        result.list = data[0].list.map((ele) => ele.likedCar);
         return result;
     }
 }

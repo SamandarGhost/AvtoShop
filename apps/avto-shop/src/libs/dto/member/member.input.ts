@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { IsIn, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
-import { MemberAuthType, MemberStatus, MemberType } from "../../enums/member.enum";
+import { AuthType, Status, Type } from "../../enums/member.enum";
 import { availableAgentSorts, availableMemberSorts } from "../../config";
 import { Direction } from "../../enums/common.enum";
 
@@ -12,24 +12,24 @@ export class MemberInput {
     @IsNotEmpty()
     @Length(3, 12)
     @Field(() => String)
-    memberNick: string;
+    titleNick: string;
 
     @IsNotEmpty()
     @Length(5, 12)
     @Field(() => String)
-    memberPassword: string;
+    password: string;
 
     @IsNotEmpty()
     @Field(() => String)
-    memberPhone: string;
+    phone: string;
 
     @IsOptional()
-    @Field(() => MemberType, { nullable: true })
-    memberType?: MemberType;
+    @Field(() => Type, { nullable: true })
+    type?: Type;
 
     @IsOptional()
-    @Field(() => MemberAuthType, { nullable: true })
-    memberAuthType?: MemberAuthType;
+    @Field(() => AuthType, { nullable: true })
+    authType?: AuthType;
 };
 
 @InputType()
@@ -37,12 +37,12 @@ export class LoginInput {
     @IsNotEmpty()
     @Length(3, 12)
     @Field(() => String)
-    memberNick: string;
+    titleNick: string;
 
     @IsNotEmpty()
     @Length(5, 12)
     @Field(() => String)
-    memberPassword: string;
+    password: string;
 };
 
 @InputType()
@@ -81,12 +81,12 @@ export class AgentsInquiry {
 @InputType()
 class MISearch {
     @IsOptional()
-    @Field(() => MemberStatus, { nullable: true })
-    memberStatus?: MemberStatus;
+    @Field(() => Status, { nullable: true })
+    status?: Status;
 
     @IsOptional()
-    @Field(() => MemberType, { nullable: true })
-    memberType?: MemberType;
+    @Field(() => Type, { nullable: true })
+    type?: Type;
 
     @IsOptional()
     @Field(() => String, { nullable: true })

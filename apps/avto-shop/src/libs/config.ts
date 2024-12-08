@@ -134,15 +134,6 @@ export const lookupFollowingDataMember = {
     },
 };
 
-export const lookupFollowingDataDealer = {
-    $lookup: {
-        from: 'dealers',
-        localField: 'followingId',
-        foreignField: '_id',
-        as: 'dealerData',
-    },
-};
-
 export const addFollowingData = {
     $addFields: {
         followingsData: {
@@ -168,29 +159,29 @@ export const lookupFollowerData = {
     },
 };
 
-export const lookupFavorite = {
+export const lookupliked = {
     $lookup: {
         from: 'members',
-        localField: 'favoriteItems.memberId',
+        localField: 'likedCar.memberId',
         foreignField: '_id',
-        as: 'favoriteItems.creatorData',
+        as: 'likedCar.creatorData',
     },
 }
 
 export const lookupVisited = {
     $lookup: {
         from: 'members',
-        localField: 'visitedItems.memberId',
+        localField: 'visitedCar.memberId',
         foreignField: '_id',
-        as: 'visitedItems.creatorData',
+        as: 'visitedCar.creatorData',
     },
 }
 
 export const lookupSaved = {
     $lookup: {
         from: 'members',
-        localField: 'savedItems.memberId',
+        localField: 'savedCar.memberId',
         foreignField: '_id',
-        as: 'savedItems.creatorData',
+        as: 'savedCar.creatorData',
     },
 }

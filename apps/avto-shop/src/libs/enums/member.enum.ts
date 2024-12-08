@@ -1,7 +1,7 @@
 import { registerEnumType } from "@nestjs/graphql";
 
 
-export enum MemberType {
+export enum Type {
     USER = 'USER',
     AGENT = 'AGENT',
     ADMIN = 'ADMIN',
@@ -9,25 +9,173 @@ export enum MemberType {
     SERVICE = 'SERVICE',
     SELLER = 'SELLER',
 };
-registerEnumType(MemberType, {
-    name: 'MemberType',
+registerEnumType(Type, {
+    name: 'Type',
 });
 
-export enum MemberStatus {
+export enum Status {
     ACTIVE = 'ACTIVE',
     DELETE = 'DELETE',
     BLOCK = 'BLOCK',
 };
-registerEnumType(MemberStatus, {
-    name: 'MemberStatus',
+registerEnumType(Status, {
+    name: 'Status',
 });
 
-export enum MemberAuthType {
+export enum AuthType {
     PHONE = 'PHONE',
     EMAIL = 'EMAIL',
     KAKAOTALK = 'KAKAOTALK',
     TELEGRAM = 'TELEGRAM',
 };
-registerEnumType(MemberAuthType, {
-    name: 'MemberAuthType',
+registerEnumType(AuthType, {
+    name: 'AuthType',
+});
+
+export enum Location {
+    SEOUL = 'SEOUL',
+    BUSAN = 'BUSAN',
+    INCHEON = 'INCHEON',
+    DAEGU = 'DAEGU',
+    DAEJEON = 'DAEJEON',
+    GWANGJU = 'GWANGJU',
+    ULSAN = 'ULSAN',
+    SUWON = 'SUWON',
+    GYEONGJU = 'GYEONGJU',
+    JEONJU = 'JEONJU',
+    JEJU = 'JEJU',
+    CHANGWON = 'CHANGWON',
+    POHANG = 'POHANG',
+    CHEONAN = 'CHEONAN',
+    GIMHAE = 'GIMHAE',
+    CHEONGJU = 'CHEONGJU',
+    WONJU = 'WONJU',
+    IKSAN = 'IKSAN',
+    MOKPO = 'MOKPO',
+    ANDONG = 'ANDONG',
+    ASAN = 'ASAN',
+    ANSAN = 'ANSAN',
+    PYEONGTAEK = 'PYEONGTAEK',
+    YANGSAN = 'YANGSAN',
+    JEONGEUP = 'JEONGEUP',
+    GIMPO = 'GIMPO',
+    GUNSAN = 'GUNSAN',
+    GIMCHEON = 'GIMCHEON',
+    GANGNEUNG = 'GANGNEUNG',
+    UIJEONGBU = 'UIJEONGBU',
+    ICHEON = 'ICHEON',
+    PAJU = 'PAJU',
+    TONGYEONG = 'TONGYEONG',
+    CHUNCHEON = 'CHUNCHEON',
+    SOKCHO = 'SOKCHO',
+    NAJU = 'NAJU',
+    GYEONGSAN = 'GYEONGSAN',
+    HWASEONG = 'HWASEONG',
+    YEOJU = 'YEOJU',
+    SEONGNAM = 'SEONGNAM',
+    OTHER = 'OTHER',
+}
+registerEnumType(Location, {
+    name: 'Location',
+});
+
+export enum Brand {
+    HYUNDAI = 'HYUNDAI',
+    KIA = 'KIA',
+    GENESIS = 'GENESIS',
+    SSANGYONG = 'SSANGYONG',
+    TESLA = 'TESLA',
+    TOYOTA = 'TOYOTA',
+    BYD = 'BYD',
+    ROLLS_ROYCE = 'ROLLS_ROYCE',
+    BENTLEY = 'BENTLEY',
+    ASTON_MARTIN = 'ASTON_MARTIN',
+    JAGUAR = 'JAGUAR',
+    LAND_ROVER = 'LAND_ROVER',
+    BMW = 'BMW',
+    MERCEDES_BENZ = 'MERCEDES_BENZ',
+    AUDI = 'AUDI',
+    PORSCHE = 'PROSCHE',
+    MASERATI = 'MASERATI',
+    LEXUS = 'LEXUS',
+    CADILLAC = 'CADILLAC',
+    LINCOLN = 'LINCOLN',
+    ALFA_ROMEO = 'ALFA_ROMEO',
+    VOLVO = 'VOLVO',
+    PAGANI = 'PAGANI',
+    KOENIGSEGG = 'KOENIGSEGG',
+    MCLAREN = 'MCLAREN',
+    FERRARI = 'FERRARI',
+    LAMBORGHINI = 'LAMBORGHINI',
+    CHEVROLET = 'CHEVROLET',
+    NISSAN = 'NISSAN',
+    FORD_MUSTANG = 'FORD_MUSTANG',
+    CATERHAM = 'CATERHAM',
+    SPYKER = 'SPYKER',
+    ZAGATO = 'ZAGATO',
+    GARDON_MURRAY = 'GARDON_MURRAY',
+    LOTUS = 'LOTUS',
+    DODGE_VIPER = 'DODGE_VIPER',
+    BUGATTI = 'BUGATTI',
+    FORD_GT = 'FORD_GT',
+    ZENVO = 'ZENVO',
+    SSC_TUATARA = 'SSC-TUATARA',
+    RIMAC = 'RIMAC',
+    NOBLE = 'NOBLE',
+    NIO = 'NIO',
+    XPENG = 'XPENG',
+    RIVIAN = 'RIVIAN',
+    LUCID = 'LUCID',
+    POLESTAR = 'PLESTAR',
+    FISKER = 'FISKER',
+    BOLLINGER = 'BOLLINGER',
+    FARADAY_FUTURE = 'FARADAY_FUTURE',
+    HONDA = 'HONDA',
+    FORD = 'FORD',
+    PEUGEOT = 'PEUGEOT',
+    RENAULT = 'RENAULT',
+    MINI = 'MINI',
+    FIAT = 'FIAT',
+    SUZUKI = 'SUZUKI',
+    CITROEN = 'CITROEN',
+    MAZDA = 'MAZDA',
+    SKODA = 'SKODA',
+    SEAT = 'SEAT',
+    TATA = 'TATA',
+    RANGE_ROVER = 'RANGE_ROVER',
+    JEEP = 'JEEP',
+    BUICK_LACROSSE = 'BUICK_LACROSSE',
+    RAM = 'RAM',
+    GMC = 'GMC',
+    ISUZU = 'ISUZU',
+    VOLKSWAGEN = 'VOLKSWAGEN',
+    MITSUBISHI = 'MITSUBISHI',
+    SUBARU = 'SUBARU',
+    ACURA = 'ACURA',
+    INFINITI = 'INFINITI',
+    CHERY = 'CHERY',
+    HUMMER = 'HUMMER',
+    OPEL = 'OPEL',
+    ZEEKR = 'ZEEKR',
+    OTHER = 'OTHER',
+}
+registerEnumType(Brand, {
+    name: 'Brand',
+});
+
+export enum CarServiceType {
+    OIL_CHANGE = 'OIL-CHANGE',
+    BATTERY = 'BATTERY',
+    TIRE = 'TIRE',
+    BRAKE = 'BRAKE',
+    ENGINE = 'ENGINE',
+    SYSTEM = 'SYSTEM',
+    WINDSHIELD = 'WINDSHIELD',
+    AIR_CONDITION = 'AIR_CONDITION',
+    BODY_CRASH = 'BODY_CRASH',
+    TUNING = 'TUNING',
+    OTHER = 'OTHER',
+}
+registerEnumType(CarServiceType, {
+    name: 'CarServiceType',
 });

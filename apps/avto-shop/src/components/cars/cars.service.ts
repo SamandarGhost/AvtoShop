@@ -15,7 +15,7 @@ import { CarStatus } from '../../libs/enums/car.enum';
 import * as moment from 'moment';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { LikeGroup } from '../../libs/enums/like.enum';
-import { lookupAuthMemberLiked, lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { lookupDealer, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { SaveInput } from '../../libs/dto/save/save.input';
 import { SaveGroup } from '../../libs/enums/save.enum';
@@ -227,6 +227,18 @@ export class CarsService {
                 return { [ele]: true };
             });
         }
+    }
+
+    public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
+        return await this.viewService.getVisited(memberId, input);
+    }
+
+    public async getLiked(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
+        return await this.likeService.getLiked(memberId, input);
+    }
+
+    public async getSaved(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
+        return await this.saveService.getSaved(memberId, input);
     }
 
     public async likeTargetCar(memberId: ObjectId, likeRefId: ObjectId): Promise<Car> {

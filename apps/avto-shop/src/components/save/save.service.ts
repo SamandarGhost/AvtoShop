@@ -3,10 +3,11 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
 import { MeSaved, Save } from "../../libs/dto/save/save";
 import { SaveInput } from "../../libs/dto/save/save.input";
-import { ITEMS, T } from "../../libs/types/common";
+import { T } from "../../libs/types/common";
 import { Message } from "../../libs/enums/common.enum";
 import { OrdinaryInquiry } from "../../libs/dto/car/car.input";
 import { lookupSaved } from "../../libs/config";
+import { Cars } from "../../libs/dto/car/car";
 
 @Injectable()
 export class SaveService {
@@ -37,7 +38,7 @@ export class SaveService {
         return result ? [{ memberId: memberId, saveRefId: saveRefId, mySaved: true }] : [];
     }
 
-    public async getSaved(memberId: ObjectId, input: OrdinaryInquiry): Promise<ITEMS> {
+    public async getSaved(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
         const match: T = { saveGroup: { $in: ['CAR', 'PRODUCT'] }, memberId: memberId };
 
@@ -49,36 +50,17 @@ export class SaveService {
                     from: 'cars',
                     localField: 'likeRefId',
                     foreignField: '_id',
-                    as: 'savedItems',
+                    as: 'savedCar',
                 },
             },
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: 'likeRefId',
-                    foreignField: '_id',
-                    as: 'savedItems',
-                }
-            },
-            {
-                $project: {
-                    savedItems: {
-                        $cond: {
-                            if: { $eq: [{ $type: '$savedItems' }, 'array'] },
-                            then: '$savedItems',
-                            else: []
-                        }
-                    },
-                },
-            },
-            { $unwind: '$savedItems' },
+            { $unwind: '$savedCar' },
             {
                 $facet: {
                     list: [
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
                         lookupSaved,
-                        { $unwind: '$savedItems.creatorData' }
+                        { $unwind: '$savedCar.creatorData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
@@ -86,8 +68,8 @@ export class SaveService {
         ]).exec();
 
 
-        const result: ITEMS = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.savedItems);
+        const result: Cars = { list: [], metaCounter: data[0].metaCounter };
+        result.list = data[0].list.map((ele) => ele.savedCar);
         return result;
     }
 }

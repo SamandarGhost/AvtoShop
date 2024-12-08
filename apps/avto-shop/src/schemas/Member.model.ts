@@ -1,166 +1,384 @@
 import { Schema } from 'mongoose';
-import { MemberAuthType, MemberStatus, MemberType } from '../libs/enums/member.enum';
+import { AuthType, Brand, CarServiceType, Location, Status, Type } from '../libs/enums/member.enum';
 
 
 const MemberSchema = new Schema({
-    memberType: {
+    type: {
         type: String,
-        enum: MemberType,
-        default: MemberType.USER,
+        enum: Type,
+        default: Type.USER,
     },
 
-    memberStatus: {
+    status: {
         type: String,
-        enum: MemberStatus,
-        default: MemberStatus.ACTIVE,
+        enum: Status,
+        default: Status.ACTIVE,
     },
 
-    memberAuthType: {
+    authType: {
         type: String,
-        enum: MemberAuthType,
-        default: MemberAuthType.PHONE,
+        enum: AuthType,
+        default: AuthType.PHONE,
     },
 
-    memberPhone: {
-        type: String,
-        index: { unique: true, sparse: true },
-        required: true,
-    },
-
-    memberNick: {
+    titleNick: {
         type: String,
         index: { unique: true, sparse: true },
         required: true,
     },
 
-    memberPassword: {
+    password: {
         type: String,
         select: false,
         required: true,
     },
 
-    memberFullName: {
+    fullName: {
         type: String,
     },
 
-    memberImage: {
+    image: {
         type: String,
         default: '',
     },
 
-    memberAddress: {
+    images: {
+        type: [String],
+        default: [''],
+    },
+
+    location: {
+        type: String,
+        enum: Location,
+    },
+
+    address: {
         type: String,
     },
 
-    memberPhone2: {
+    shortDesc: {
+        type: String,
+    },
+
+    longDesc: {
+        type: String,
+    },
+
+    phone: {
+        type: String,
+        index: { unique: true, sparse: true },
+        required: true,
+    },
+
+    phone2: {
         type: String,
         index: { unique: true, sparse: true },
     },
 
-    memberEmail: {
+    email: {
         type: String,
     },
 
-    memberKakaoTalk: {
+    kakaoTalk: {
         type: String,
     },
 
-    memberYoutube: {
+    youtube: {
         type: String,
     },
 
-    memberInstagram: {
+    instagram: {
         type: String,
     },
 
-    memberFacebook: {
+    facebook: {
         type: String,
     },
 
-    memberTikTok: {
+    tikTok: {
         type: String,
     },
 
-    memberNaverBlog: {
+    naverBlog: {
         type: String,
     },
 
-    memberXcom: {
+    xcom: {
         type: String,
     },
 
-    memberDesc: {
+    followers: {
+        type: Number,
+        default: 0,
+    },
+
+    followings: {
+        type: Number,
+        default: 0,
+    },
+
+    likes: {
+        type: Number,
+        default: 0,
+    },
+
+    views: {
+        type: Number,
+        default: 0,
+    },
+
+    comments: {
+        type: Number,
+        default: 0,
+    },
+
+    articles: {
+        type: Number,
+        default: 0,
+    },
+
+
+    warnings: {
+        type: Number,
+        default: 0,
+    },
+
+    blocks: {
+        type: Number,
+        default: 0,
+    },
+
+    cars: {
+        type: Number,
+        default: 0,
+    },
+
+    usedCars: {
+        type: Number,
+        default: 0,
+    },
+
+    newCars: {
+        type: Number,
+        default: 0,
+    },
+
+    rank: {
+        type: Number,
+        default: 0,
+    },
+
+    points: {
+        type: Number,
+        default: 0,
+    },
+
+    sellerProducts: {
+        type: Number,
+        default: 0,
+    },
+
+    dealerBrand: {
+        type: String,
+        enum: Brand,
+    },
+
+    dealerFinancing: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCarService: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerTradeIn: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCustomization: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerWarranties: {
+        type: Number,
+        default: false,
+    },
+
+    dealerParts: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerAccessories: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCarDetailing: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCarWash: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCarTestDrive: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerCarDelivery: {
+        type: Boolean,
+        default: false,
+    },
+
+    dealerPlusService: {
         type: String,
     },
 
-    memberCars: {
+    carServiceType: {
+        type: String,
+        enum: CarServiceType,
+    },
+
+    carOilChange: {
+        type: Boolean,
+        default: false,
+    },
+
+    carAlignment: {
+        type: Boolean,
+        default: false,
+    },
+
+    carTireChange: {
+        type: Boolean,
+        default: false,
+    },
+
+    carBrakeCheck: {
+        type: Boolean,
+        default: false,
+    },
+
+    carBatteryCheck: {
+        type: Boolean,
+        default: false,
+    },
+
+    carTireBalance: {
+        type: Boolean,
+        default: false,
+    },
+
+    carSuspension: {
+        type: Boolean,
+        default: false,
+    },
+
+    carAirCondition: {
+        type: Boolean,
+        default: false,
+    },
+
+    carTransmissionCheck: {
+        type: Boolean,
+        default: false,
+    },
+
+    carEngineDiagnostic: {
+        type: Boolean,
+        default: false,
+    },
+
+    carExhaust: {
+        type: Boolean,
+        default: false,
+    },
+
+    carDetailing: {
+        type: Boolean,
+        default: false,
+    },
+
+    carWindshield: {
+        type: Boolean,
+        default: false,
+    },
+
+    carTimingBelt: {
+        type: Boolean,
+        default: false,
+    },
+
+    carChainReplacement: {
+        type: Boolean,
+        default: false,
+    },
+
+    comfort: {
         type: Number,
         default: 0,
     },
 
-    memberProducts: {
+    performance: {
         type: Number,
         default: 0,
     },
 
-    memberArticles: {
+    exterior: {
         type: Number,
         default: 0,
     },
 
-    memberFollowers: {
+    interior: {
         type: Number,
         default: 0,
     },
 
-    memberFollowings: {
+    reliability: {
         type: Number,
         default: 0,
     },
 
-    memberPoints: {
+    fast: {
         type: Number,
         default: 0,
     },
 
-    memberLikes: {
-        type: Number,
-        default: 0,
+    openAt: {
+        type: String,
     },
 
-    memberViews: {
-        type: Number,
-        default: 0,
+    closeAt: {
+        type: String,
     },
 
-    memberComments: {
-        type: Number,
-        default: 0,
+    openSunday: {
+        type: String,
     },
 
-    memberRank: {
-        type: Number,
-        default: 0,
+    closeSunday: {
+        type: String,
     },
 
-    memberWarnings: {
-        type: Number,
-        default: 0,
+    openSaturday: {
+        type: String,
     },
 
-    memberBlocks: {
-        type: Number,
-        default: 0,
+    closeSaturday: {
+        type: String,
     },
 
-    dealerId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Dealer',
-    },
-
-    carServiceId: {
-        type: Schema.Types.ObjectId,
-        ref: 'CarService',
+    publicHolidays: {
+        type: Boolean,
+        default: false,
     },
 
     deletedAt: {

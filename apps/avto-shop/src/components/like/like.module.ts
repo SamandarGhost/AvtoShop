@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { LikeService } from './like.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { LikeResolver } from './like.resolver';
 import LikeSchema from '../../schemas/Like.model';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -11,9 +11,10 @@ import LikeSchema from '../../schemas/Like.model';
         name: 'Like',
         schema: LikeSchema,
       }
-    ])
+    ]),
+    AuthModule,
   ],
-  providers: [LikeService, LikeResolver],
+  providers: [LikeService],
   exports: [LikeService]
 })
 export class LikeModule { }

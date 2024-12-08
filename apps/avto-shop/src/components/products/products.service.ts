@@ -10,15 +10,9 @@ import { BadRequestException, Injectable, InternalServerErrorException } from '@
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { ProductStatus } from '../../libs/enums/product.enum';
-import { ViewGroup } from '../../libs/enums/view.enum';
-import { LikeGroup } from '../../libs/enums/like.enum';
 import { ProductUpdate } from '../../libs/dto/product/product.update';
 import * as moment from 'moment';
 import { lookupAuthMemberLiked, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
-import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { LikeInput } from '../../libs/dto/like/like.input';
-import { SaveInput } from '../../libs/dto/save/save.input';
-import { SaveGroup } from '../../libs/enums/save.enum';
 
 @Injectable()
 export class ProductService {
@@ -74,20 +68,6 @@ export class ProductService {
         };
         const targetProduct = await this.productModel.findOne(search).exec();
         if (!targetProduct) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
-        if (memberId) {
-            const viewInput = { memberId: memberId, viewRefId: productId, viewGroup: ViewGroup.PRODUCT };
-            const newView = await this.viewService.recordView(viewInput);
-            if (newView) {
-                await this.productStatsEditor({ _id: productId, targetKey: 'productViews', modifier: 1 });
-                targetProduct.productViews++;
-            }
-
-            const likeInput = { memberId: memberId, likeRefId: productId };
-            targetProduct.meLiked = await this.likeService.checkLikeExistence(likeInput);
-        }
-
-        targetProduct.creatorData = await this.memberService.getMember(null, targetProduct.memberId);
         return targetProduct;
     }
 
@@ -130,52 +110,6 @@ export class ProductService {
         if (typeList && typeList.length) match.typeList = { $in: typeList };
         if (priceRange) match.priceRange = { $gte: priceRange.minPrice, $lte: priceRange.maxPrice };
         if (text) match.productTitle = { $regex: new RegExp(text, 'i') };
-    }
-
-    public async likeTargetProduct(memberId: ObjectId, likeRefId: ObjectId): Promise<Product> {
-        const target: Product = await this.productModel.findOne({
-            _id: likeRefId,
-            productStatus: ProductStatus.ACTIVE,
-        });
-        if (!target) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
-        const input: LikeInput = {
-            memberId: memberId,
-            likeRefId: likeRefId,
-            likeGroup: LikeGroup.PRODUCT,
-        };
-
-        const modifier: number = await this.likeService.toggleLike(input);
-        const result = await this.productStatsEditor({
-            _id: likeRefId,
-            targetKey: 'productLikes',
-            modifier: modifier,
-        });
-
-        if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
-        return result;
-    }
-
-    public async saveTargetProduct(memberId: ObjectId, saveRefId: ObjectId): Promise<Product> {
-        const target: Product = await this.productModel.findOne({
-            _id: saveRefId,
-            productStatus: ProductStatus.ACTIVE,
-        });
-        if (!target) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
-        const input: SaveInput = {
-            memberId: memberId,
-            saveRefId: saveRefId,
-            saveGroup: SaveGroup.PRODUCT,
-        };
-
-        const modifier: number = await this.saveService.toggleSave(input);
-        const result = await this.productStatsEditor({
-            _id: saveRefId,
-            targetKey: 'productSave',
-            modifier: modifier,
-        });
-        return result;
     }
 
     public async getSellerProducts(memberId: ObjectId, input: SellerProductsInquiry): Promise<Products> {

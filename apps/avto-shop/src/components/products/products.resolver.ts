@@ -62,28 +62,6 @@ export class ProductResolver {
         return await this.productService.getProducts(memberId, input);
     }
 
-    @UseGuards(AuthGuard)
-    @Mutation(() => Product)
-    public async likeTargetProduct(
-        @Args('productId') input: string,
-        @AuthMember('_id') memberId: ObjectId
-    ): Promise<Product> {
-        console.log("Mutation: likeTargetProduct ");
-        const likeRefId = shapeIntoMongoObjectId(input);
-        return await this.productService.likeTargetProduct(memberId, likeRefId);
-    }
-
-    @UseGuards(AuthGuard)
-    @Mutation(() => Product)
-    public async saveTargetProduct(
-        @Args('productId') input: string,
-        @AuthMember('_id') memberId: ObjectId
-    ): Promise<Product> {
-        console.log("Mutation: saveTargetProduct");
-        const likeRefId = shapeIntoMongoObjectId(input);
-        return await this.productService.saveTargetProduct(memberId, likeRefId);
-    }
-
     @Roles(MemberType.SELLER)
     @UseGuards(RolesGuard)
     @Query((returns) => Products)

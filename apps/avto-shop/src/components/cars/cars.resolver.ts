@@ -62,6 +62,39 @@ export class CarsResolver {
     }
 
     @UseGuards(AuthGuard)
+    @Query(() => Cars)
+    public async getVisited(
+        @Args('input') input: OrdinaryInquiry,
+        @AuthMember('_id') memberId: ObjectId,
+    ): Promise<Cars> {
+        console.log('Query: getVisited');
+        return await this.carsService.getVisited(memberId, input);
+
+    }
+
+    @UseGuards(AuthGuard)
+    @Query(() => Cars)
+    public async getLiked(
+        @Args('input') input: OrdinaryInquiry,
+        @AuthMember('_id') memberId: ObjectId,
+    ): Promise<Cars> {
+        console.log('Query: getLiked');
+        return await this.carsService.getLiked(memberId, input);
+
+    }
+
+    @UseGuards(AuthGuard)
+    @Query(() => Cars)
+    public async getSaved(
+        @Args('input') input: OrdinaryInquiry,
+        @AuthMember('_id') memberId: ObjectId,
+    ): Promise<Cars> {
+        console.log('Query: getSaved');
+        return await this.carsService.getLiked(memberId, input);
+
+    }
+
+    @UseGuards(AuthGuard)
     @Mutation(() => Car)
     public async likeTargetCar(
         @Args('carId') input: string,

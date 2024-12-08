@@ -4,8 +4,9 @@ import { Model, ObjectId } from 'mongoose';
 import { View } from '../../libs/dto/view/view';
 import { ViewInput } from '../../libs/dto/view/view.input';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
-import { ITEMS, T } from '../../libs/types/common';
+import { T } from '../../libs/types/common';
 import { lookupVisited } from '../../libs/config';
+import { Cars } from '../../libs/dto/car/car';
 
 @Injectable()
 export class ViewService {
@@ -27,9 +28,9 @@ export class ViewService {
         return await this.viewModel.findOne(search).exec();
     }
 
-    public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<ITEMS> {
+    public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
-        const match: T = { likeGroup: { $in: ['CAR', 'PRODUCT'] }, memberId: memberId };
+        const match: T = { likeGroup: { $in: ['CAR'] }, memberId: memberId };
 
         const data: T = await this.viewModel.aggregate([
             { $match: match },
@@ -39,36 +40,17 @@ export class ViewService {
                     from: 'cars',
                     localField: 'likeRefId',
                     foreignField: '_id',
-                    as: 'visitedItems',
+                    as: 'visitedCar',
                 },
             },
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: 'likeRefId',
-                    foreignField: '_id',
-                    as: 'visitedItems',
-                }
-            },
-            {
-                $project: {
-                    visitedItems: {
-                        $cond: {
-                            if: { $eq: [{ $type: '$visitedItems' }, 'array'] },
-                            then: '$visitedItems',
-                            else: []
-                        }
-                    },
-                },
-            },
-            { $unwind: '$visitedItems' },
+            { $unwind: '$visitedCar' },
             {
                 $facet: {
                     list: [
                         { $skip: (page - 1) * limit },
                         { $limit: limit },
                         lookupVisited,
-                        { $unwind: '$visitedItems.creatorData' }
+                        { $unwind: '$visitedCar.creatorData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
@@ -76,8 +58,8 @@ export class ViewService {
         ]).exec();
 
 
-        const result: ITEMS = { list: [], metaCounter: data[0].metaCounter };
-        result.list = data[0].list.map((ele) => ele.visitedItems);
+        const result: Cars = { list: [], metaCounter: data[0].metaCounter };
+        result.list = data[0].list.map((ele) => ele.visitedCar);
         return result;
     }
 

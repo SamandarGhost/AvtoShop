@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
-import { MemberAuthType, MemberStatus, MemberType } from "../../enums/member.enum";
+import { AuthType, Brand, CarServiceType, Status, Type, } from "../../enums/member.enum";
 import { MeFollowed } from "../follow/follow";
 import { MeLiked } from "../like/like";
 
@@ -10,103 +10,238 @@ export class Member {
     @Field(() => String)
     _id: ObjectId;
 
-    @Field(() => MemberType)
-    memberType: MemberType;
+    @Field(() => Type)
+    type: Type;
 
-    @Field(() => MemberStatus)
-    memberStatus: MemberStatus;
+    @Field(() => Status)
+    status: Status;
 
-    @Field(() => MemberAuthType)
-    memberAuthType: MemberAuthType;
-
-    @Field(() => String)
-    memberPhone: string;
+    @Field(() => AuthType)
+    authType: AuthType;
 
     @Field(() => String)
-    memberNick: string;
+    titleNick: string;
 
-    memberPassword?: string;
+    password?: string;
 
     @Field(() => String, { nullable: true })
-    memberFullName?: string;
+    fullName?: string;
 
     @Field(() => String)
-    memberImage: string;
+    image: string;
+
+    @Field(() => [String])
+    images?: string[];
+
+    @Field(() => Location, { nullable: true })
+    location?: Location;
 
     @Field(() => String, { nullable: true })
-    memberAddress?: string;
-
-    @Field(() => Int, { nullable: true })
-    memberPhone2?: number;
+    address?: string;
 
     @Field(() => String, { nullable: true })
-    memberEmail?: string;
+    shortDesc?: string;
 
     @Field(() => String, { nullable: true })
-    memberKakaoTalk?: string;
+    longDesc?: string;
+
+    @Field(() => String)
+    phone: string;
 
     @Field(() => String, { nullable: true })
-    memberYoutube?: string;
+    phone2?: string;
 
     @Field(() => String, { nullable: true })
-    memberInstagram?: string;
+    email?: string;
 
     @Field(() => String, { nullable: true })
-    memberFacebook?: string;
+    kakaoTalk?: string;
 
     @Field(() => String, { nullable: true })
-    memberTikTok?: string;
+    youtube?: string;
 
     @Field(() => String, { nullable: true })
-    memberNaverBlog?: string;
+    instagram?: string;
 
     @Field(() => String, { nullable: true })
-    memberXcom?: string;
+    facebook?: string;
 
     @Field(() => String, { nullable: true })
-    memberDesc?: string;
+    tikTok?: string;
+
+    @Field(() => String, { nullable: true })
+    naverBlog?: string;
+
+    @Field(() => String, { nullable: true })
+    xcom?: string;
+
+    @Field(() => Int)
+    followers: number;
+
+    @Field(() => Int)
+    followings: number;
+
+    @Field(() => Int)
+    likes: number;
+
+    @Field(() => Int)
+    views: number;
+
+    @Field(() => Int)
+    comments: number;
+
+    @Field(() => Int)
+    warnings: number;
+
+    @Field(() => Int)
+    articles: number;
+
+    @Field(() => Int)
+    blocks: number;
 
     @Field(() => Int)
     memberCars: number;
 
     @Field(() => Int)
-    memberProducts: number;
+    usedCars: number;
 
     @Field(() => Int)
-    memberArticles: number;
+    newCars: number;
 
     @Field(() => Int)
-    memberFollowers: number;
+    rank: number;
 
     @Field(() => Int)
-    memberFollowings: number;
+    points: number;
 
     @Field(() => Int)
-    memberPoints: number;
+    sellerProducts: number;
 
-    @Field(() => Int)
-    memberLikes: number;
+    @Field(() => Brand)
+    dealerBrand: Brand;
 
-    @Field(() => Int)
-    memberViews: number;
+    @Field(() => Boolean)
+    dealerFinancing: boolean;
 
-    @Field(() => Int)
-    memberComments: number;
+    @Field(() => Boolean)
+    dealerCarService: boolean;
 
-    @Field(() => Int)
-    memberRank: number;
+    @Field(() => Boolean)
+    dealerTradeIn: boolean;
 
-    @Field(() => Int)
-    memberWarnings: number;
+    @Field(() => Boolean)
+    dealerCustomization: boolean;
 
-    @Field(() => Int)
-    memberBlocks: number;
+    @Field(() => Boolean)
+    dealerWarranties: boolean;
+
+    @Field(() => Boolean)
+    dealerParts: boolean;
+
+    @Field(() => Boolean)
+    dealerAccessories: boolean;
+
+    @Field(() => Boolean)
+    dealerCarDetailing: boolean;
+
+    @Field(() => Boolean)
+    dealerCarWash: boolean;
+
+    @Field(() => Boolean)
+    dealerCarTestDrive: boolean;
+
+    @Field(() => Boolean)
+    dealerCarDelivery: boolean;
 
     @Field(() => String, { nullable: true })
-    dealerId?: ObjectId;
+    dealerPlusService?: string;
+
+    @Field(() => CarServiceType, { nullable: true })
+    carServiceType?: CarServiceType;
+
+    @Field(() => Boolean)
+    carOilChange: boolean;
+
+    @Field(() => Boolean)
+    carAlignment: boolean;
+
+    @Field(() => Boolean)
+    carTireChange: boolean;
+
+    @Field(() => Boolean)
+    carBrakeCheck: boolean;
+
+    @Field(() => Boolean)
+    carBatteryCheck: boolean;
+
+    @Field(() => Boolean)
+    carTireBalance: boolean;
+
+    @Field(() => Boolean)
+    carSuspension: boolean;
+
+    @Field(() => Boolean)
+    carAirCondition: boolean;
+
+    @Field(() => Boolean)
+    carTransmissionCheck: boolean;
+
+    @Field(() => Boolean)
+    carEngineDiagnostic: boolean;
+
+    @Field(() => Boolean)
+    carExhaust: boolean;
+
+    @Field(() => Boolean)
+    carDetailing: boolean;
+
+    @Field(() => Boolean)
+    carWindshield: boolean;
+
+    @Field(() => Boolean)
+    carTimingBelt: boolean;
+
+    @Field(() => Boolean)
+    carChainReplacement: boolean;
+
+    @Field(() => Int)
+    comfort: number;
+
+    @Field(() => Int)
+    performance: number;
+
+    @Field(() => Int)
+    exterior: number;
+
+    @Field(() => Int)
+    interior: number;
+
+    @Field(() => Int)
+    reliability: number;
+
+    @Field(() => Int)
+    fast: number;
 
     @Field(() => String, { nullable: true })
-    carServiceId?: ObjectId;
+    openAt?: string;
+
+    @Field(() => String, { nullable: true })
+    closeAt?: string;
+
+    @Field(() => String, { nullable: true })
+    openSunday?: string;
+
+    @Field(() => String, { nullable: true })
+    closeSunday?: string;
+
+    @Field(() => String, { nullable: true })
+    openSaturday?: string;
+
+    @Field(() => String, { nullable: true })
+    closeSaturday?: string;
+
+    @Field(() => Boolean)
+    publicHolidays: boolean;
 
     @Field(() => Date, { nullable: true })
     deletedAt?: Date;
