@@ -148,7 +148,7 @@ const MemberSchema = new Schema({
         default: 0,
     },
 
-    cars: {
+    memberCars: {
         type: Number,
         default: 0,
     },

@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
-import { AuthType, Brand, CarServiceType, Status, Type, } from "../../enums/member.enum";
+import { AuthType, Brand, CarServiceType, Location, Status, Type, } from "../../enums/member.enum";
 import { MeFollowed } from "../follow/follow";
 import { MeLiked } from "../like/like";
 
@@ -117,8 +117,8 @@ export class Member {
     @Field(() => Int)
     sellerProducts: number;
 
-    @Field(() => Brand)
-    dealerBrand: Brand;
+    @Field(() => Brand, { nullable: true })
+    dealerBrand?: Brand;
 
     @Field(() => Boolean)
     dealerFinancing: boolean;

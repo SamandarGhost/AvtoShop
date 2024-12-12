@@ -3,7 +3,6 @@ import { ObjectId } from 'mongoose';
 import { ArticleCategory, ArticleStatus } from '../../enums/article.enum';
 import { Member, TotalCounter } from '../member/member';
 import { MeLiked } from '../like/like';
-import { Dealer } from '../dealer/dealer';
 
 @ObjectType()
 export class Article {
@@ -45,8 +44,8 @@ export class Article {
 
 	/** from aggregation **/
 
-	@Field(() => [Member, Dealer], { nullable: true })
-	creatorData?: Member | Dealer;
+	@Field(() => [Member], { nullable: true })
+	creatorData?: Member;
 
 	@Field(() => [MeLiked], { nullable: true })
 	meLiked?: MeLiked[];

@@ -128,6 +128,62 @@ export class MemberService {
         return result[0];
     };
 
+    public async getDealers(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
+        const { text } = input.search;
+        const match: T = { type: Type.DEALER, status: Status.ACTIVE };
+        const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
+
+        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        console.log('match:', match);
+
+        const result = await this.memberModel
+            .aggregate([
+                { $match: match },
+                { $sort: sort },
+                {
+                    $facet: {
+                        list: [{ $skip: (input.page - 1) * input.limit },
+                        { $limit: input.limit },
+                        lookupAuthMemberLiked(memberId),
+                        ],
+                        metaCounter: [{ $count: 'total' }],
+                    },
+                },
+            ])
+            .exec();
+        if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+
+        return result[0];
+    };
+
+    public async getServices(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
+        const { text } = input.search;
+        const match: T = { type: Type.SERVICE, status: Status.ACTIVE };
+        const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
+
+        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        console.log('match:', match);
+
+        const result = await this.memberModel
+            .aggregate([
+                { $match: match },
+                { $sort: sort },
+                {
+                    $facet: {
+                        list: [{ $skip: (input.page - 1) * input.limit },
+                        { $limit: input.limit },
+                        lookupAuthMemberLiked(memberId),
+                        ],
+                        metaCounter: [{ $count: 'total' }],
+                    },
+                },
+            ])
+            .exec();
+        if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+
+        return result[0];
+    };
+
     public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<Member> {
         const target: Member = await this.memberModel.findOne({ _id: likeRefId, status: Status.ACTIVE });
         if (!target) throw new InternalServerErrorException(Message.N0_DATA_FOUND);

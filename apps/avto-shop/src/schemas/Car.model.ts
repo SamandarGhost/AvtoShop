@@ -511,15 +511,6 @@ const CarSchema = new Schema(
             ref: 'Member',
         },
 
-        delaerId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Dealer',
-        },
-
-        carCreatedBy: {
-            type: String,
-        },
-
         soldAt: {
             type: Date,
         },

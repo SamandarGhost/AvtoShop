@@ -3,7 +3,6 @@ import { ObjectId } from "mongoose";
 import { ProductStatus, ProductType } from "../../enums/product.enum";
 import { Member, TotalCounter } from "../member/member";
 import { MeLiked } from "../like/like";
-import { CarService } from "../car-service.ts/car-service";
 import { MeSaved } from "../save/save";
 
 

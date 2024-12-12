@@ -32,13 +32,24 @@ export class ProductResolver {
 
     @Roles(Type.SELLER)
     @UseGuards(RolesGuard)
-    @Mutation((returns) => Product)
+    @Mutation(() => Product)
     public async updateProduct(@Args('input') input: ProductUpdate,
         @AuthMember('_id') memberId: ObjectId,
     ): Promise<Product> {
         console.log('Mutation: updateProduct');
         input._id = shapeIntoMongoObjectId(input._id);
         return await this.productService.updateProduct(memberId, input);
+    }
+
+    @UseGuards(AuthGuard)
+    @Mutation(() => Product)
+    public async likeTargetProduct(
+        @Args('productId') input: string,
+        @AuthMember('_id') memberId: ObjectId
+    ): Promise<Product> {
+        console.log("Mutation: likeTargetProduct ");
+        const likeRefId = shapeIntoMongoObjectId(input);
+        return await this.productService.likeTargetProduct(memberId, likeRefId);
     }
 
     @UseGuards(WithoutGuard)
@@ -64,7 +75,7 @@ export class ProductResolver {
 
     @Roles(Type.SELLER)
     @UseGuards(RolesGuard)
-    @Query((returns) => Products)
+    @Query(() => Products)
     public async getSellerProducts(
         @Args('input') input: SellerProductsInquiry,
         @AuthMember('_id') memberId: ObjectId,

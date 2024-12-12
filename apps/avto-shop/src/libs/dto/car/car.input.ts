@@ -412,9 +412,6 @@ export class CarInput {
 
     memberId: ObjectId;
 
-    dealerId?: ObjectId;
-
-    carCreatedBy?: String;
 }
 
 @InputType()

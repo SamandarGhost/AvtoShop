@@ -6,7 +6,7 @@ export enum ArticleCategory {
 	NEWS = 'NEWS',
 	HUMOR = 'HUMOR',
 	OVERVIEW = 'OVERVIEW',
-	HELPFUL = 'HELPFUL',
+	HELPFUL = 'HELPFULL',
 }
 registerEnumType(ArticleCategory, {
 	name: 'ArticleCategory',

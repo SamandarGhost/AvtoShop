@@ -8,7 +8,7 @@ import { CommentInput, CommentsInquiry } from '../../libs/dto/comment/comment.in
 import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
 import { CarsService } from '../cars/cars.service';
 import { CommentUpdate } from '../../libs/dto/comment/comment.update';
-import { Comments } from '../../libs/dto/comment/comment';
+import { Comment, Comments } from '../../libs/dto/comment/comment';
 import { T } from '../../libs/types/common';
 import { lookupMember } from '../../libs/config';
 import { ArticleService } from '../article/article.service';

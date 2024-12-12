@@ -51,7 +51,7 @@ export class SocketGateway implements OnGatewayInit {
     this.summaryClient++;
     this.clientsAuthMap.set(client, authMember);
 
-    const clientNick: string = authMember?.memberNick ?? 'Guest';
+    const clientNick: string = authMember?.titleNick ?? 'Guest';
     this.logger.verbose(`Connection [${clientNick}] total: [${this.summaryClient}]`);
 
     const infoMsg: InfoPayload = {
@@ -70,7 +70,7 @@ export class SocketGateway implements OnGatewayInit {
     this.summaryClient--;
     this.clientsAuthMap.delete(client);
 
-    const clientNick: string = authMember?.memberNick ?? 'Guest';
+    const clientNick: string = authMember?.titleNick ?? 'Guest';
     this.logger.verbose(`Disconnection [${clientNick}] total: [${this.summaryClient}]`);
 
     const infoMsg: InfoPayload = {
@@ -86,7 +86,7 @@ export class SocketGateway implements OnGatewayInit {
     const authMember = this.clientsAuthMap.get(client);
     const newMessage: MessagePayload = { event: 'message', text: payload, memberData: authMember };
 
-    const clientNick: string = authMember?.memberNick ?? 'Guest';
+    const clientNick: string = authMember?.titleNick ?? 'Guest';
     this.logger.verbose(`NEW MESSAGE [${clientNick}]: ${payload}`);
 
     this.messagesList.push(newMessage);

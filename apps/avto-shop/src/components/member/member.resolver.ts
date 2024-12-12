@@ -41,7 +41,7 @@ export class MemberResolver {
         return await `Hi ${memberNick}`;
     };
 
-    @Roles(Type.USER, Type.AGENT)
+    @Roles(Type.USER, Type.AGENT, Type.DEALER, Type.SELLER, Type.SERVICE, Type.ADMIN)
     @UseGuards(AuthGuard)
     @Query(() => String)
     public async checkAuthRoles(@AuthMember() authMember: Member): Promise<string> {
@@ -76,6 +76,20 @@ export class MemberResolver {
     public async getAgents(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
         console.log('Query: getAgents');
         return await this.memberService.getAgents(memberId, input);
+    };
+
+    @UseGuards(WithoutGuard)
+    @Query(() => Members)
+    public async getDealers(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+        console.log('Query: getDealers');
+        return await this.memberService.getDealers(memberId, input);
+    };
+
+    @UseGuards(WithoutGuard)
+    @Query(() => Members)
+    public async getServices(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+        console.log('Query: getServices');
+        return await this.memberService.getServices(memberId, input);
     };
 
     @UseGuards(AuthGuard)

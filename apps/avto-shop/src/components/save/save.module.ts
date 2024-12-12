@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { SaveService } from './save.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import SaveSchema from '../../schemas/Save.model';
-import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [

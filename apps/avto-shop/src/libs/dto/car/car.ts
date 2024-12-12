@@ -3,8 +3,7 @@ import { ObjectId } from "mongoose";
 import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
 import { Member, TotalCounter } from "../member/member";
 import { MeLiked } from "../like/like";
-import { MemberType } from "../../enums/member.enum";
-import { Dealer } from "../dealer/dealer";
+import { MeSaved } from "../save/save";
 
 
 
@@ -319,12 +318,6 @@ export class Car {
     @Field(() => String)
     memberId: ObjectId;
 
-    @Field(() => String, { nullable: true })
-    dealerId?: ObjectId;
-
-    @Field(() => String, { nullable: true })
-    carCreatedBy?: string;
-
     @Field(() => Date, { nullable: true })
     soldAt?: Date;
 
@@ -337,11 +330,14 @@ export class Car {
     @Field(() => Date)
     updatedAt: Date;
 
-    @Field(() => [Member, Dealer], { nullable: true })
-    creatorData?: Member | Dealer;
+    @Field(() => Member, { nullable: true })
+    creatorData?: Member;
 
     @Field(() => [MeLiked], { nullable: true })
     meLiked?: MeLiked[];
+
+    @Field(() => [MeSaved], { nullable: true })
+    meSaved?: MeLiked[];
 
 }
 

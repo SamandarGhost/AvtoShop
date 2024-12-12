@@ -118,3 +118,51 @@ export class MembersInquiry {
     @Field(() => MISearch)
     search: MISearch;
 };
+
+@InputType()
+export class ServicesInquiry {
+    @IsNotEmpty()
+    @Min(1)
+    @Field(() => Int)
+    page: number;
+
+    @IsNotEmpty()
+    @Min(1)
+    @Field(() => Int)
+    limit: number;
+
+    @IsOptional()
+    @IsIn(availableAgentSorts)
+    @Field(() => String, { nullable: true })
+    sort?: string;
+
+    @IsOptional()
+    @Field(() => Direction, { nullable: true })
+    direction?: Direction;
+};
+
+@InputType()
+export class DealersInquiry {
+    @IsNotEmpty()
+    @Min(1)
+    @Field(() => Int)
+    page: number;
+
+    @IsNotEmpty()
+    @Min(1)
+    @Field(() => Int)
+    limit: number;
+
+    @IsOptional()
+    @IsIn(availableAgentSorts)
+    @Field(() => String, { nullable: true })
+    sort?: string;
+
+    @IsOptional()
+    @Field(() => Direction, { nullable: true })
+    direction?: Direction;
+
+    @IsNotEmpty()
+    @Field(() => AISearch)
+    search: AISearch;
+};
