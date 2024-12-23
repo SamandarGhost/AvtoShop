@@ -42,8 +42,6 @@ export class Article {
 	@Field(() => Date)
 	updatedAt: Date;
 
-	/** from aggregation **/
-
 	@Field(() => [Member], { nullable: true })
 	creatorData?: Member;
 
