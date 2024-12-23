@@ -9,6 +9,7 @@ registerEnumType(CommentStatus, {
 });
 
 export enum CommentGroup {
+	COMMENT = 'COMMENT',
 	MEMBER = 'MEMBER',
 	CAR = 'CAR',
 	ARTICLE = 'ARTICLE',
