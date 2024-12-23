@@ -28,7 +28,7 @@ export class Member {
     fullName?: string;
 
     @Field(() => String)
-    image: string;
+    image?: string;
 
     @Field(() => [String])
     images?: string[];

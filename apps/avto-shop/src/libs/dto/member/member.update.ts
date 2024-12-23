@@ -14,16 +14,16 @@ export class MemberUpdate {
 
     @IsOptional()
     @Field(() => Type, { nullable: true })
-    type: Type;
+    type?: Type;
 
     @IsOptional()
     @Field(() => Status, { nullable: true })
-    status: Status;
+    status?: Status;
 
     @IsOptional()
     @Length(3, 12)
     @Field(() => String, { nullable: true })
-    titleNick: string;
+    titleNick?: string;
 
     @IsOptional()
     @Length(8, 30)
@@ -48,7 +48,7 @@ export class MemberUpdate {
 
     @IsOptional()
     @Field(() => String, { nullable: true })
-    phone: string;
+    phone?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
@@ -101,7 +101,7 @@ export class MemberUpdate {
 
     @IsOptional()
     @Field(() => Brand, { nullable: true })
-    dealerBrand: Brand;
+    dealerBrand?: Brand;
 
     @Field(() => Boolean, { nullable: true })
     dealerFinancing?: boolean;
