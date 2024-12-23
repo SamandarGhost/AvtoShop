@@ -3,18 +3,6 @@ import { ObjectId } from 'mongoose';
 import { LikeGroup } from '../../enums/like.enum';
 
 @ObjectType()
-export class MeLiked {
-	@Field(() => String)
-	memberId: ObjectId;
-
-	@Field(() => String)
-	likeRefId: ObjectId;
-
-	@Field(() => Boolean)
-	myFavorite: boolean;
-}
-
-@ObjectType()
 export class Like {
 	@Field(() => String)
 	_id: ObjectId;
@@ -33,6 +21,18 @@ export class Like {
 
 	@Field(() => Date)
 	updatedAt: Date;
+}
+
+@ObjectType()
+export class MeLiked {
+	@Field(() => String)
+	memberId: ObjectId;
+
+	@Field(() => String)
+	likeRefId: ObjectId;
+
+	@Field(() => Boolean)
+	myFavorite: boolean;
 }
 
 

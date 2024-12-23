@@ -32,8 +32,6 @@ export class Follower {
 	@Field(() => Date)
 	updatedAt: Date;
 
-	/** from aggregation **/
-
 	@Field(() => [MeLiked], { nullable: true })
 	meLiked?: MeLiked[];
 
@@ -42,6 +40,15 @@ export class Follower {
 
 	@Field(() => Member, { nullable: true })
 	followerData?: Member;
+}
+
+@ObjectType()
+export class Followers {
+	@Field(() => [Follower])
+	list: Follower[];
+
+	@Field(() => [TotalCounter], { nullable: true })
+	metaCounter: TotalCounter[];
 }
 
 @ObjectType()
@@ -61,8 +68,6 @@ export class Following {
 	@Field(() => Date)
 	updatedAt: Date;
 
-	/** from aggregation **/
-
 	@Field(() => [MeLiked], { nullable: true })
 	meLiked?: MeLiked[];
 
@@ -77,15 +82,6 @@ export class Following {
 export class Followings {
 	@Field(() => [Following])
 	list: Following[];
-
-	@Field(() => [TotalCounter], { nullable: true })
-	metaCounter: TotalCounter[];
-}
-
-@ObjectType()
-export class Followers {
-	@Field(() => [Follower])
-	list: Follower[];
 
 	@Field(() => [TotalCounter], { nullable: true })
 	metaCounter: TotalCounter[];

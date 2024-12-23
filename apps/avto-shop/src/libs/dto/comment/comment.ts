@@ -2,6 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ObjectId } from 'mongoose';
 import { CommentGroup, CommentStatus } from '../../enums/comment.enum';
 import { Member, TotalCounter } from '../member/member';
+import { MeLiked } from '../like/like';
 
 @ObjectType()
 export class Comment {
@@ -29,7 +30,8 @@ export class Comment {
 	@Field(() => Date)
 	updatedAt: Date;
 
-	/** from aggregation **/
+	@Field(() => [MeLiked], { nullable: true })
+	meLiked?: MeLiked[];
 
 	@Field(() => Member, { nullable: true })
 	creatorData?: Member;
