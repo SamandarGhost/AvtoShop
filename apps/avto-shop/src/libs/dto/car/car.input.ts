@@ -441,10 +441,6 @@ class CISearch {
     memberId?: string;
 
     @IsOptional()
-    @Field(() => String, { nullable: true })
-    dealerId?: string;
-
-    @IsOptional()
     @Field(() => [CarType], { nullable: true })
     typeList?: CarType[];
 

@@ -122,7 +122,6 @@ export class CarsService {
     private shapeMatchQuery(match: T, input: CarsInquiry): void {
         const {
             memberId,
-            dealerId,
             typeList,
             bodyList,
             sortList,
@@ -142,7 +141,6 @@ export class CarsService {
             text,
         } = input.search;
         if (memberId) match.memberId = shapeIntoMongoObjectId(memberId);
-        if (dealerId) match.dealerId = shapeIntoMongoObjectId(dealerId);
         if (typeList && typeList.length) match.carType = { $in: typeList };
         if (bodyList && bodyList.length) match.carBody = { $in: bodyList };
         if (sortList && sortList.length) match.carSort = { $in: sortList };
