@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MemberService } from './member.service';
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Member, Members } from '../../libs/dto/member/member';
-import { AgentsInquiry, LoginInput, MemberInput, MembersInquiry } from '../../libs/dto/member/member.input';
+import { ADSInquiry, LoginInput, MemberInput, MembersInquiry } from '../../libs/dto/member/member.input';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { AuthMember } from '../auth/decorators/authMember.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -73,21 +73,21 @@ export class MemberResolver {
 
     @UseGuards(WithoutGuard)
     @Query(() => Members)
-    public async getAgents(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+    public async getAgents(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
         console.log('Query: getAgents');
         return await this.memberService.getAgents(memberId, input);
     };
 
     @UseGuards(WithoutGuard)
     @Query(() => Members)
-    public async getDealers(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+    public async getDealers(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
         console.log('Query: getDealers');
         return await this.memberService.getDealers(memberId, input);
     };
 
     @UseGuards(WithoutGuard)
     @Query(() => Members)
-    public async getServices(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+    public async getServices(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
         console.log('Query: getServices');
         return await this.memberService.getServices(memberId, input);
     };

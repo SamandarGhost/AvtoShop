@@ -6,7 +6,7 @@ import { Follower, Following, MeFollowed } from '../../libs/dto/follow/follow';
 import { AuthService } from '../auth/auth.service';
 import { ViewService } from '../view/view.service';
 import { LikeService } from '../like/like.service';
-import { AgentsInquiry, LoginInput, MemberInput, MembersInquiry } from '../../libs/dto/member/member.input';
+import { ADSInquiry, LoginInput, MemberInput, MembersInquiry } from '../../libs/dto/member/member.input';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { ViewGroup } from '../../libs/enums/view.enum';
@@ -100,7 +100,7 @@ export class MemberService {
         return result ? [{ followerId: followerId, followingId: followingId, myFollowing: true }] : [];
     }
 
-    public async getAgents(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
+    public async getAgents(memberId: ObjectId, input: ADSInquiry): Promise<Members> {
         const { text } = input.search;
         const match: T = { type: Type.AGENT, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
@@ -128,7 +128,7 @@ export class MemberService {
         return result[0];
     };
 
-    public async getDealers(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
+    public async getDealers(memberId: ObjectId, input: ADSInquiry): Promise<Members> {
         const { text } = input.search;
         const match: T = { type: Type.DEALER, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
@@ -156,7 +156,7 @@ export class MemberService {
         return result[0];
     };
 
-    public async getServices(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
+    public async getServices(memberId: ObjectId, input: ADSInquiry): Promise<Members> {
         const { text } = input.search;
         const match: T = { type: Type.SERVICE, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
