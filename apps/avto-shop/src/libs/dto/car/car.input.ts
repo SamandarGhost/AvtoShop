@@ -1,9 +1,9 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
 import { IsIn, IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
 import { availableCarSorts, availableOptions } from "../../config";
 import { Direction } from "../../enums/common.enum";
 import { ObjectId } from "mongoose";
+import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
 
 
 

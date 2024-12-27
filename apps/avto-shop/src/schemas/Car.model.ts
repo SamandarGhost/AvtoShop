@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { CarStatus, CarBody, CarType, CarSort, CarMadeIn, CarBrand, CarGroup, CarLocation, CarFuelType, CarDriveType, CarTuningType, CarColor, CarTransmission } from '../libs/enums/car.enum';
+import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from '../libs/enums/car.enum';
 
 const CarSchema = new Schema(
     {
