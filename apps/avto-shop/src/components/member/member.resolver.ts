@@ -80,16 +80,16 @@ export class MemberResolver {
 
     @UseGuards(WithoutGuard)
     @Query(() => Members)
-    public async getDealers(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
-        console.log('Query: getDealers');
-        return await this.memberService.getDealers(memberId, input);
+    public async getServices(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+        console.log('Query: getServices');
+        return await this.memberService.getServices(memberId, input);
     };
 
     @UseGuards(WithoutGuard)
     @Query(() => Members)
-    public async getServices(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
-        console.log('Query: getServices');
-        return await this.memberService.getServices(memberId, input);
+    public async getDealers(@Args('input') input: ADSInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
+        console.log('Query: getDealers');
+        return await this.memberService.getDealers(memberId, input);
     };
 
     @UseGuards(AuthGuard)
