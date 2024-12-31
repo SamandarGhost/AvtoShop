@@ -28,8 +28,8 @@ export class Product {
     @Field(() => Int)
     productQuantity: number;
 
-    @Field(() => String, { nullable: true })
-    productImages?: string;
+    @Field(() => [String], { nullable: true })
+    productImages?: string[];
 
     @Field(() => String, { nullable: true })
     productShortDesc?: string;

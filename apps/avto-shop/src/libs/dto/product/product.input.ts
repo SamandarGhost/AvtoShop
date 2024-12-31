@@ -34,7 +34,7 @@ export class ProductInput {
     productImages?: string[]
 
     @IsOptional()
-    @Length(20, 100)
+    @Length(10, 100)
     @Field(() => String, { nullable: true })
     productShortDesc?: string;
 
