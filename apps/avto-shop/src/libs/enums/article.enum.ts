@@ -8,6 +8,7 @@ export enum ArticleCategory {
 	OVERVIEW = 'OVERVIEW',
 	HELPFUL = 'HELPFUL',
 	EVENT = 'EVENT',
+	FORWEB = 'FORWEB'
 }
 registerEnumType(ArticleCategory, {
 	name: 'ArticleCategory',

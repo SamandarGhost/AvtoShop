@@ -14,6 +14,11 @@ const CarSchema = new Schema(
             required: true,
         },
 
+        carModel: {
+            type: String,
+            required: true,
+        },
+
         carBody: {
             type: String,
             enum: CarBody,
@@ -47,11 +52,6 @@ const CarSchema = new Schema(
         carBrand: {
             type: String,
             enum: CarBrand,
-            required: true,
-        },
-
-        carModel: {
-            type: String,
             required: true,
         },
 
@@ -144,7 +144,7 @@ const CarSchema = new Schema(
         },
 
         carFullFuel: {
-            type: Number,
+            type: String,
             required: true,
         },
 
@@ -159,15 +159,15 @@ const CarSchema = new Schema(
         },
 
         carDoor: {
-            type: Number,
+            type: String,
         },
 
         carCylinders: {
-            type: Number,
+            type: String,
         },
 
         carMaxSpeed: {
-            type: Number,
+            type: String,
         },
 
         carHundredSpeed: {
@@ -175,7 +175,7 @@ const CarSchema = new Schema(
         },
 
         carHorsePower: {
-            type: Number,
+            type: String,
         },
 
         carTorque: {
@@ -196,15 +196,15 @@ const CarSchema = new Schema(
         },
 
         carSeatsUp: {
-            type: Number,
+            type: String,
         },
 
         carWeigth: {
-            type: Number,
+            type: String,
         },
 
         carLoadWeight: {
-            type: Number,
+            type: String,
         },
 
         carTireSize: {

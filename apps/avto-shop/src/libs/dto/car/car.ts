@@ -90,8 +90,8 @@ export class Car {
     @Field(() => CarColor)
     carColor: CarColor;
 
-    @Field(() => Int)
-    carFullFuel: number;
+    @Field(() => String)
+    carFullFuel: string;
 
     @Field(() => Int)
     carMpgHw: number;
@@ -99,20 +99,20 @@ export class Car {
     @Field(() => Int)
     carMpgCity: number;
 
-    @Field(() => Int, { nullable: true })
-    carDoor?: number;
+    @Field(() => String, { nullable: true })
+    carDoor?: string;
 
-    @Field(() => Int, { nullable: true })
-    carCylinders?: number;
+    @Field(() => String, { nullable: true })
+    carCylinders?: string;
 
-    @Field(() => Int, { nullable: true })
-    carMaxSpeed?: number;
+    @Field(() => String, { nullable: true })
+    carMaxSpeed?: string;
 
     @Field(() => String, { nullable: true })
     carHundredSpeed?: string;
 
-    @Field(() => Int, { nullable: true })
-    carHorsePower?: number;
+    @Field(() => String, { nullable: true })
+    carHorsePower?: string;
 
     @Field(() => String, { nullable: true })
     carTorque?: string;
@@ -126,14 +126,14 @@ export class Car {
     @Field(() => String, { nullable: true })
     carWidth?: string;
 
-    @Field(() => Int, { nullable: true })
-    carSeatsUp?: number;
+    @Field(() => String, { nullable: true })
+    carSeatsUp?: string;
 
-    @Field(() => Int, { nullable: true })
-    carWeigth?: number;
+    @Field(() => String, { nullable: true })
+    carWeigth?: string;
 
-    @Field(() => Int, { nullable: true })
-    carLoadWeight?: number;
+    @Field(() => String, { nullable: true })
+    carLoadWeight?: string;
 
     @Field(() => String, { nullable: true })
     carTireSize?: string;

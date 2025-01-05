@@ -118,8 +118,8 @@ export class CarInput {
 
     @IsNotEmpty()
     @IsInt()
-    @Field(() => Int)
-    carFullFuel: number;
+    @Field(() => String)
+    carFullFuel: string;
 
     @IsNotEmpty()
     @IsInt()
@@ -133,19 +133,19 @@ export class CarInput {
 
     @IsOptional()
     @Min(1)
-    @Field(() => Int, { nullable: true })
-    carDoor?: number;
+    @Field(() => String, { nullable: true })
+    carDoor?: string;
 
     @IsOptional()
     @IsInt()
     @Min(1)
-    @Field(() => Int, { nullable: true })
-    carCylinders?: number;
+    @Field(() => String, { nullable: true })
+    carCylinders?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carMaxSpeed?: number;
+    @Field(() => String, { nullable: true })
+    carMaxSpeed?: string;
 
     @IsOptional()
     @IsInt()
@@ -154,8 +154,8 @@ export class CarInput {
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carHorsePower?: number;
+    @Field(() => String, { nullable: true })
+    carHorsePower?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
@@ -175,18 +175,18 @@ export class CarInput {
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carSeatsUp?: number;
+    @Field(() => String, { nullable: true })
+    carSeatsUp?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carWeigth?: number;
+    @Field(() => String, { nullable: true })
+    carWeigth?: string;
 
     @IsOptional()
     @IsInt()
-    @Field(() => Int, { nullable: true })
-    carLoadWeight?: number;
+    @Field(() => String, { nullable: true })
+    carLoadWeight?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
