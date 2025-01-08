@@ -6,7 +6,7 @@ import { MemberService } from '../member/member.service';
 import { ViewService } from '../view/view.service';
 import { LikeService } from '../like/like.service';
 import { SaveService } from '../save/save.service';
-import { AgentDealerCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
+import { ADCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { CarUpdate } from '../../libs/dto/car/car.update';
 import { StatisticModifier, T } from '../../libs/types/common';
@@ -225,7 +225,7 @@ export class CarsService {
         return result;
     }
 
-    public async getAgentDealerCars(memberId: ObjectId, input: AgentDealerCarsInquiry): Promise<Cars> {
+    public async getAgentDealerCars(memberId: ObjectId, input: ADCarsInquiry): Promise<Cars> {
         const { carStatus } = input.search;
         if (carStatus === CarStatus.DELETE) throw new InternalServerErrorException(Message.NOT_ALLOWED_REQUEST);
 

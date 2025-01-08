@@ -20,17 +20,12 @@ export class CarUpdate {
     carType?: CarType;
 
     @IsOptional()
-    @Length(3, 100)
     @Field(() => String, { nullable: true })
     carTitle?: string;
 
     @IsOptional()
     @Field(() => CarBody, { nullable: true })
     carBody?: CarBody;
-
-    @IsOptional()
-    @Field(() => CarSort, { nullable: true })
-    carSort?: CarSort;
 
     @IsOptional()
     @Field(() => CarGroup, { nullable: true })
@@ -66,12 +61,10 @@ export class CarUpdate {
     carLocation?: CarLocation;
 
     @IsOptional()
-    @Length(5, 200)
     @Field(() => String, { nullable: true })
     carAddress?: string;
 
     @IsOptional()
-    @Length(10, 500)
     @Field(() => String, { nullable: true })
     carDesc?: string
 
@@ -87,14 +80,6 @@ export class CarUpdate {
     @IsInt()
     @Field(() => Int, { nullable: true })
     carYear?: number;
-
-    @IsOptional()
-    @Field(() => Boolean, { nullable: true })
-    carTuning?: boolean;
-
-    @IsOptional()
-    @Field(() => CarTuningType, { nullable: true })
-    carTuningType?: CarTuningType;
 
     @IsOptional()
     @IsInt()
@@ -122,7 +107,6 @@ export class CarUpdate {
     carColor?: CarColor;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carFullFuel?: string;
 
@@ -137,28 +121,22 @@ export class CarUpdate {
     carMpgCity?: number;
 
     @IsOptional()
-    @Min(1)
     @Field(() => String, { nullable: true })
     carDoor?: string;
 
     @IsOptional()
-    @IsInt()
-    @Min(1)
     @Field(() => String, { nullable: true })
     carCylinders?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carMaxSpeed?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carHundredSpeed?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carHorsePower?: string;
 
@@ -179,17 +157,14 @@ export class CarUpdate {
     carWidth?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carSeatsUp?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carWeigth?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carLoadWeight?: string;
 

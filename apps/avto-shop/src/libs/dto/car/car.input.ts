@@ -15,17 +15,12 @@ export class CarInput {
     carType: CarType;
 
     @IsNotEmpty()
-    @Length(3, 100)
     @Field(() => String)
     carTitle: string;
 
     @IsNotEmpty()
     @Field(() => CarBody)
     carBody: CarBody;
-
-    @IsNotEmpty()
-    @Field(() => CarSort)
-    carSort: CarSort;
 
     @IsNotEmpty()
     @Field(() => CarGroup)
@@ -61,12 +56,10 @@ export class CarInput {
     carLocation: CarLocation;
 
     @IsNotEmpty()
-    @Length(5, 200)
     @Field(() => String)
     carAddress: string;
 
     @IsOptional()
-    @Length(10, 500)
     @Field(() => String, { nullable: true })
     carDesc?: string
 
@@ -82,14 +75,6 @@ export class CarInput {
     @IsInt()
     @Field(() => Int)
     carYear: number;
-
-    @IsOptional()
-    @Field(() => Boolean, { nullable: true })
-    carTuning?: boolean;
-
-    @IsOptional()
-    @Field(() => CarTuningType, { nullable: true })
-    carTuningType?: CarTuningType;
 
     @IsNotEmpty()
     @IsInt()
@@ -117,7 +102,6 @@ export class CarInput {
     carColor: CarColor;
 
     @IsNotEmpty()
-    @IsInt()
     @Field(() => String)
     carFullFuel: string;
 
@@ -132,28 +116,22 @@ export class CarInput {
     carMpgCity: number;
 
     @IsOptional()
-    @Min(1)
     @Field(() => String, { nullable: true })
     carDoor?: string;
 
     @IsOptional()
-    @IsInt()
-    @Min(1)
     @Field(() => String, { nullable: true })
     carCylinders?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carMaxSpeed?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carHundredSpeed?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carHorsePower?: string;
 
@@ -174,17 +152,14 @@ export class CarInput {
     carWidth?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carSeatsUp?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carWeigth?: string;
 
     @IsOptional()
-    @IsInt()
     @Field(() => String, { nullable: true })
     carLoadWeight?: string;
 
@@ -537,14 +512,14 @@ export class CarsInquiry {
 }
 
 @InputType()
-class ACISearch {
+class ADCISearch {
     @IsOptional()
     @Field(() => CarStatus, { nullable: true })
     carStatus?: CarStatus;
 }
 
 @InputType()
-export class AgentDealerCarsInquiry {
+export class ADCarsInquiry {
     @IsNotEmpty()
     @Min(1)
     @Field(() => Int)
@@ -565,41 +540,8 @@ export class AgentDealerCarsInquiry {
     direction?: Direction;
 
     @IsNotEmpty()
-    @Field(() => ACISearch)
-    search: ACISearch;
-}
-
-@InputType()
-class DCISearch {
-    @IsOptional()
-    @Field(() => CarStatus, { nullable: true })
-    carStatus?: CarStatus;
-}
-
-@InputType()
-export class DealerCarsInquiry {
-    @IsNotEmpty()
-    @Min(1)
-    @Field(() => Int)
-    page: number;
-
-    @IsNotEmpty()
-    @Min(1)
-    @Field(() => Int)
-    limit: number;
-
-    @IsOptional()
-    @IsIn(availableCarSorts)
-    @Field(() => String, { nullable: true })
-    sort?: string;
-
-    @IsOptional()
-    @Field(() => Direction, { nullable: true })
-    direction?: Direction;
-
-    @IsNotEmpty()
-    @Field(() => DCISearch)
-    search: DCISearch;
+    @Field(() => ADCISearch)
+    search: ADCISearch;
 }
 
 @InputType()

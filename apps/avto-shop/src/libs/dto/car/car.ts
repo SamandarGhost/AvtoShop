@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose";
 import { Member, TotalCounter } from "../member/member";
 import { MeLiked } from "../like/like";
 import { MeSaved } from "../save/save";
-import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarSort, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
+import { CarBody, CarBrand, CarColor, CarDriveType, CarFuelType, CarGroup, CarLocation, CarMadeIn, CarStatus, CarTransmission, CarTuningType, CarType } from "../../enums/car.enum";
 
 
 
@@ -23,9 +23,6 @@ export class Car {
 
     @Field(() => CarStatus)
     carStatus: CarStatus;
-
-    @Field(() => CarSort)
-    carSort: CarSort;
 
     @Field(() => CarGroup)
     carGroup: CarGroup;
@@ -65,12 +62,6 @@ export class Car {
 
     @Field(() => Int)
     carYear: number;
-
-    @Field(() => Boolean)
-    carTuning: boolean;
-
-    @Field(() => CarTuningType, { nullable: true })
-    carTuningType?: CarTuningType;
 
     @Field(() => Int)
     carMileage: number;

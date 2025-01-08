@@ -3,7 +3,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { UseGuards } from '@nestjs/common';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Car, Cars } from '../../libs/dto/car/car';
-import { AgentDealerCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
+import { ADCarsInquiry, AllCarsInquiry, CarInput, CarsInquiry, OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { ObjectId } from 'mongoose';
 import { AuthMember } from '../auth/decorators/authMember.decorator';
 import { CarsService } from './cars.service';
@@ -92,7 +92,7 @@ export class CarsResolver {
         @AuthMember('_id') memberId: ObjectId,
     ): Promise<Cars> {
         console.log('Query: getSaved');
-        return await this.carsService.getLiked(memberId, input);
+        return await this.carsService.getSaved(memberId, input);
 
     }
 
@@ -122,7 +122,7 @@ export class CarsResolver {
     @UseGuards(RolesGuard)
     @Query(() => Cars)
     public async getAgentDealerCars(
-        @Args('input') input: AgentDealerCarsInquiry,
+        @Args('input') input: ADCarsInquiry,
         @AuthMember('_id') memberId: ObjectId,
     ): Promise<Cars> {
         console.log('Query: getAgentDealerCars');

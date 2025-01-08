@@ -7,6 +7,7 @@ import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { T } from '../../libs/types/common';
 import { lookupVisited } from '../../libs/config';
 import { Cars } from '../../libs/dto/car/car';
+import { ViewGroup } from '../../libs/enums/view.enum';
 
 @Injectable()
 export class ViewService {
@@ -30,7 +31,7 @@ export class ViewService {
 
     public async getVisited(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
-        const match: T = { likeGroup: { $in: ['CAR'] }, memberId: memberId };
+        const match: T = { viewGroup: ViewGroup.CAR, memberId: memberId };
 
         const data: T = await this.viewModel.aggregate([
             { $match: match },
@@ -38,7 +39,7 @@ export class ViewService {
             {
                 $lookup: {
                     from: 'cars',
-                    localField: 'likeRefId',
+                    localField: 'viewRefId',
                     foreignField: '_id',
                     as: 'visitedCar',
                 },
