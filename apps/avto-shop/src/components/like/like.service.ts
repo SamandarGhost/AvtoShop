@@ -8,6 +8,8 @@ import { Message } from '../../libs/enums/common.enum';
 import { OrdinaryInquiry } from '../../libs/dto/car/car.input';
 import { lookupliked } from '../../libs/config';
 import { Cars } from '../../libs/dto/car/car';
+import { CarStatus } from '../../libs/enums/car.enum';
+import { LikeGroup } from '../../libs/enums/like.enum';
 
 @Injectable()
 export class LikeService {
@@ -42,7 +44,7 @@ export class LikeService {
 
     public async getLiked(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
-        const match: T = { likeGroup: { $in: ['CAR'] }, memberId: memberId };
+        const match: T = { likeGroup: LikeGroup.CAR, memberId: memberId };
 
         const data: T = await this.likeModel.aggregate([
             { $match: match },

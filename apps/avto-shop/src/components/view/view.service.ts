@@ -8,6 +8,7 @@ import { T } from '../../libs/types/common';
 import { lookupVisited } from '../../libs/config';
 import { Cars } from '../../libs/dto/car/car';
 import { ViewGroup } from '../../libs/enums/view.enum';
+import { CarStatus } from '../../libs/enums/car.enum';
 
 @Injectable()
 export class ViewService {

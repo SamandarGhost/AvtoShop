@@ -24,10 +24,6 @@ export class MemberInput {
     fullName?: string;
 
     @IsOptional()
-    @Field(() => Location, { nullable: true })
-    location?: Location;
-
-    @IsOptional()
     @Field(() => String, { nullable: true })
     address?: string;
 
@@ -93,12 +89,8 @@ export class MemberInput {
     image?: string;
 
     @IsOptional()
-    @Field(() => [String], { nullable: true })
-    images?: string[];
-
-    @IsOptional()
-    @Field(() => Brand, { nullable: true })
-    dealerBrand: Brand;
+    @Field(() => String, { nullable: true })
+    viewImage?: string;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
@@ -143,14 +135,6 @@ export class MemberInput {
     @IsOptional()
     @Field(() => Boolean, { nullable: true })
     dealerCarDelivery?: boolean;
-
-    @IsOptional()
-    @Field(() => String, { nullable: true })
-    dealerPlusService?: string;
-
-    @IsOptional()
-    @Field(() => CarServiceType, { nullable: true })
-    carServiceType?: CarServiceType;
 
     @IsOptional()
     @Field(() => Boolean, { nullable: true })

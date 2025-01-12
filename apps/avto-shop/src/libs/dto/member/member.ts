@@ -30,11 +30,8 @@ export class Member {
     @Field(() => String)
     image?: string;
 
-    @Field(() => [String])
-    images?: string[];
-
-    @Field(() => Location, { nullable: true })
-    location?: Location;
+    @Field(() => String)
+    viewImage?: string;
 
     @Field(() => String, { nullable: true })
     address?: string;
@@ -117,9 +114,6 @@ export class Member {
     @Field(() => Int)
     sellerProducts: number;
 
-    @Field(() => Brand, { nullable: true })
-    dealerBrand?: Brand;
-
     @Field(() => Boolean)
     dealerFinancing: boolean;
 
@@ -152,12 +146,6 @@ export class Member {
 
     @Field(() => Boolean)
     dealerCarDelivery: boolean;
-
-    @Field(() => String, { nullable: true })
-    dealerPlusService?: string;
-
-    @Field(() => CarServiceType, { nullable: true })
-    carServiceType?: CarServiceType;
 
     @Field(() => Boolean)
     carOilChange: boolean;

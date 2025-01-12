@@ -42,14 +42,9 @@ const MemberSchema = new Schema({
         default: '',
     },
 
-    images: {
-        type: [String],
-        default: [''],
-    },
-
-    location: {
+    viewImage: {
         type: String,
-        enum: Location,
+        default: '',
     },
 
     address: {
@@ -178,11 +173,6 @@ const MemberSchema = new Schema({
         default: 0,
     },
 
-    dealerBrand: {
-        type: String,
-        enum: Brand,
-    },
-
     dealerFinancing: {
         type: Boolean,
         default: false,
@@ -204,7 +194,7 @@ const MemberSchema = new Schema({
     },
 
     dealerWarranties: {
-        type: Number,
+        type: Boolean,
         default: false,
     },
 
@@ -236,15 +226,6 @@ const MemberSchema = new Schema({
     dealerCarDelivery: {
         type: Boolean,
         default: false,
-    },
-
-    dealerPlusService: {
-        type: String,
-    },
-
-    carServiceType: {
-        type: String,
-        enum: CarServiceType,
     },
 
     carOilChange: {

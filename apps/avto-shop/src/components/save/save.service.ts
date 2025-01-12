@@ -8,6 +8,7 @@ import { Message } from "../../libs/enums/common.enum";
 import { OrdinaryInquiry } from "../../libs/dto/car/car.input";
 import { lookupSaved } from "../../libs/config";
 import { Cars } from "../../libs/dto/car/car";
+import { CarStatus } from "../../libs/enums/car.enum";
 
 @Injectable()
 export class SaveService {
@@ -40,7 +41,7 @@ export class SaveService {
 
     public async getSaved(memberId: ObjectId, input: OrdinaryInquiry): Promise<Cars> {
         const { page, limit } = input;
-        const match: T = { saveGroup: { $in: ['CAR', 'PRODUCT'] }, memberId: memberId };
+        const match: T = { saveGroup: { $in: ['CAR'] }, memberId: memberId };
 
         const data: T = await this.saveModel.aggregate([
             { $match: match },

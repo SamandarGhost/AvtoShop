@@ -31,10 +31,6 @@ export class MemberUpdate {
     fullName?: string;
 
     @IsOptional()
-    @Field(() => Location, { nullable: true })
-    location?: Location;
-
-    @IsOptional()
     @Field(() => String, { nullable: true })
     address?: string;
 
@@ -96,12 +92,8 @@ export class MemberUpdate {
     image?: string;
 
     @IsOptional()
-    @Field(() => [String], { nullable: true })
-    images?: string[];
-
-    @IsOptional()
-    @Field(() => Brand, { nullable: true })
-    dealerBrand?: Brand;
+    @Field(() => String, { nullable: true })
+    viewImage?: string;
 
     @Field(() => Boolean, { nullable: true })
     dealerFinancing?: boolean;
@@ -135,12 +127,6 @@ export class MemberUpdate {
 
     @Field(() => Boolean, { nullable: true })
     dealerCarDelivery?: boolean;
-
-    @Field(() => String, { nullable: true })
-    dealerPlusService?: string;
-
-    @Field(() => CarServiceType, { nullable: true })
-    carServiceType?: CarServiceType;
 
     @Field(() => Boolean, { nullable: true })
     carOilChange?: boolean;
