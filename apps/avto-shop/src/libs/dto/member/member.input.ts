@@ -14,12 +14,10 @@ export class MemberInput {
     type?: Type;
 
     @IsNotEmpty()
-    @Length(3, 12)
     @Field(() => String)
     titleNick: string;
 
     @IsOptional()
-    @Length(8, 30)
     @Field(() => String, { nullable: true })
     fullName?: string;
 
@@ -80,7 +78,6 @@ export class MemberInput {
     xcom?: string;
 
     @IsNotEmpty()
-    @Length(5, 12)
     @Field(() => String)
     password: string;
 
@@ -228,12 +225,10 @@ export class MemberInput {
 @InputType()
 export class LoginInput {
     @IsNotEmpty()
-    @Length(3, 12)
     @Field(() => String)
     titleNick: string;
 
     @IsNotEmpty()
-    @Length(5, 12)
     @Field(() => String)
     password: string;
 };

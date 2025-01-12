@@ -21,12 +21,10 @@ export class MemberUpdate {
     status?: Status;
 
     @IsOptional()
-    @Length(3, 12)
     @Field(() => String, { nullable: true })
     titleNick?: string;
 
     @IsOptional()
-    @Length(8, 30)
     @Field(() => String, { nullable: true })
     fullName?: string;
 
@@ -81,11 +79,6 @@ export class MemberUpdate {
     @IsOptional()
     @Field(() => String, { nullable: true })
     xcom?: string;
-
-    @IsOptional()
-    @Length(5, 12)
-    @Field(() => String, { nullable: true })
-    password?: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
