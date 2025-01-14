@@ -106,13 +106,15 @@ export class ArticleService {
                         { $limit: input.limit },
                         lookupAuthMemberLiked(memberId),
                         lookupMember,
-                        { $unwind: '$memberData' },
+                        { $unwind: '$creatorData' },
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },
             },
         ]).exec();
         if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        console.log("articles", result);
+
 
         return result[0];
     }

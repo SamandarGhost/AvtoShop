@@ -17,7 +17,7 @@ import { Type } from '../../libs/enums/member.enum';
 export class CarsResolver {
     constructor(private readonly carsService: CarsService) { }
 
-    @Roles(Type.AGENT)
+    @Roles(Type.AGENT, Type.DEALER)
     @UseGuards(RolesGuard)
     @Mutation(() => Car)
     public async createCar(
@@ -31,7 +31,7 @@ export class CarsResolver {
         return await this.carsService.createCar(input);
     }
 
-    @Roles(Type.AGENT)
+    @Roles(Type.AGENT, Type.DEALER)
     @UseGuards(RolesGuard)
     @Mutation(() => Car)
     public async updateCar(@Args('input') input: CarUpdate,
@@ -118,7 +118,7 @@ export class CarsResolver {
         return await this.carsService.saveTargetCar(memberId, likeRefId);
     }
 
-    @Roles(Type.AGENT)
+    @Roles(Type.AGENT, Type.DEALER)
     @UseGuards(RolesGuard)
     @Query(() => Cars)
     public async getAgentDealerCars(

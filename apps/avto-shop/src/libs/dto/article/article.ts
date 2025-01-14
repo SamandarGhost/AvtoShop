@@ -42,7 +42,7 @@ export class Article {
 	@Field(() => Date)
 	updatedAt: Date;
 
-	@Field(() => [Member], { nullable: true })
+	@Field(() => Member, { nullable: true })
 	creatorData?: Member;
 
 	@Field(() => [MeLiked], { nullable: true })

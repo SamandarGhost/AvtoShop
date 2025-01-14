@@ -25,7 +25,6 @@ export class ProductInput {
 
     @IsOptional()
     @IsInt()
-    @Min(1)
     @Field(() => Int, { nullable: true })
     productQuantity?: number;
 
@@ -34,12 +33,10 @@ export class ProductInput {
     productImages?: string[]
 
     @IsOptional()
-    @Length(10, 100)
     @Field(() => String, { nullable: true })
     productShortDesc?: string;
 
     @IsOptional()
-    @Length(20, 500)
     @Field(() => String, { nullable: true })
     productDesc?: string;
 
@@ -76,6 +73,10 @@ class PISearch {
     @IsOptional()
     @Field(() => String, { nullable: true })
     text?: string;
+
+    @IsOptional()
+    @Field(() => ProductStatus, { nullable: true })
+    productStatus?: ProductStatus;
 }
 
 @InputType()
