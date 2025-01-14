@@ -77,9 +77,9 @@ export class MemberInput {
     @Field(() => String, { nullable: true })
     xcom?: string;
 
-    @IsNotEmpty()
-    @Field(() => String)
-    password: string;
+    // @IsNotEmpty()
+    // @Field(() => String)
+    // password: string;
 
     @IsOptional()
     @Field(() => String, { nullable: true })
