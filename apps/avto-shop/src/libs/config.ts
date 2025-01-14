@@ -114,28 +114,12 @@ export const lookupMember = {
 }
 
 
-export const lookupFollowingDataMember = {
+export const lookupFollowingData = {
     $lookup: {
         from: 'members',
         localField: 'followingId',
         foreignField: '_id',
-        as: 'memberData',
-    },
-};
-
-export const addFollowingData = {
-    $addFields: {
-        followingsData: {
-            $cond: {
-                if: { $gt: [{ $size: '$memberData' }, 0] },
-                then: {
-                    $mergeObjects: [{ type: 'member' }, { $arrayElemAt: ['$memberData', 0] }],
-                },
-                else: {
-                    $mergeObjects: [{ type: 'dealer' }, { $arrayElemAt: ['$dealerData', 0] }],
-                },
-            },
-        },
+        as: 'followingData',
     },
 };
 

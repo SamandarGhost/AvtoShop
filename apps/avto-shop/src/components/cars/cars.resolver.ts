@@ -24,9 +24,6 @@ export class CarsResolver {
         @Args('input') input: CarInput,
         @AuthMember('_id') memberId: ObjectId,
     ): Promise<Car> {
-        console.log("input:", input)
-        console.log("memberId:", memberId)
-        console.log('Mutation: createCar');
         input.memberId = memberId;
         return await this.carsService.createCar(input);
     }

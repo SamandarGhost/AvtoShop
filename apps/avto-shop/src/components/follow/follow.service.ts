@@ -6,7 +6,7 @@ import { MemberService } from '../member/member.service';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { FollowInquiry } from '../../libs/dto/follow/follow.input';
 import { T } from '../../libs/types/common';
-import { addFollowingData, lookupAuthMemberFollowed, lookupAuthMemberLiked, lookupFollowerData, lookupFollowingDataMember } from '../../libs/config';
+import { lookupAuthMemberFollowed, lookupAuthMemberLiked, lookupFollowerData, lookupFollowingData } from '../../libs/config';
 
 @Injectable()
 export class FollowService {
@@ -98,9 +98,8 @@ export class FollowService {
                         lookupAuthMemberFollowed({
                             followerId: memberId, followingId: '$followingId'
                         }),
-                        lookupFollowingDataMember,
-                        addFollowingData,
-                        { $project: { memberData: 0, dealerData: 0 } }
+                        lookupFollowingData,
+                        { $unwind: '$followingData' }
                     ],
                     metaCounter: [{ $count: 'total' }],
                 },

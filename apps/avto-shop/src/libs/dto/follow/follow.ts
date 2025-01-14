@@ -74,7 +74,7 @@ export class Following {
 	@Field(() => [MeFollowed], { nullable: true })
 	meFollowed?: MeFollowed[];
 
-	@Field(() => [Member], { nullable: true })
+	@Field(() => Member, { nullable: true })
 	followingData?: Member;
 }
 
