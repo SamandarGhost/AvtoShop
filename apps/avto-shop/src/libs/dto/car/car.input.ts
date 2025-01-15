@@ -402,11 +402,11 @@ export class CarRange {
 
 @InputType()
 export class PeriodRange {
-    @Field(() => Date)
-    start: Date;
+    @Field(() => Int)
+    start: number;
 
-    @Field(() => Date)
-    end: Date
+    @Field(() => Int)
+    end: number
 }
 
 @InputType()
