@@ -14,7 +14,7 @@ import { CarStatus } from '../../libs/enums/car.enum';
 import * as moment from 'moment';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { LikeGroup } from '../../libs/enums/like.enum';
-import { lookupAuthMemberLiked, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { lookupAuthMemberLiked, lookupAuthMemberSaved, lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { SaveInput } from '../../libs/dto/save/save.input';
 import { SaveGroup } from '../../libs/enums/save.enum';
@@ -86,6 +86,9 @@ export class CarsService {
             }
             const likeInput = { memberId: memberId, likeRefId: carId };
             targetCar.meLiked = await this.likeService.checkLikeExistence(likeInput);
+
+            const saveInput = { memberId: memberId, saveRefId: carId };
+            targetCar.meSaved = await this.saveService.checkSaveExistence(saveInput);
         }
         targetCar.creatorData = await this.memberService.getMember(null, targetCar.memberId);
 
@@ -106,6 +109,7 @@ export class CarsService {
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
                             lookupAuthMemberLiked(memberId),
+                            lookupAuthMemberSaved(memberId),
                             lookupMember,
                             { $unwind: '$creatorData' },
                         ],
@@ -115,7 +119,6 @@ export class CarsService {
             ])
             .exec();
         if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
-
         return result[0];
     }
 

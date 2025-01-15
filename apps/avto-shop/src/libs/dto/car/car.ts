@@ -328,7 +328,7 @@ export class Car {
     meLiked?: MeLiked[];
 
     @Field(() => [MeSaved], { nullable: true })
-    meSaved?: MeLiked[];
+    meSaved?: MeSaved[];
 
 }
 
