@@ -126,7 +126,7 @@ export class MemberService {
         if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
 
         return result[0];
-    };
+    }
 
     public async getDealers(memberId: ObjectId, input: ADSInquiry): Promise<Members> {
         const { text } = input.search;

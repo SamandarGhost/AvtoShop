@@ -84,10 +84,10 @@ export class CarsService {
                 await this.carStatsEditor({ _id: carId, targetKey: 'carViews', modifier: 1 });
                 targetCar.carViews++;
             }
-            const likeInput = { memberId: memberId, likeRefId: carId };
+            const likeInput = { memberId: memberId, likeRefId: carId, likeGroup: LikeGroup.MEMBER };
             targetCar.meLiked = await this.likeService.checkLikeExistence(likeInput);
 
-            const saveInput = { memberId: memberId, saveRefId: carId };
+            const saveInput = { memberId: memberId, saveRefId: carId, saveGroup: SaveGroup.MEMBER };
             targetCar.meSaved = await this.saveService.checkSaveExistence(saveInput);
         }
         targetCar.creatorData = await this.memberService.getMember(null, targetCar.memberId);
