@@ -14,7 +14,6 @@ export enum CommentGroup {
 	CAR = 'CAR',
 	ARTICLE = 'ARTICLE',
 	PRODUCT = 'PRODUCT',
-	DEALER = 'DEALER',
 }
 registerEnumType(CommentGroup, {
 	name: 'CommentGroup',

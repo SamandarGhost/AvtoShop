@@ -105,7 +105,7 @@ export class MemberService {
         const match: T = { type: Type.AGENT, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
-        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        if (text) match.titleNick = { $regex: new RegExp(text, 'i') };
         console.log('match:', match);
 
         const result = await this.memberModel
@@ -133,7 +133,7 @@ export class MemberService {
         const match: T = { type: Type.DEALER, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
-        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        if (text) match.titleNick = { $regex: new RegExp(text, 'i') };
         console.log('match:', match);
 
         const result = await this.memberModel
@@ -161,7 +161,7 @@ export class MemberService {
         const match: T = { type: Type.SERVICE, status: Status.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
-        if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
+        if (text) match.titleNick = { $regex: new RegExp(text, 'i') };
         console.log('match:', match);
 
         const result = await this.memberModel

@@ -33,9 +33,23 @@ export class CarsService {
             const result = await this.carModel.create(input);
             await this.memberService.memberStatsEditor({
                 _id: result.memberId,
-                targetKey: 'cars',
+                targetKey: 'memberCars',
                 modifier: 1,
             });
+
+            if (input.carType === 'NEW') {
+                await this.memberService.memberStatsEditor({
+                    _id: result.memberId,
+                    targetKey: 'newCars',
+                    modifier: 1,
+                });
+            } else {
+                await this.memberService.memberStatsEditor({
+                    _id: result.memberId,
+                    targetKey: 'usedCars',
+                    modifier: 1,
+                });
+            }
             return result;
         } catch (err) {
             console.log('Error CarModel: createCar', err.message);
