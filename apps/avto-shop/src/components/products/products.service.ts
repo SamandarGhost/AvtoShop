@@ -129,7 +129,7 @@ export class ProductService {
             text,
         } = input.search;
         if (memberId) match.memberId = shapeIntoMongoObjectId(memberId);
-        if (typeList && typeList.length) match.typeList = { $in: typeList };
+        if (typeList && typeList.length) match.productType = { $in: typeList };
         if (priceRange) match.priceRange = { $gte: priceRange.minPrice, $lte: priceRange.maxPrice };
         if (text) match.productTitle = { $regex: new RegExp(text, 'i') };
     }

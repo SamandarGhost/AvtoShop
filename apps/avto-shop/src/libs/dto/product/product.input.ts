@@ -73,10 +73,6 @@ class PISearch {
     @IsOptional()
     @Field(() => String, { nullable: true })
     text?: string;
-
-    @IsOptional()
-    @Field(() => ProductStatus, { nullable: true })
-    productStatus?: ProductStatus;
 }
 
 @InputType()
