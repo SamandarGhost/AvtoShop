@@ -28,12 +28,12 @@ export class FollowService {
         if (targetMember) {
             await this.memberService.memberStatsEditor({
                 _id: followerId,
-                targetKey: 'memberFollowings',
+                targetKey: 'followings',
                 modifier: 1,
             });
             await this.memberService.memberStatsEditor({
                 _id: followingId,
-                targetKey: 'memberFollowers',
+                targetKey: 'followers',
                 modifier: 1,
             });
         }
@@ -67,12 +67,12 @@ export class FollowService {
         if (targetMember) {
             await this.memberService.memberStatsEditor({
                 _id: followerId,
-                targetKey: 'memberFollowings',
+                targetKey: 'followings',
                 modifier: 1,
             });
             await this.memberService.memberStatsEditor({
                 _id: followingId,
-                targetKey: 'memberFollowers',
+                targetKey: 'followers',
                 modifier: 1,
             });
         }
@@ -106,6 +106,7 @@ export class FollowService {
             },
         ]).exec();
         if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        console.log("result", result[0]);
 
         return result[0];
     }
@@ -126,7 +127,7 @@ export class FollowService {
                         { $limit: limit },
                         lookupAuthMemberLiked(memberId, 'followerId'),
                         lookupAuthMemberFollowed({
-                            followerId: memberId, followingId: '$followingId'
+                            followerId: memberId, followingId: '$followerId'
                         }),
                         lookupFollowerData,
                         { $unwind: '$followerData' }
@@ -136,6 +137,7 @@ export class FollowService {
             },
         ]).exec();
         if (!result.length) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
+        console.log("result", result[0]);
 
         return result[0];
     }
