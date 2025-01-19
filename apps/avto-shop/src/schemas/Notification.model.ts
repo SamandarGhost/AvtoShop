@@ -30,6 +30,10 @@ const NotificationSchema = new Schema(
 			type: String,
 		},
 
+		notificationContent: {
+			type: String,
+		},
+
 		authorId: {
 			type: Schema.Types.ObjectId,
 			required: true,
@@ -45,17 +49,6 @@ const NotificationSchema = new Schema(
 		carId: {
 			type: Schema.Types.ObjectId,
 			ref: 'Car',
-		},
-
-		dealerId: {
-			type: Schema.Types.ObjectId,
-			ref: 'Dealer',
-		},
-
-
-		productId: {
-			type: Schema.Types.ObjectId,
-			ref: 'Product',
 		},
 
 		articleId: {
