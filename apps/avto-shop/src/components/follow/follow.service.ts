@@ -68,12 +68,12 @@ export class FollowService {
             await this.memberService.memberStatsEditor({
                 _id: followerId,
                 targetKey: 'followings',
-                modifier: 1,
+                modifier: -1,
             });
             await this.memberService.memberStatsEditor({
                 _id: followingId,
                 targetKey: 'followers',
-                modifier: 1,
+                modifier: -1,
             });
         }
 
