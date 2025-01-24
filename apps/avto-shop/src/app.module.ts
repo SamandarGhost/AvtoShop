@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
 import { SocketModule } from './socket/socket.module';
 import { T } from './libs/types/common';
+import { ComponentsModule } from './notification/components/components.module';
 
 
 @Module({

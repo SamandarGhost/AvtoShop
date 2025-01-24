@@ -26,10 +26,6 @@ const NotificationSchema = new Schema(
 			required: true,
 		},
 
-		notificationDesc: {
-			type: String,
-		},
-
 		notificationContent: {
 			type: String,
 		},
@@ -54,6 +50,11 @@ const NotificationSchema = new Schema(
 		articleId: {
 			type: Schema.Types.ObjectId,
 			ref: 'Article',
+		},
+
+		commentId: {
+			type: Schema.Types.ObjectId,
+			ref: 'Comment',
 		},
 	},
 	{ timestamps: true, collection: 'notifications' },
