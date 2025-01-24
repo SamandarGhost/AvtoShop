@@ -24,9 +24,9 @@ export class NotificationInput {
     @Field(() => String, { nullable: true })
     notificationContent?: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @Field(() => String)
-    authorId?: ObjectId;
+    authorId: ObjectId;
 
     @IsOptional()
     @Field(() => String, { nullable: true })

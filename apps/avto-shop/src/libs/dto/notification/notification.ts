@@ -25,7 +25,7 @@ export class Notification {
     notificationContent?: string;
 
     @Field(() => String)
-    authorId?: ObjectId;
+    authorId: ObjectId;
 
     @Field(() => String, { nullable: true })
     receiverId?: ObjectId;
