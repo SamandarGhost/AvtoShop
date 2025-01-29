@@ -1,7 +1,9 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsNotEmpty, IsOptional, Min } from "class-validator";
+import { IsIn, IsNotEmpty, IsOptional, Min } from "class-validator";
 import { NotificationGroup, NotificationType } from "../../enums/notification.enum";
 import { ObjectId } from "mongoose";
+import { Direction } from "../../enums/common.enum";
+import { availableNotifSorts } from "../../config";
 
 
 
@@ -15,14 +17,6 @@ export class NotificationInput {
     @IsNotEmpty()
     @Field(() => NotificationGroup)
     notificationGroup: NotificationGroup;
-
-    @IsOptional()
-    @Field(() => String, { nullable: true })
-    notificationTitle?: string;
-
-    @IsOptional()
-    @Field(() => String, { nullable: true })
-    notificationContent?: string;
 
     @IsNotEmpty()
     @Field(() => String)
@@ -47,6 +41,38 @@ export class NotificationInput {
 }
 
 @InputType()
+export class ToggleNotificate {
+    @IsNotEmpty()
+    @Field(() => NotificationType)
+    notificationType: NotificationType;
+
+    @IsNotEmpty()
+    @Field(() => NotificationGroup)
+    notificationGroup: NotificationGroup;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    carId?: ObjectId;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    articleId?: ObjectId;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    comentId?: ObjectId;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    authorId?: ObjectId;
+
+    @IsOptional()
+    @Field(() => String, { nullable: true })
+    receiverId?: ObjectId;
+
+}
+
+@InputType()
 export class NotificationInquiry {
     @IsNotEmpty()
     @Min(1)
@@ -57,4 +83,13 @@ export class NotificationInquiry {
     @Min(1)
     @Field(() => Int)
     limit: number;
+
+    @IsOptional()
+    @IsIn(availableNotifSorts)
+    @Field(() => String, { nullable: true })
+    sort?: string;
+
+    @IsOptional()
+    @Field(() => Direction, { nullable: true })
+    direction?: Direction;
 }

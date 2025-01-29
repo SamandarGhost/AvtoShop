@@ -4,7 +4,6 @@ export enum NotificationType {
 	LIKE = 'LIKE',
 	COMMENT = 'COMMENT',
 	SAVE = 'SAVE',
-	MESSAGE = 'MESSAGE',
 	RANK = 'RANK'
 }
 registerEnumType(NotificationType, {
@@ -24,7 +23,6 @@ export enum NotificationGroup {
 	MEMBER = 'MEMBER',
 	CAR = 'CAR',
 	ARTICLE = 'ARTICLE',
-	PRODUCT = 'PRODUCT',
 }
 registerEnumType(NotificationGroup, {
 	name: 'NotificationGroup',

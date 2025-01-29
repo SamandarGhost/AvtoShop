@@ -3,6 +3,7 @@ import { ObjectId } from 'bson';
 export const availableADSSorts = ['createdAt', 'updatedAt', 'memberLikes', 'memberViews', 'memberRank'];
 export const availableMemberSorts = ['createdAt', 'updatedAt', 'memberLikes', 'memberViews'];
 export const availableProductSorts = ['createdAt', 'updatedAt', 'productViews', 'productLikes'];
+export const availableNotifSorts = ['createdAt', 'updatedAt'];
 
 export const availableOptions = ['carBarter', 'carRent'];
 export const availableCarSorts = [
@@ -136,6 +137,42 @@ export const lookupAuthMemberFollowed = (input: LookupAuthMemberFollowed) => {
         },
     };
 };
+
+export const lookupAuthor = {
+    $lookup: {
+        from: 'members',
+        localField: 'authorId',
+        foreignField: '_id',
+        as: 'creatorData',
+    }
+}
+
+export const lookupCar = {
+    $lookup: {
+        from: 'cars',
+        localField: 'carId',
+        foreignField: '_id',
+        as: 'carData',
+    }
+}
+
+export const lookupArticle = {
+    $lookup: {
+        from: 'articles',
+        localField: 'articleId',
+        foreignField: '_id',
+        as: 'articleData',
+    }
+}
+
+export const lookupComment = {
+    $lookup: {
+        from: 'comments',
+        localField: 'commentId',
+        foreignField: '_id',
+        as: 'commentData',
+    }
+}
 
 export const lookupMember = {
     $lookup: {

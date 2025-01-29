@@ -21,15 +21,6 @@ const NotificationSchema = new Schema(
 			required: true,
 		},
 
-		notificationTitle: {
-			type: String,
-			required: true,
-		},
-
-		notificationContent: {
-			type: String,
-		},
-
 		authorId: {
 			type: Schema.Types.ObjectId,
 			required: true,

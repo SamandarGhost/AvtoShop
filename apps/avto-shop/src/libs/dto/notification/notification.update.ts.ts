@@ -23,14 +23,6 @@ export class NotificationUpdate {
 
     @IsOptional()
     @Field(() => String, { nullable: true })
-    notificationTitle?: string;
-
-    @IsOptional()
-    @Field(() => String, { nullable: true })
-    notificationContent?: string;
-
-    @IsOptional()
-    @Field(() => String, { nullable: true })
     authorId?: ObjectId;
 
     @IsOptional()
