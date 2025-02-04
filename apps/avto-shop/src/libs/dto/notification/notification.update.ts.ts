@@ -10,6 +10,10 @@ import { ObjectId } from "mongoose";
 export class NotificationUpdate {
 
     @IsOptional()
+    @Field(() => String, { nullable: true })
+    _id?: string;
+
+    @IsOptional()
     @Field(() => NotificationType, { nullable: true })
     notificationType?: NotificationType;
 

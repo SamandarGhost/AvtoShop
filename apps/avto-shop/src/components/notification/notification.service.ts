@@ -57,8 +57,9 @@ export class NotificationService {
     }
 
     public async updateNotification(memberId: ObjectId, input: NotificationUpdate): Promise<Notification> {
-
+        input._id = shapeIntoMongoObjectId(input?._id)
         const search: T = {
+            _id: input._id,
             receiverId: memberId,
             notificationStatus: NotificationStatus.WAIT,
         };
@@ -73,6 +74,7 @@ export class NotificationService {
         const search: T = {
             _id: notificationId,
             receiverId: memberId,
+            notificationStatus: NotificationStatus.READ
         };
         const targetNotification = await this.notificationModel.findOne(search).exec();
         if (!targetNotification) throw new InternalServerErrorException(Message.N0_DATA_FOUND);
@@ -81,8 +83,13 @@ export class NotificationService {
 
     public async getNotifications(memberId: ObjectId, input: NotificationInquiry): Promise<Notifications> {
 
-        const match: T = { receiverId: memberId };
-        const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
+        const match: T = {
+            receiverId: memberId,
+            ...(input?.notificationStatus ? { notificationStatus: input.notificationStatus } : {})
+        };
+        const sort: T = {
+            [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC
+        };
         const result = await this.notificationModel
             .aggregate([
                 { $match: match },

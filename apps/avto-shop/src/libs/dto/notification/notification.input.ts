@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { IsIn, IsNotEmpty, IsOptional, Min } from "class-validator";
-import { NotificationGroup, NotificationType } from "../../enums/notification.enum";
+import { NotificationGroup, NotificationStatus, NotificationType } from "../../enums/notification.enum";
 import { ObjectId } from "mongoose";
 import { Direction } from "../../enums/common.enum";
 import { availableNotifSorts } from "../../config";
@@ -92,4 +92,8 @@ export class NotificationInquiry {
     @IsOptional()
     @Field(() => Direction, { nullable: true })
     direction?: Direction;
+
+    @IsOptional()
+    @Field(() => NotificationStatus, { nullable: true })
+    notificationStatus?: NotificationStatus;
 }
