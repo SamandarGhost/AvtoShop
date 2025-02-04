@@ -35,15 +35,15 @@ export class NoticeInput {
 @InputType()
 class NISearch {
     @IsOptional()
-    @Field(() => NoticeCategory)
+    @Field(() => NoticeCategory, { nullable: true })
     noticeCategory?: NoticeCategory;
 
     @IsOptional()
-    @Field(() => NoticeStatus)
+    @Field(() => NoticeStatus, { nullable: true })
     noticeStatus?: NoticeStatus;
 
     @IsOptional()
-    @Field(() => NoticeGroup)
+    @Field(() => NoticeGroup, { nullable: true })
     noticeGroup?: NoticeGroup;
 }
 

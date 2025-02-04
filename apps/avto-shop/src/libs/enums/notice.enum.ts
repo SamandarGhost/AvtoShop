@@ -19,6 +19,7 @@ export enum NoticeGroup {
 	MEMBERSHIP = 'MEMBERSHIP',
 	COMMUNITY = 'COMMUNITY',
 	OTHER = 'OTHER',
+	EVENT = "EVENT",
 }
 registerEnumType(NoticeGroup, {
 	name: 'NoticeGroup',

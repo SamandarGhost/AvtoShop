@@ -1,10 +1,10 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, InputType } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 import { NoticeCategory, NoticeGroup, NoticeStatus } from "../../enums/notice.enum";
 
 
 
-@ObjectType()
+@InputType()
 export class NoticeUpdate {
     @Field(() => String)
     _id: ObjectId;
