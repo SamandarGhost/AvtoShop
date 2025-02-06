@@ -154,6 +154,34 @@ export class MemberResolver {
     }
 
     @UseGuards(AuthGuard)
+    @Mutation((returns) => String)
+    public async imageViewUploader(
+        @Args({ name: 'file', type: () => GraphQLUpload })
+        { createReadStream, filename, mimetype }: FileUpload,
+        @Args('target') target: String,
+    ): Promise<string> {
+        console.log('Mutation: imageViewUploader');
+
+        if (!filename) throw new BadRequestException(Message.UPLOAD_FAILED);
+        const validMime = validMimeTypes.includes(mimetype);
+        if (!validMime) throw new BadRequestException(Message.PROVIDE_ALLOWED_FORMAT);
+
+        const imageName = getSerialForImage(filename);
+        const url = `uploads/${target}/${imageName}`;
+        const stream = createReadStream();
+
+        const result = await new Promise((resolve, reject) => {
+            stream
+                .pipe(createWriteStream(url))
+                .on('finish', async () => resolve(true))
+                .on('error', () => reject(false));
+        });
+        if (!result) throw new BadRequestException(Message.UPLOAD_FAILED);
+
+        return url;
+    }
+
+    @UseGuards(AuthGuard)
     @Mutation((returns) => [String])
     public async imagesUploader(
         @Args('files', { type: () => [GraphQLUpload] })
