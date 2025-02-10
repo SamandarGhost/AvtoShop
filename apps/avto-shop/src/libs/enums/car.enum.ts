@@ -22,6 +22,7 @@ export enum CarColor {
     White = 'White',
     Silver = 'Silver',
     Gray = 'Gray',
+    Green = 'Green',
     Red = 'Red',
     Blue = 'Blue',
     Gold = 'Gold',

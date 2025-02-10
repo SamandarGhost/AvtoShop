@@ -67,7 +67,6 @@ const MemberSchema = new Schema({
 
     phone2: {
         type: String,
-        index: { unique: true, sparse: true },
     },
 
     email: {

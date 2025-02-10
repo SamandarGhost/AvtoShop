@@ -60,6 +60,9 @@ export class MemberService {
     };
 
     public async updateMember(memberId: ObjectId, input: MemberUpdate): Promise<Member> {
+        if (input.phone2 === "") {
+            delete input.phone2;
+        }
         const result: Member = await this.memberModel.findOneAndUpdate({
             _id: memberId,
             status: Status.ACTIVE,
